@@ -18,7 +18,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
-		<shiro.version>1.4.0</shiro.version>
+		<shiro.version>1.5.0</shiro.version>
 		<poi.version>4.1.1</poi.version>
 		<!-- 出现unkown error 这个问题的原因是2.1.5.RELEASE中maven插件升级到了3.1.2，
 		有些IDE插件不兼容。解决这个问题只需要在pom.xml 文件的properties中加入maven jar插件的版本号 -->
