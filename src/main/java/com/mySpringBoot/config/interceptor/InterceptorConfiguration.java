@@ -126,5 +126,4 @@ Spring Boot 2.x 中，自定义 SpringMVC 配置可以通过实现 WebMvcConfigu
 表示启用 WebMvcConfigurationSupport，这样配置才会生效。
 换句话说，在纯 Java 配置的 SSM 中，如果你需要自定义 SpringMVC 配置，你离不开 WebMvcConfigurationSupport ，
 所以在这种情况下建议通过继承 WebMvcConfigurationSupport 来实现自动化配置。
-https://mp.weixin.qq.com/s/WyP6Jl5-HEQU3KmAqWjl_w
 */
