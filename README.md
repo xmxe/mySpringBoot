@@ -28,3 +28,6 @@
 [玩转SpringBoot的启动过程](https://mp.weixin.qq.com/s/qTa6hbOOSFqZ7gV6UnPj4g)
 
 [SpringBoot 多种读取配置文件中参数的方式](https://mp.weixin.qq.com/s/Zes3ILR4t50lCftX7Rebnw)
+
+[面试官扎心一问：Tomcat 在 SpringBoot 中是如何启动的？](https://mp.weixin.qq.com/s/Jh0zv6fkxflWY3IgRL9SvQ)
+
