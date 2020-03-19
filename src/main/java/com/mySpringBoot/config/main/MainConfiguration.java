@@ -14,19 +14,23 @@ import org.springframework.http.HttpStatus;
 import com.alibaba.druid.pool.DruidDataSource;
 
 @Configuration // 类似于xml中的<beans>
-//@EnableAspectJAutoProxy//开启自动代理 测试AOP
 @PropertySource("classpath:application.properties") // 这个注解导入刚才增加的jdbc配置文件
+//@EnableAspectJAutoProxy//开启自动代理 测试AOP
 public class MainConfiguration{
-	@Value("${jdbc.driver}")
+	
+	
+//	@Value("${jdbc.driver}")//获取application.properties属性值
 	private String driver;
-	@Value("${jdbc.url}")
+//	@Value("${jdbc.url}")
 	private String url;
-	@Value("${jdbc.username}")
+//	@Value("${jdbc.username}")
 	private String username;
-	@Value("${jdbc.password}")
+//	@Value("${jdbc.password}")
 	private String password;
 
-	@Bean // @Bean类似于xml中的<bean>
+
+// druid bean注入配置  如果使用druid-spring-boot-starter集成的话只需要在application.properties配置而无需使用此配置(注释掉@Bean即可)
+//	@Bean 
 	public DataSource dataSource() {
 		DruidDataSource dataSource = new DruidDataSource();
 		dataSource.setDriverClassName(driver);
@@ -37,7 +41,27 @@ public class MainConfiguration{
 	}
 
 	
-	// 统一页码处理配置
+	/*
+	 * 统一页码处理配置
+	 * */ 
+	@Bean
+    public WebServerFactoryCustomizer<ConfigurableWebServerFactory> webServerFactoryCustomizer() {
+        //常规写法
+		/* return new WebServerFactoryCustomizer<ConfigurableWebServerFactory>() {
+		    @Override
+		    public void customize(ConfigurableWebServerFactory factory) {
+		        ErrorPage errorPage404 = new ErrorPage(HttpStatus.NOT_FOUND, "/404.html");
+		        factory.addErrorPages(errorPage404);
+		    }
+		};*/
+        //lambda写法
+        return (factory -> {
+            ErrorPage errorPage404 = new ErrorPage(HttpStatus.NOT_FOUND, "/static/404.html");
+            ErrorPage errorPage500 = new ErrorPage(HttpStatus.INTERNAL_SERVER_ERROR, "/static/500.html");
+            factory.addErrorPages(errorPage404,errorPage500);
+        });
+    }
+	
 	/*
 	 *springboot 1.5.x写法
 	@Bean
@@ -54,25 +78,5 @@ public class MainConfiguration{
 			}
 		};
 	}*/
-
-	@Bean
-    public WebServerFactoryCustomizer<ConfigurableWebServerFactory> webServerFactoryCustomizer() {
-        //第一种：java7 常规写法
-		/* return new WebServerFactoryCustomizer<ConfigurableWebServerFactory>() {
-		    @Override
-		    public void customize(ConfigurableWebServerFactory factory) {
-		        ErrorPage errorPage404 = new ErrorPage(HttpStatus.NOT_FOUND, "/404.html");
-		        factory.addErrorPages(errorPage404);
-		    }
-		};*/
-        //第二种写法：java8 lambda写法
-        return (factory -> {
-            ErrorPage errorPage404 = new ErrorPage(HttpStatus.NOT_FOUND, "/static/404.html");
-            ErrorPage errorPage500 = new ErrorPage(HttpStatus.INTERNAL_SERVER_ERROR, "/static/500.html");
-            factory.addErrorPages(errorPage404,errorPage500);
-        });
-    }
-	
-
 
 }

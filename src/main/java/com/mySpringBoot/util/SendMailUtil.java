@@ -17,7 +17,6 @@ import org.springframework.stereotype.Component;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
-import com.mySpringBoot.entity.User;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;
