@@ -14,8 +14,8 @@ import org.springframework.http.HttpStatus;
 import com.alibaba.druid.pool.DruidDataSource;
 
 @Configuration // 类似于xml中的<beans>
-@PropertySource("classpath:application.properties") // 这个注解导入刚才增加的jdbc配置文件
-//@EnableAspectJAutoProxy//开启自动代理 测试AOP
+//@PropertySource("classpath:application.properties") // 这个注解导入刚才增加的jdbc配置文件
+//@EnableAspectJAutoProxy//开启自动代理 测试AOP时打开
 public class MainConfiguration{
 	
 	
