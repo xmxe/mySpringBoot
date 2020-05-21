@@ -31,3 +31,9 @@
 
 [面试官扎心一问：Tomcat 在 SpringBoot 中是如何启动的？](https://mp.weixin.qq.com/s/Jh0zv6fkxflWY3IgRL9SvQ)
 
+[Thymeleaf【快速入门】](https://mp.weixin.qq.com/s/aotHeEvGl3usy5BkBBwrFA)
+
+[Spring Boot 项目优化和 JVM 调优](https://mp.weixin.qq.com/s/dBIuMa2Og1xwOl3tZBiouw)
+
+[为什么SpringBoot的 jar 可以直接运行？](https://mp.weixin.qq.com/s/JoEmiVP1lp9OVO7x1-x4zw)
+
