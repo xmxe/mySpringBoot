@@ -7,6 +7,10 @@
 
 ------
 
+
+
+[15 个优秀开源的 Spring Boot 学习项目，一网打尽！](https://mp.weixin.qq.com/s/ZKUr_5VBd7ZD1fkzHbFU_g)
+
 [http://springboot.fun](http://springboot.fun)
 
 [SpringBoot使用Docker快速部署项目](https://mp.weixin.qq.com/s/oxX3Qy1pEDHB-ZBeIb5j1A)
