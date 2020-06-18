@@ -213,7 +213,7 @@ public class MainController {
 		return result.getBody();
 	}
 	
-	@GetMapping("/fm")
+	@GetMapping("/freemarker")
     public String fm(Model model) {
         List<User> users = new ArrayList<>();
         for (int i = 0; i < 10; i++) {

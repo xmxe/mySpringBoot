@@ -208,20 +208,6 @@
 		    <artifactId>thymeleaf-extras-shiro</artifactId>
 		    <version>2.0.0</version>
 		</dependency>
-		
-		
-		<!-- cxf相关 -->
-		<dependency>
-			<groupId>org.apache.cxf</groupId>
-			<artifactId>cxf-rt-transports-http</artifactId>
-			<version>3.3.3</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.cxf</groupId>
-			<artifactId>cxf-rt-frontend-jaxws</artifactId>
-			<version>3.3.3</version>
-		</dependency>
 
 		<dependency>
 			<groupId>org.java-websocket</groupId>
@@ -240,12 +226,6 @@
 			<groupId>com.googlecode.juniversalchardet</groupId>
 			<artifactId>juniversalchardet</artifactId>
 			<version>1.0.3</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.jsoup</groupId>
-			<artifactId>jsoup</artifactId>
-			<version>1.12.1</version>
 		</dependency>
 
 		<dependency>
