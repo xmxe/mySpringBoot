@@ -8,7 +8,7 @@
 
 	<tag>
 		<name>operation</name>
-		<tagclass>com.mySpringBoot.util.PrivilegeTag</tagclass>
+		<tagclass>com.xmxe.util.PrivilegeTag</tagclass>
 		<bodycontent>JSP</bodycontent> <!--这里如果设为empty,则无body-->
 		<attribute>
 			<name>operationId</name>
