@@ -48,7 +48,7 @@ public class MainController {
 	@Autowired
 	QuartzManager quartManager;
 	
-	@Resource(name = "jobDetail")  
+	@Resource(name = "jobDetail")
     private JobDetail jobDetail;	
 	
     @Resource(name = "jobTrigger")  

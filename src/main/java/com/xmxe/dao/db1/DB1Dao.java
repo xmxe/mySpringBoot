@@ -1,4 +1,4 @@
-package com.xmxe.dao;
+package com.xmxe.dao.db1;
 
 import java.util.List;
 import java.util.Map;
@@ -10,7 +10,7 @@ import com.xmxe.entity.Dept;
 import com.xmxe.entity.User;
 
 /*@Mapper*/
-public interface MainDao {
+public interface DB1Dao {
 
 	/*@Select("select * from xxcl_user where id = #{user_id}")*/
 	User getUserById(@Param("user_id") Integer id);

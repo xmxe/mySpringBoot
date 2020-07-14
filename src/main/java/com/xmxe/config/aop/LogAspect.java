@@ -1,5 +1,6 @@
 package com.xmxe.config.aop;
 
+
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
@@ -20,7 +21,7 @@ public class LogAspect {
      * 可以统一定义切点
      */
     @Pointcut("@annotation(AopAction)")
-    public void pointcut() {
+    public void pointcut2() {
 
     }
     /**
@@ -31,7 +32,7 @@ public class LogAspect {
      * 最后面的两个点表示方法参数任意，个数任意，类型任意
      */
     @Pointcut("execution(* com.xmxe.service.*.*(..))")
-    public void pointcut2() {
+    public void pointcut() {
 
     }
 
@@ -100,7 +101,9 @@ public class LogAspect {
             System.out.println("try @Around环绕通知");
         } catch (Throwable throwable) {
         	throwable.printStackTrace();
-            System.out.println("catch @Around环绕通知");
+        	System.out.println("catch @Around环绕通知");
+        	throw new RuntimeException("为了触发AfterThrowing抛出的异常");
+            
         }
         return proceed;
     }
