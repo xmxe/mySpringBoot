@@ -3,14 +3,14 @@ package com.xmxe.config.filter;
 import java.net.InetSocketAddress;
 import java.net.UnknownHostException;
 
-import net.sf.json.JSONObject;
-
 import org.java_websocket.WebSocket;
 import org.java_websocket.framing.Framedata;
 import org.java_websocket.handshake.ClientHandshake;
 import org.java_websocket.server.WebSocketServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.alibaba.fastjson.JSONObject;
 
 
 /**
@@ -100,8 +100,8 @@ public class OnlineChatServer extends WebSocketServer {
 	 */
 	public void senFhsms(String user) {
 		JSONObject result = new JSONObject();
-		result.element("type", "senFhsms");
-		OnlineChatServerPool.sendMessageToUser(OnlineChatServerPool.getWebSocketByUser(user), result.toString());
+		result.put("type", "senFhsms");
+		OnlineChatServerPool.sendMessageToUser(OnlineChatServerPool.getWebSocketByUser(user), result.toJSONString());
 	}
 
 	/**
@@ -120,9 +120,9 @@ public class OnlineChatServer extends WebSocketServer {
 	 */
 	public void goOut(WebSocket conn, String type) {
 		JSONObject result = new JSONObject();
-		result.element("type", type);
-		result.element("msg", "goOut");
-		OnlineChatServerPool.sendMessageToUser(conn, result.toString());
+		result.put("type", type);
+		result.put("msg", "goOut");
+		OnlineChatServerPool.sendMessageToUser(conn, result.toJSONString());
 	}
 
 	/**
@@ -141,9 +141,9 @@ public class OnlineChatServer extends WebSocketServer {
 	 */
 	public void getUserCount(WebSocket conn) {
 		JSONObject result = new JSONObject();
-		result.element("type", "count");
-		result.element("msg", OnlineChatServerPool.getUserCount());
-		OnlineChatServerPool.sendMessageToUser(conn, result.toString());
+		result.put("type", "count");
+		result.put("msg", OnlineChatServerPool.getUserCount());
+		OnlineChatServerPool.sendMessageToUser(conn, result.toJSONString());
 	}
 
 	/**
@@ -157,9 +157,9 @@ public class OnlineChatServer extends WebSocketServer {
 			return;
 		}
 		JSONObject result = new JSONObject();
-		result.element("type", "userlist");
-		result.element("list", OnlineChatServerPool.getOnlineUser());
-		OnlineChatServerPool.sendMessageToUser(conn, result.toString());
+		result.put("type", "userlist");
+		result.put("list", OnlineChatServerPool.getOnlineUser());
+		OnlineChatServerPool.sendMessageToUser(conn, result.toJSONString());
 	}
 
 	/**
@@ -200,9 +200,9 @@ public class OnlineChatServer extends WebSocketServer {
 			return;
 		}
 		JSONObject result = new JSONObject();
-		result.element("type", "addUser");
-		result.element("user", user);
-		OnlineChatServerPool.sendMessageToUser(conn, result.toString());
+		result.put("type", "addUser");
+		result.put("user", user);
+		OnlineChatServerPool.sendMessageToUser(conn, result.toJSONString());
 	}
 
 	@Override

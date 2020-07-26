@@ -6,6 +6,8 @@ server:
        development: true
   tomcat:
     uri-encoding: UTF-8
+  encoding: 
+    force: true
     
 spring:
   datasource:
@@ -38,12 +40,6 @@ spring:
   
   resources:
     static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/
-  
-  http:
-    encoding:
-      force: true
-      charset: UTF-8
-      enabled: true
       
   freemarker:
     cache: false
