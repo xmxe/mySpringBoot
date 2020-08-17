@@ -1,13 +1,3 @@
-### mySpringBoot
-| 1         | 2         | 3                  | 4          |
-| --------- | --------- | ------------------ | ---------- |
-| 集成redis | 集成shiro | 集成拦截器、过滤器 | 集成quartz |
-
-
-
-------
-
-
 
 - [2020年排名前20的基于SpringBoot搭建的开源项目](https://mp.weixin.qq.com/s/lvMikTf55xUEf-C-dzmrcg)
 
