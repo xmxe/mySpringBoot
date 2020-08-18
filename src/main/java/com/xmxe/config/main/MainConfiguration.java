@@ -8,7 +8,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 
 @Configuration // 类似于xml中的<beans>
-//@PropertySource("classpath:application.properties") // 这个注解导入刚才增加的jdbc配置文件
+//@PropertySource("classpath:application.properties") // 这个注解导入刚才增加的jdbc配置文件 只支持properties
+//@PropertySource(value = {"classpath:user.yml"}, factory = PropertySourceFactory.class)
 //@EnableAspectJAutoProxy//开启自动代理 测试AOP时打开
 public class MainConfiguration {
 
