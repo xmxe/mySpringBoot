@@ -1,0 +1,109 @@
+server:
+  port: 9090
+  servlet:
+    jsp:
+      init-parameters:
+       development: true
+  tomcat:
+    uri-encoding: UTF-8
+  encoding: 
+    force: true
+    
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      db1:
+        url: jdbc:mysql://localhost:3306/jnhouse?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+        username: root
+        password: root
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        initial-size: 3
+        min-idle: 3
+        max-active: 10
+        max-wait: 60000
+        web-stat-filter.enabled: true
+        web-stat-filter.url-pattern: /*
+        web-stat-filter.exclusions: /*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*
+        stat-view-servlet.enabled: true
+        stat-view-servlet.url-pattern: /druid/*
+        stat-view-servlet.reset-enable: false
+        stat-view-servlet.login-username: admin
+        stat-view-servlet.login-password: admin
+        stat-view-servlet.allow: 127.0.0.1
+        stat-view-servlet.deny: 192.168.1.122
+      db2:
+        url: jdbc:mysql://localhost:3306/dxjtys?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+        username: root
+        password: root
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        initial-size: 3
+        min-idle: 3
+        max-active: 10
+        max-wait: 60000
+        web-stat-filter.enabled: true
+        web-stat-filter.url-pattern: /*
+        web-stat-filter.exclusions: /*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*
+        stat-view-servlet.enabled: true
+        stat-view-servlet.url-pattern: /druid/*
+        stat-view-servlet.reset-enable: false
+        stat-view-servlet.login-username: admin
+        stat-view-servlet.login-password: admin
+        stat-view-servlet.allow: 127.0.0.1
+        stat-view-servlet.deny: 192.168.1.122
+      
+  mvc:
+    static-path-pattern: /static/**
+#    view:
+#      prefix: /WEB-INF/views/
+#      suffix: .jsp
+  
+  resources:
+    static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/
+      
+  freemarker:
+    cache: false
+    charset: UTF-8
+    check-template-location: true
+    content-type: text/html
+    suffix: .ftl
+    template-loader-path: classpath:/freemarker/
+    
+  thymeleaf:
+    prefix: classpath:/templates/
+    check-template-location: true
+    suffix: .html
+    encoding: UTF-8
+#   servlet.content-type: text/html
+    mode: HTML5
+    cache: false
+  
+  redis:
+    host: 192.168.236.132
+    port: 6379  
+    password: 123456
+    timeout: 3000
+    lettuce:
+      pool:
+        max-active: 200
+        max-idle: 20
+        min-idle: 5
+        max-wait: -1
+  mail: 
+    host: smtp.sina.com.cn
+    username: xxxxxx@sina.com
+    password: 授权码
+    default-encoding: UTF-8
+
+mybatis:
+  config-location: classpath:mybatis/mybatis-config.xml
+  mapper-locations: classpath:mybatis/mapper/*Mapper.xml
+  
+logging:
+  config: classpath:log4j2.xml
+  
+  
+  
+  
+  
+   

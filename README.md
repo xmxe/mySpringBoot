@@ -1,4 +1,10 @@
-
+#### spring boot+cas
+- [cas服务器搭建](https://blog.csdn.net/lhc0512/article/details/82466246)
+- [搭建cas_server](https://blog.csdn.net/oumuv/article/details/83377945)
+- [搭建cas_server](https://mp.weixin.qq.com/s?__biz=MzI1NDY0MTkzNQ==&mid=2247488872&idx=1&sn=3ac483e2e4b58b9940e1aa5458baddd8&chksm=e9c34708deb4ce1eab17c6b9a43d8058558708890a7cfaa053b7effd7f593dd112290d4fed34&scene=158#rd)
+- [cas查询数据库验证用户](https://blog.csdn.net/zzy730913/article/details/80825800)
+- [Spring Boot 实现单点登录的第三种方案！](https://mp.weixin.qq.com/s?__biz=MzI1NDY0MTkzNQ==&mid=2247488913&idx=1&sn=605b35708ddf3b0e6e32a170cd1aea57&chksm=e9c347f1deb4cee795228ba6eb56c928b826e2ff1356f182b6dce2a14c2c0cb209d0a3936b98&scene=158#rd)
+------
 - [2020年排名前20的基于SpringBoot搭建的开源项目](https://mp.weixin.qq.com/s/lvMikTf55xUEf-C-dzmrcg)
 
 - [15 个优秀开源的 Spring Boot 学习项目，一网打尽！](https://mp.weixin.qq.com/s/ZKUr_5VBd7ZD1fkzHbFU_g)

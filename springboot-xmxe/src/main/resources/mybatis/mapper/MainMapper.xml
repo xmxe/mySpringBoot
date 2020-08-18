@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xmxe.dao.db1.DB1Dao">
+<resultMap id="BaseResultMap" type="com.xmxe.entity.Dept">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="dept_name" jdbcType="VARCHAR" property="dept_name" />
+    <result column="dept_level" jdbcType="INTEGER" property="dept_level" />
+    <result column="father_id" jdbcType="INTEGER" property="father_id" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="is_delete" jdbcType="INTEGER" property="is_delete" />
+    <result column="updated_by" jdbcType="INTEGER" property="updated_by" />
+    <result column="created_by" jdbcType="INTEGER" property="created_by" />
+    <result column="updated_time" jdbcType="TIMESTAMP" property="updated_time" />
+    <result column="created_time" jdbcType="TIMESTAMP" property="created_time" />
+</resultMap>
+
+<select id="getUserById" parameterType="Integer" resultType="user">
+	select * from xxcl_user where id = #{user_id}
+</select>
+
+<select id="queryUserCount" parameterType="String" resultType="int">
+	select count(0) from t_book where 1 = 1
+		<if test="tj != null and '' != tj">
+			and bookname like concat('%',#{tj},'%')
+		</if>
+</select>
+<select id="querySome" resultType="book">
+	select * from t_book where 1 = 1
+		<if test="tj != null and '' != tj">
+			and bookname like concat('%',#{tj},'%')
+		</if>
+	 limit #{start},#{end}
+</select>
+
+<select id="findDept"  resultMap="BaseResultMap">
+    select 
+    id, dept_name, dept_level, father_id, sort, is_delete, updated_by, created_by, updated_time, 
+    created_time
+    from fke_dept where is_delete = '1' order by dept_level desc, sort
+</select>
+
+<select id="getDensity" parameterType="map" resultType="map">
+	select s.real_tag,s.tag_name,s.unit_id,
+	sum(case when s.density = 0 then 1 else 0 end) as density0,
+	sum(case when s.density &gt; 0 and s.density &lt;=20 then 1 else 0 end) as density20,
+	sum(case when s.density &gt; 20 and s.density &lt;=50 then 1 else 0 end) as density50,
+	sum(case when s.density &gt; 50 and s.density &lt;=70 then 1 else 0 end) as density70,
+	sum(case when s.density &gt; 70 and s.density &lt;100 then 1 else 0 end) as density99,
+	sum(case when s.density &gt;= 100 then 1 else 0 end) as density100
+	from 
+	(select * from gs_job_density where 1 = 1
+	<if test="date_s!=null and ''!=date_s">
+		and start_time &gt;= #{date_s}
+	</if>
+	<if test="date_e!=null and ''!=date_e">
+		and end_time &lt;= #{date_e}
+	</if>
+	) s group by s.real_tag,s.tag_name,s.unit_id having 1 = 1
+	<if test="real_tag!=null and ''!=real_tag">
+		and charindex(#{real_tag},real_tag) &gt;>0
+	</if>
+	<if test="tag_name!=null and ''!=tag_name">
+		and charindex(#{tag_name},tag_name) &gt;>0
+	</if>
+	order by s.unit desc OFFSET ${start} ROW FETCH NEXT ${limit} rows only
+</select>
+</mapper>

@@ -1,0 +1,15 @@
+cas:
+  server-url-prefix: http://192.168.236.131:9100/cas
+  server-login-url: http://192.168.236.131:9100/cas/login
+  client-host-url: http://127.0.0.1:9102
+  validation-type: cas
+  use-session: true
+
+server:
+  port: 9102
+
+udf:
+  ignorePattern : /logout|/index
+  ignoreUrlPatternType :
+
+casClientLogoutUrl : http://192.168.236.131:9100/cas/logout?service=http://127.0.0.1:9102/logout

@@ -1,0 +1,14 @@
+cas:
+  server:
+    prefix: http://192.168.236.131:9100/cas
+    login: ${cas.server.prefix}/login
+    logout: ${cas.server.prefix}/logout
+
+  client:
+    prefix: http://localhost:9103
+    login: ${cas.client.prefix}/login/cas
+    logoutRelative: /logout/cas
+    logout: ${cas.client.prefix}${cas.client.logoutRelative}
+
+server:
+  port: 9103
