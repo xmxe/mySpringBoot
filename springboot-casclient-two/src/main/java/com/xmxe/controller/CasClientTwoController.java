@@ -8,7 +8,7 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 public class CasClientTwoController {
-    @RequestMapping("/c2")
+    @RequestMapping("/client2")
     @ResponseBody
     public String c1(){
         return "success-c2";

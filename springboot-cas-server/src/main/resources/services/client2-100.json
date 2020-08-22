@@ -1,0 +1,9 @@
+{
+  "@class": "org.apereo.cas.services.RegexRegisteredService",
+  "serviceId": "^(https|http)://.*/client2$",
+  "name": "client2",
+  "id": 100,
+  "description": "应用2 的定义信息",
+  "evaluationOrder": 2,
+  "theme":"client2"
+}
