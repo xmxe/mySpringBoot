@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.xmxe</groupId>
-	<artifactId>springboot-cas-securityclient-one</artifactId>
+	<artifactId>springboot-security-casclient-one</artifactId>
 	<version>1.0.0</version>
 	<packaging>jar</packaging>
 
-	<name>springboot-cas-securityclient-one</name>
+	<name>springboot-security-casclient-one</name>
 	<description>
 		<!--
 			搭建cas_server 

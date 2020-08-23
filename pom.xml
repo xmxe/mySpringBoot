@@ -12,8 +12,8 @@
 		<module>springboot-xmxe</module>
 		<module>springboot-casclient-one</module>
 		<module>springboot-casclient-two</module>
-		<module>springboot-cas-securityclient-one</module>
-		<module>springboot-cas-securityclient-two</module>
+		<module>springboot-security-casclient-one</module>
+		<module>springboot-security-casclient-two</module>
     </modules>
 
 	<description>Spring Boot project</description>
