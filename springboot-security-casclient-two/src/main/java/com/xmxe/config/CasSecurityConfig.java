@@ -35,7 +35,7 @@ public class CasSecurityConfig {
     @Bean
     ServiceProperties serviceProperties() {
         ServiceProperties serviceProperties = new ServiceProperties();
-        serviceProperties.setService(casClientProperties.getLogin());   //http://localhost:9103/login/cas
+        serviceProperties.setService(casClientProperties.getLogin());   //http://localhost:9104/login/cas
         return serviceProperties;
     }
 
@@ -62,7 +62,7 @@ public class CasSecurityConfig {
         provider.setServiceProperties(serviceProperties());
         provider.setTicketValidator(ticketValidator());
         provider.setUserDetailsService(userDetailService);
-        provider.setKey("admin");
+        provider.setKey("key2");// an_id_for_this_auth_provider_only
         return provider;
     }
 

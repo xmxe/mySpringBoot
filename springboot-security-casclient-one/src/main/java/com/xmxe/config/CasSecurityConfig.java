@@ -62,7 +62,7 @@ public class CasSecurityConfig {
         provider.setServiceProperties(serviceProperties());
         provider.setTicketValidator(ticketValidator());
         provider.setUserDetailsService(userDetailService);
-        provider.setKey("admin");
+        provider.setKey("key1");//an_id_for_this_auth_provider_only
         return provider;
     }
 
