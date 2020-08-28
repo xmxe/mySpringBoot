@@ -1,7 +1,8 @@
 ## mySpringBoot项目简介
 
-| [springboot-cas-server](https://github.com/xmxe/mySpringBoot/tree/master/springboot-cas-server) | 搭建cas server，将项目中的pom.xml及src目录替换到服务器可完成自定义登录页面，连接数据库校验等功能 |
+|                           项目名称                           |                             介绍                             |
 | :----------------------------------------------------------: | :----------------------------------------------------------: |
+| [springboot-cas-server](https://github.com/xmxe/mySpringBoot/tree/master/springboot-cas-server) | 搭建cas server，将项目中的pom.xml及src目录替换到服务器可完成自定义登录页面，连接数据库校验等功能 |
 | [springboot-casclient-one](https://github.com/xmxe/mySpringBoot/tree/master/springboot-casclient-one) |                       cas_client子系统                       |
 | [springboot-casclient-two](https://github.com/xmxe/mySpringBoot/tree/master/springboot-casclient-two) |                       cas_client子系统                       |
 | [springboot-security-casclient-one](https://github.com/xmxe/mySpringBoot/tree/master/springboot-security-casclient-one) | cas+spring security子系统，其中spring security不在作登陆校验，校验在cas server端完成，spring security在登陆成功后根据用户名做权限校验 |
