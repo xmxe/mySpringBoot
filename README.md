@@ -1,7 +1,7 @@
-
+## mySpringBoot项目简介
 
 | [springboot-cas-server](https://github.com/xmxe/mySpringBoot/tree/master/springboot-cas-server) | 搭建cas server，将项目中的pom.xml及src目录替换到服务器可完成自定义登录页面，连接数据库校验等功能 |
-| ------------------------------------------------------------ | :----------------------------------------------------------: |
+| :----------------------------------------------------------: | :----------------------------------------------------------: |
 | [springboot-casclient-one](https://github.com/xmxe/mySpringBoot/tree/master/springboot-casclient-one) |                       cas_client子系统                       |
 | [springboot-casclient-two](https://github.com/xmxe/mySpringBoot/tree/master/springboot-casclient-two) |                       cas_client子系统                       |
 | [springboot-security-casclient-one](https://github.com/xmxe/mySpringBoot/tree/master/springboot-security-casclient-one) | cas+spring security子系统，其中spring security不在作登陆校验，校验在cas server端完成，spring security在登陆成功后根据用户名做权限校验 |
@@ -9,7 +9,7 @@
 | [springboot-task](https://github.com/xmxe/mySpringBoot/tree/master/springboot-task) |                      springboot定时任务                      |
 | [springboot-xmxe](https://github.com/xmxe/mySpringBoot/tree/master/springboot-xmxe) |                        springboot web                        |
 
-
+---
 
 ### spring boot+cas单点登陆
 
@@ -25,9 +25,7 @@
 
 - [cas自定义登录页](<https://blog.csdn.net/yelllowcong/article/details/79236506>)
 
-#### 备注
-  将springboot-cas-server项目中的 src目录下放到服务器中的cas-overlay-template目录下启动即可完成自定义登录页
-
+  > 将springboot-cas-server项目中的 src目录下放到服务器中的cas-overlay-template目录下启动即可完成自定义登录页
   想要实现不同子系统不同登录页主要在service目录下配置name-id.json文件,在name-id.json中配置theme
 
 ------
