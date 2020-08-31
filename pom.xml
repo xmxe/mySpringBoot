@@ -14,6 +14,7 @@
 		<module>springboot-casclient-two</module>
 		<module>springboot-security-casclient-one</module>
 		<module>springboot-security-casclient-two</module>
+		<module>springboot-task</module>
     </modules>
 
 	<description>Spring Boot project</description>
