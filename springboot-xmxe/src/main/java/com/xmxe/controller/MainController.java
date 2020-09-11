@@ -1,31 +1,6 @@
 package com.xmxe.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.log4j.Logger;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.apache.shiro.authz.annotation.RequiresRoles;
-import org.quartz.CronScheduleBuilder;
-import org.quartz.CronTrigger;
-import org.quartz.JobDetail;
-import org.quartz.Scheduler;
-import org.quartz.SchedulerException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
+import com.alibaba.fastjson.JSONObject;
 import com.xmxe.config.quartz.QuartzManager;
 import com.xmxe.config.redis.RedisUtils;
 import com.xmxe.entity.HttpResult;
@@ -33,7 +8,29 @@ import com.xmxe.entity.User;
 import com.xmxe.job.Jobs;
 import com.xmxe.service.MainService;
 import com.xmxe.util.HttpClientUtil;
-import com.alibaba.fastjson.JSONObject;
+import org.apache.log4j.Logger;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.authz.annotation.RequiresRoles;
+import org.quartz.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 //@RequestMapping("**.do")
@@ -74,8 +71,106 @@ public class MainController {
 	public String form() {
 		return "content/form";
 	}
-		
-	
+
+	@RequestMapping(value="/download")//下载的文件乱码
+	@ResponseBody
+	public ResponseEntity<byte[]> down(HttpServletRequest request) throws Exception{
+		String path = request.getParameter("path") == null ?null:request.getParameter("path");
+		String filename = request.getParameter("filename") == null ?null:request.getParameter("filename");
+		try {
+			filename = new String(filename.getBytes("iso-8859-1"),"utf-8");
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		String downloadPath = request.getSession().getServletContext().getRealPath("/")+"/download/";
+
+		File file = new File(downloadPath);
+		if(!file.exists()){
+			file.mkdirs();
+		}
+		//File f = File.createTempFile("sss", ".txt",file);
+//		FtpClient ftpClient=Ftp.connect();
+//		Ftp.downloadFile(ftpClient, path, downloadPath+filename);
+//		Ftp.closeServer(ftpClient);
+		File f = new File(downloadPath+filename);
+
+		InputStream is = new FileInputStream(f);
+		byte[] body = new byte[is.available()];
+		is.read(body);
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-Disposition", "attchement;filename="+new String(filename.getBytes("utf-8"), "iso8859-1"));
+//		headers.setContentDispositionFormData("attachment",filename);
+//		byte[] body = FileUtils.readFileToByteArray(f);
+		headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+		HttpStatus status = HttpStatus.OK;
+		ResponseEntity<byte[]> entity = new ResponseEntity<>(body,headers,status);
+		return entity;
+	}
+
+	@RequestMapping("/downLoadFromFTP")
+	@ResponseBody
+	public void downLoadFromFTP(HttpServletRequest request,HttpServletResponse response){
+		String fileurl = request.getParameter("fileurl") == null ?null:request.getParameter("fileurl").toString();
+		String name = request.getParameter("name") == null ?null:request.getParameter("name");
+		try {
+			name = new String(name.getBytes("iso-8859-1"),"utf-8");
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		BufferedInputStream bis = null;
+		BufferedOutputStream os = null;
+		InputStream newinputstream = null;
+		try{
+			URL url = new URL(fileurl);
+			URLConnection conn = url.openConnection();
+			int filesize = conn.getContentLength(); // 取数据长度
+			try{
+				newinputstream = conn.getInputStream();
+			}catch(FileNotFoundException e){
+				newinputstream = null;
+			}catch(Exception e){
+				newinputstream = null;
+			}
+			if(newinputstream !=null){
+				bis = new BufferedInputStream(conn.getInputStream());
+				// 清空response
+				response.reset();
+				// 文件名称转换编码格式为utf-8,保证不出现乱码,这个文件名称用于浏览器的下载框中自动显示的文件名
+				response.addHeader("Content-Disposition", "attachment;filename=" + new String(name.getBytes("utf-8"), "iso8859-1"));
+				response.addHeader("Content-Length", "" + filesize);
+				os = new BufferedOutputStream(response.getOutputStream());
+				response.setContentType("application/octet-stream");
+				// 从输入流中读入字节流，然后写到文件中
+				byte[] buffer = new byte[1024];
+				int nRead;
+				while ((nRead = bis.read(buffer, 0, 1024)) > 0) { // bis为网络输入流
+					os.write(buffer, 0, nRead);
+				}
+			}
+		}catch(FileNotFoundException fe){
+			fe.printStackTrace();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			try {
+				if(bis !=null){
+					bis.close();
+				}
+				if(os !=null){
+					os.flush();
+					os.close();
+				}
+				if(newinputstream !=null){
+					newinputstream.close();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 	@RequestMapping("/getUserById")
 	@ResponseBody
 	public JSONObject getUserById(@RequestParam(value = "username",required = false) String userId,

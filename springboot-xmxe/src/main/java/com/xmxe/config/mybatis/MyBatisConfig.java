@@ -1,9 +1,7 @@
 package com.xmxe.config.mybatis;
 
-import java.util.Properties;
-
-import javax.sql.DataSource;
-
+import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
+import com.github.pagehelper.PageHelper;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -18,8 +16,8 @@ import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
-import com.github.pagehelper.PageHelper;
+import javax.sql.DataSource;
+import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement // 加上这个注解，使得支持事务
@@ -35,18 +33,7 @@ public class MyBatisConfig {
 	@Bean(name = "db1sqlSessionFactory")
 	@Primary
 	public SqlSessionFactory db1SqlSessionFactory(@Qualifier("db1") DataSource dataSource) {
-		SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
-		bean.setDataSource(dataSource);
-		ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
-		try {
-			bean.setMapperLocations(resolver.getResources("classpath:mybatis/mapper/*Mapper.xml"));
-			// 加载全局的配置文件
-			bean.setConfigLocation(new DefaultResourceLoader().getResource("classpath:mybatis/mybatis-config.xml"));
-			return bean.getObject();
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException(e);
-		}
+		return setSessionFactoryBeanByDataSource(dataSource);
 	}
 	
 	@Bean
@@ -73,18 +60,7 @@ public class MyBatisConfig {
 	
 	@Bean(name = "db2sqlSessionFactory")
 	public SqlSessionFactory db2SqlSessionFactory(@Qualifier("db2") DataSource dataSource) {
-		SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
-		bean.setDataSource(dataSource);
-		ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
-		try {
-			bean.setMapperLocations(resolver.getResources("classpath:mybatis/mapper/*Mapper.xml"));
-			// 加载全局的配置文件
-			bean.setConfigLocation(new DefaultResourceLoader().getResource("classpath:mybatis/mybatis-config.xml"));
-			return bean.getObject();
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException(e);
-		}
+		return setSessionFactoryBeanByDataSource(dataSource);
 	}
 
 	@Bean
@@ -115,5 +91,20 @@ public class MyBatisConfig {
 		properties.setProperty("dialect", "mysql");// 数据库方言 4.0.0之后不需要设置此属性
 		pageHelper.setProperties(properties);
 		return pageHelper;
+	}
+
+	private SqlSessionFactory setSessionFactoryBeanByDataSource(DataSource dataSource){
+		SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
+		bean.setDataSource(dataSource);
+		ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
+		try {
+			bean.setMapperLocations(resolver.getResources("classpath:mybatis/mapper/*Mapper.xml"));
+			// 加载全局的配置文件
+			bean.setConfigLocation(new DefaultResourceLoader().getResource("classpath:mybatis/mybatis-config.xml"));
+			return bean.getObject();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
 	}
 }
