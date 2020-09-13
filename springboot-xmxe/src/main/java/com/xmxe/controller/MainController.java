@@ -2,12 +2,10 @@ package com.xmxe.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.xmxe.config.quartz.QuartzManager;
-import com.xmxe.config.redis.RedisUtils;
-import com.xmxe.entity.HttpResult;
 import com.xmxe.entity.User;
 import com.xmxe.job.Jobs;
 import com.xmxe.service.MainService;
-import com.xmxe.util.HttpClientUtil;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.log4j.Logger;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
@@ -20,6 +18,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -27,10 +27,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Date;
 import java.util.List;
-import java.util.Map;
+import java.util.UUID;
 
 @Controller
 //@RequestMapping("**.do")
@@ -40,13 +41,7 @@ public class MainController {
 	MainService mainService;
 
 	@Autowired
-    private RedisUtils redisUtils;
-	
-	@Autowired
 	QuartzManager quartManager;
-	
-	@Resource(name = "jobDetail")
-    private JobDetail jobDetail;	
 	
     @Resource(name = "jobTrigger")  
     private CronTrigger cronTrigger;  
@@ -72,7 +67,7 @@ public class MainController {
 		return "content/form";
 	}
 
-	@RequestMapping(value="/download")//下载的文件乱码
+	@RequestMapping(value="/download")//问题:下载的文件乱码
 	@ResponseBody
 	public ResponseEntity<byte[]> down(HttpServletRequest request) throws Exception{
 		String path = request.getParameter("path") == null ?null:request.getParameter("path");
@@ -171,10 +166,46 @@ public class MainController {
 			}
 		}
 	}
+	
+	//上传
+	@RequestMapping("/upload")
+	public void upload(HttpServletRequest request, HttpServletResponse response) {
+		try{
+			if (request instanceof MultipartHttpServletRequest) {
+				MultipartFile file =  ((MultipartHttpServletRequest) request).getFile("fileName");//文件名
+				if(file != null) {
+					SimpleDateFormat sff = new SimpleDateFormat("yyyyMMdd");//20180101
+					String today = sff.format(new Date());
+					File f = new File(request.getSession().getServletContext().getRealPath(File.separator) + today);//tomcat webapps路径+项目名 例:E:\apache-tomcat-7.0.82\webapps\club
+					if(!f.exists()) {f.mkdirs();}
+					String fileName = UUID.randomUUID().toString() + "." + FilenameUtils.getExtension(file.getOriginalFilename());//自定义文件名
+					/*①
+					file.transferTo(new File(f,fileName.replace("-", "")));
+					*/
+					 /*②
+					 FileUtils.writeByteArrayToFile(new File(f,fileName.replace("-", "")), file.getBytes());
+					 */
+					InputStream is = (FileInputStream) file.getInputStream();
+					OutputStream os = new FileOutputStream(new File(f,fileName.replace("-", "")));
+					byte[] data = new byte[1024];
+					int len;
+					while((len = is.read(data)) != -1) {
+						os.write(data, 0, len);
+					}
+					is.close();
+					os.flush();
+					os.close();
+				}
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+
 	@RequestMapping("/getUserById")
 	@ResponseBody
 	public JSONObject getUserById(@RequestParam(value = "username",required = false) String userId,
-			@RequestParam(value = "userId",defaultValue="1") String username) {
+								  @RequestParam(value = "userId",defaultValue="1") String username) {
 		//如果加了@RequestParam注解，那么请求url里必须包含这一参数，否则会报400。那么如果允许不传呢？有两种办法：1）使用default值2）使用required值
 		User user = mainService.getUserById(Integer.valueOf(username));
 		JSONObject json = new JSONObject();
@@ -183,16 +214,7 @@ public class MainController {
 		System.err.println(username);
 		return json;
 	}
-	
-	//上传
-	@RequestMapping("/upload")
-	public void upload(HttpServletRequest request, HttpServletResponse response) {
-		try {
-			mainService.upload(request,response);			
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-	}
+
 	//分页后台逻辑
 	@RequiresRoles("a")//指定角色才可以执行的权限
 	@GetMapping("/page")//相当于@RequestMapping(value="/page",method = RequestMethod.GET)
@@ -253,15 +275,7 @@ public class MainController {
 		}		
 		
 	}
-	
-	@RequestMapping("/redis")
-	@ResponseBody
-    public String redis(){
-        redisUtils.set("123", "hello world");
-        System.err.println("进入了方法");
-        String string= redisUtils.get("123").toString();
-        return string;
-    }
+
 	
 	@ResponseBody
     @RequestMapping("/changeQuartz")
@@ -294,18 +308,6 @@ public class MainController {
 			json.put("msg", "quartz启动失败");
 		}
 		return json;
-	}
-	
-	@ResponseBody
-    @RequestMapping("/httpclient")
-	public String httpclient() throws Exception {
-		String url = "http://localhost:8080/zhongzhu/appnewhouse/newhouseLine.do";
-		Map<String,Object> map = new HashMap<>();
-		map.put("Id","6b340d4c17ed47449409f35a709ca298");//追加参数
-		HttpClientUtil client = new HttpClientUtil();
-		HttpResult result = client.doGet(url,map);
-		//System.err.println(result.getBody());
-		return result.getBody();
 	}
 	
 	@GetMapping("/freemarker")

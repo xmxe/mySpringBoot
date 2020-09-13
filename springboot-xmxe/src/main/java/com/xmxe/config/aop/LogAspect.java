@@ -1,22 +1,18 @@
 package com.xmxe.config.aop;
 
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
-import org.aspectj.lang.annotation.After;
-import org.aspectj.lang.annotation.AfterReturning;
-import org.aspectj.lang.annotation.AfterThrowing;
-import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 
 @Component
 @Aspect//表示这是一个切面
 public class LogAspect {
 
+    Logger logger = LogManager.getLogger(LogAspect.class);
     /**
      * 可以统一定义切点
      */
@@ -44,7 +40,7 @@ public class LogAspect {
     public void before(JoinPoint joinPoint) {
         Signature signature = joinPoint.getSignature();
         String name = signature.getName();
-        System.out.println(name + "方法开始执行了... @Before");
+        logger.info("@Before->{}方法开始执行了... ",name);
     }
 
     /**
@@ -56,7 +52,7 @@ public class LogAspect {
     public void after(JoinPoint joinPoint) {
         Signature signature = joinPoint.getSignature();
         String name = signature.getName();
-        System.out.println(name + "方法执行结束了... @After");
+        logger.info("@After->{}方法执行结束了... ",name);
     }
 
     /**
@@ -70,7 +66,7 @@ public class LogAspect {
     public void returing(JoinPoint joinPoint,Integer r) {
         Signature signature = joinPoint.getSignature();
         String name = signature.getName();
-        System.out.println(name + "@AfterReturning 方法返回："+r);
+        logger.info("@AfterReturning_____r===>{},name===>{}... ",r,name);
     }
 
     /**
@@ -83,7 +79,8 @@ public class LogAspect {
     public void afterThrowing(JoinPoint joinPoint,Exception e) {
         Signature signature = joinPoint.getSignature();
         String name = signature.getName();
-        System.out.println(name + "@AfterThrowing 方法抛异常了："+e.getMessage());
+        logger.info("@AfterThrowing 方法抛异常了e===>{},name===>{}... ",e.getMessage(),name);
+
     }
 
     /**
@@ -98,10 +95,10 @@ public class LogAspect {
         try {
             //这个相当于 method.invoke 方法，我们可以在这个方法的前后分别添加日志，就相当于是前置/后置通知
             proceed = pjp.proceed();
-            System.out.println("try @Around环绕通知");
+            logger.info("try @Around环绕通知");
         } catch (Throwable throwable) {
         	throwable.printStackTrace();
-        	System.out.println("catch @Around环绕通知");
+        	logger.error("catch @Around环绕通知");
         	throw new RuntimeException("为了触发AfterThrowing抛出的异常");
             
         }

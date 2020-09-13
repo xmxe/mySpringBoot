@@ -101,9 +101,9 @@ mybatis:
   
 logging:
   config: classpath:log4j2.xml
-  
-  
-  
-  
-  
-   
+
+
+
+shiro:
+  loginUrl: /
+  successUrl: /index

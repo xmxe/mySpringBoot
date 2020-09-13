@@ -1,13 +1,8 @@
 package com.xmxe.config.filter;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.java_websocket.WebSocket;
+
+import java.util.*;
 
 /**
  * 在线管理
@@ -20,7 +15,6 @@ public class OnlineChatServerPool {
 	
 	/**
 	 * 获取用户名
-	 * @param session
 	 */
 	public static String getUserByKey(WebSocket conn){
 		return userconnections.get(conn);
@@ -28,7 +22,6 @@ public class OnlineChatServerPool {
 	
 	/**
 	 * 获取在线总数
-	 * @param 
 	 */
 	public static int getUserCount(){
 		return userconnections.size();
@@ -36,7 +29,6 @@ public class OnlineChatServerPool {
 	
 	/**
 	 * 获取WebSocket
-	 * @param user
 	 */
 	public static WebSocket getWebSocketByUser(String user){
 		Set<WebSocket> keySet = userconnections.keySet();
@@ -53,7 +45,6 @@ public class OnlineChatServerPool {
 	
 	/**
 	 * 向连接池中添加连接
-	 * @param inbound
 	 */
 	public static void addUser(String user, WebSocket conn){
 		userconnections.put(conn,user);	//添加连接
@@ -61,7 +52,6 @@ public class OnlineChatServerPool {
 	
 	/**
 	 * 获取所有的在线用户
-	 * @return
 	 */
 	public static Collection<String> getOnlineUser(){
 		List<String> setUsers = new ArrayList<String>();
@@ -74,7 +64,6 @@ public class OnlineChatServerPool {
 	
 	/**
 	 * 移除连接池中的连接
-	 * @param inbound
 	 */
 	public static boolean removeUser(WebSocket conn){
 		if(userconnections.containsKey(conn)){
@@ -87,8 +76,6 @@ public class OnlineChatServerPool {
 	
 	/**
 	 * 向特定的用户发送数据
-	 * @param user
-	 * @param message
 	 */
 	public static void sendMessageToUser(WebSocket conn,String message){
 		if(null != conn){
@@ -98,7 +85,6 @@ public class OnlineChatServerPool {
 	
 	/**
 	 * 向所有的用户发送消息
-	 * @param message
 	 */
 	public static void sendMessage(String message){
 		Set<WebSocket> keySet = userconnections.keySet();

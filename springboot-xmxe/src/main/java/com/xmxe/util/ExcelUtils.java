@@ -1,42 +1,18 @@
 package com.xmxe.util;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
+import com.google.common.collect.Maps;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.ss.usermodel.BorderStyle;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.CellType;
-import org.apache.poi.ss.usermodel.DateUtil;
-import org.apache.poi.ss.usermodel.FillPatternType;
-import org.apache.poi.ss.usermodel.Font;
-import org.apache.poi.ss.usermodel.HorizontalAlignment;
-import org.apache.poi.ss.usermodel.IndexedColors;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.VerticalAlignment;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import com.google.common.collect.Maps;
+import java.io.*;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class ExcelUtils {
 	// @Value("${file_base_path}")
@@ -201,16 +177,7 @@ public class ExcelUtils {
 		if (StringUtils.isBlank(filepath)) {
 			throw new IllegalArgumentException("文件路径不能为空");
 		} else {
-			String suffiex = getSuffiex(filepath);
-			if (StringUtils.isBlank(suffiex)) {
-				throw new IllegalArgumentException("文件后缀不能为空");
-			}
-			Workbook workbook;
-			if ("xls".equals(suffiex.toLowerCase())) {
-				workbook = new HSSFWorkbook();
-			} else {
-				workbook = new XSSFWorkbook();
-			}
+			Workbook workbook = createWorkbook(filepath);
 			// 生成一个表格
 			Sheet sheet;
 			if (StringUtils.isBlank(sheetName)) {
@@ -292,6 +259,19 @@ public class ExcelUtils {
 			}
 			return success;
 		}
+	}
+	public static Workbook createWorkbook(String filepath){
+		String suffiex = getSuffiex(filepath);
+		if (StringUtils.isBlank(suffiex)) {
+			throw new IllegalArgumentException("文件后缀不能为空");
+		}
+		Workbook workbook;
+		if ("xls".equals(suffiex.toLowerCase())) {
+			workbook = new HSSFWorkbook();
+		} else {
+			workbook = new XSSFWorkbook();
+		}
+		return workbook;
 	}
 
 	/**
@@ -385,16 +365,8 @@ public class ExcelUtils {
 	public static void writeExcel(String srcFilepath, String desFilepath)
 			throws IOException, EncryptedDocumentException, InvalidFormatException {
 		FileOutputStream outputStream = null;
-		String suffiex = getSuffiex(desFilepath);
-		if (StringUtils.isBlank(suffiex)) {
-			throw new IllegalArgumentException("文件后缀不能为空");
-		}
-		Workbook workbook_des;
-		if ("xls".equals(suffiex.toLowerCase())) {
-			workbook_des = new HSSFWorkbook();
-		} else {
-			workbook_des = new XSSFWorkbook();
-		}
+
+		Workbook workbook_des = createWorkbook(desFilepath);
 
 		Workbook workbook = getWorkbook(srcFilepath);
 		if (workbook != null) {
@@ -441,9 +413,9 @@ public class ExcelUtils {
 
 	
 	/*
-	getPhysicalNumberOfCells 是获取不为空的列个数。 
-	
-	getLastCellNum 是获取最后一个不为空的列是第几个。*/
+	 * getPhysicalNumberOfCells 是获取不为空的列个数。
+	 * getLastCellNum 是获取最后一个不为空的列是第几个。
+	 */
 	
 	/**
 	 * 读取指定行或指定列的数据
@@ -491,7 +463,7 @@ public class ExcelUtils {
 	 * @param filePath 文件路径
 	 * @param sheetNo sheet页
 	 * @param rowNum 表的行数 0开始
-	 * @param coluNum 表的列数 0开始
+	 * @param colNum 表的列数 0开始
 	 */
 	public static List<String> readExcelData(String filePath, int sheetNo,int rowNum,int colNum) {
 		List<String> strLists = new ArrayList<>();

@@ -1,50 +1,5 @@
 package com.xmxe.service;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics2D;
-import java.awt.font.FontRenderContext;
-import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.net.URLEncoder;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.UUID;
-
-import javax.imageio.ImageIO;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.io.FilenameUtils;
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFCellStyle;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.HorizontalAlignment;
-import org.apache.poi.ss.usermodel.VerticalAlignment;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.subject.Subject;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.thymeleaf.context.Context;
-
 import com.alibaba.fastjson.JSONObject;
 import com.xmxe.config.aop.AopAction;
 import com.xmxe.dao.db1.DB1Dao;
@@ -54,6 +9,30 @@ import com.xmxe.entity.Dept;
 import com.xmxe.entity.User;
 import com.xmxe.util.Page;
 import com.xmxe.util.SendMailUtil;
+import org.apache.poi.hssf.usermodel.*;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.VerticalAlignment;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.thymeleaf.context.Context;
+
+import javax.imageio.ImageIO;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.awt.*;
+import java.awt.font.FontRenderContext;
+import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.net.URLEncoder;
+import java.util.List;
+import java.util.*;
 
 
 @Service
@@ -75,39 +54,7 @@ public class MainService {
 		System.out.println("db2source------"+user);
 		return db1.getUserById(userId);
 	}
-	
-	public void upload(HttpServletRequest request, HttpServletResponse response){
-		try{
-			if (request instanceof MultipartHttpServletRequest) {
-				MultipartFile file =  ((MultipartHttpServletRequest) request).getFile("fileName");//文件名
-				if(file != null) {
-					SimpleDateFormat sff = new SimpleDateFormat("yyyyMMdd");//20180101
-					String today = sff.format(new Date());
-					File f = new File(request.getSession().getServletContext().getRealPath(File.separator) + today);//tomcat webapps路径+项目名 例:E:\apache-tomcat-7.0.82\webapps\club
-					if(!f.exists()) {f.mkdirs();}
-					String fileName = UUID.randomUUID().toString() + "." + FilenameUtils.getExtension(file.getOriginalFilename());//自定义文件名
-					/*①							
-					file.transferTo(new File(f,fileName.replace("-", "")));
-					*/			
-					 /*②
-					 FileUtils.writeByteArrayToFile(new File(f,fileName.replace("-", "")), file.getBytes());
-					 */
-					InputStream is = (FileInputStream) file.getInputStream();
-					OutputStream os = new FileOutputStream(new File(f,fileName.replace("-", "")));
-					byte[] data = new byte[1024];
-					int len;
-					while((len = is.read(data)) != -1) {
-						os.write(data, 0, len);
-					}
-					is.close();
-					os.flush();
-					os.close();
-				}
-			}
-		}catch(Exception e){
-			e.printStackTrace();
-		}		
-	}
+
 	
 	public void page(HttpServletRequest request, HttpServletResponse response){
 		try{

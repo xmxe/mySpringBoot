@@ -18,7 +18,6 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>11</java.version>
-		<shiro.version>1.5.3</shiro.version>
 		<poi.version>4.1.2</poi.version>
 		<!-- 出现unkown error 这个问题的原因是2.1.5.RELEASE中maven插件升级到了3.1.2，
 		有些IDE插件不兼容。解决这个问题只需要在pom.xml 文件的properties中加入maven jar插件的版本号 -->
@@ -50,6 +49,11 @@
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-log4j2</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId><!-- 模板引擎 -->
 		</dependency>
 		
@@ -57,11 +61,6 @@
 		     <groupId>org.springframework.boot</groupId>
 		     <artifactId>spring-boot-starter-test</artifactId>		     
 		 </dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-log4j2</artifactId>
-		</dependency>
 		
 		<dependency>
 		    <groupId>org.springframework.boot</groupId>
@@ -89,12 +88,12 @@
 		    <artifactId>druid-spring-boot-starter</artifactId>
 		    <version>1.1.23</version>
 		</dependency>
-		
-		<!-- <dependency>
-			<groupId>com.alibaba</groupId>
-			<artifactId>druid</artifactId>
-			<version>1.1.20</version>
-		</dependency> -->
+
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-spring-boot-web-starter</artifactId>
+			<version>1.6.0</version>
+		</dependency>
 
 		<dependency>
 			<groupId>mysql</groupId>
@@ -104,7 +103,8 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<scope>test</scope><!-- maven在编译的时候,src/main/java下是不引用<scope>test</scope>的jar,而编译src/test/java下的测试会引用<scope>test</scope>的jar -->
+			<!-- maven在编译的时候,src/main/java下是不引用<scope>test</scope>的jar,而编译src/test/java下的测试会引用<scope>test</scope>的jar -->
+			<scope>test</scope>
 		</dependency>
 
 		<dependency>
@@ -179,28 +179,6 @@
 			<groupId>com.github.pagehelper</groupId>
 			<artifactId>pagehelper</artifactId>
 			<version>5.1.11</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.shiro</groupId>
-			<artifactId>shiro-web</artifactId>
-			<version>${shiro.version}</version>			
-		</dependency>
-		<dependency>
-			<groupId>org.apache.shiro</groupId>
-			<artifactId>shiro-ehcache</artifactId>
-			<version>${shiro.version}</version>			
-		</dependency>
-		<dependency>
-			<groupId>org.apache.shiro</groupId>
-			<artifactId>shiro-core</artifactId>
-			<version>${shiro.version}</version>			
-		</dependency>
-		
-		<dependency>
-			<groupId>org.apache.shiro</groupId>
-			<artifactId>shiro-spring</artifactId>
-			<version>${shiro.version}</version>			
 		</dependency>
 		
 		<dependency>

@@ -1,23 +1,23 @@
 package com.xmxe.config.filter;
 
-import java.net.InetSocketAddress;
-import java.net.UnknownHostException;
-
+import com.alibaba.fastjson.JSONObject;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.java_websocket.WebSocket;
 import org.java_websocket.framing.Framedata;
 import org.java_websocket.handshake.ClientHandshake;
 import org.java_websocket.server.WebSocketServer;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import com.alibaba.fastjson.JSONObject;
+import java.net.InetSocketAddress;
+import java.net.UnknownHostException;
 
 
 /**
  * 在线管理
  */
 public class OnlineChatServer extends WebSocketServer {
-	Logger logger = LoggerFactory.getLogger(OnlineChatServer.class);
+	Logger logger = LogManager.getLogger(OnlineChatServer.class);
+
 	public OnlineChatServer(int port) throws UnknownHostException {
 		super(new InetSocketAddress(port));
 	}
@@ -68,8 +68,7 @@ public class OnlineChatServer extends WebSocketServer {
 		}
 	}
 
-	public void onFragment(WebSocket conn, Framedata fragment) {
-	}
+	public void onFragment(WebSocket conn, Framedata fragment) {}
 
 	/**
 	 * 触发异常事件
@@ -78,16 +77,13 @@ public class OnlineChatServer extends WebSocketServer {
 	public void onError(WebSocket conn, Exception ex) {
 		ex.printStackTrace();
 		if (conn != null) {
-			// some errors like port binding failed may not be assignable to a
-			// specific websocket
-			System.out.println("websocket error != null");
+			// some errors like port binding failed may not be assignable to a specific websocket
+			logger.info("websocket error != null");
 		}
 	}
 
 	/**
 	 * 用户加入处理
-	 * 
-	 * @param user
 	 */
 	public void userjoin(String user, WebSocket conn) {
 		onlineMaganger(1, user, conn);
@@ -95,8 +91,6 @@ public class OnlineChatServer extends WebSocketServer {
 
 	/**
 	 * 站内信通知
-	 * 
-	 * @param user
 	 */
 	public void senFhsms(String user) {
 		JSONObject result = new JSONObject();
@@ -106,8 +100,6 @@ public class OnlineChatServer extends WebSocketServer {
 
 	/**
 	 * 强制某用户下线
-	 * 
-	 * @param user
 	 */
 	public void goOut(String user) {
 		this.goOut(OnlineChatServerPool.getWebSocketByUser(user), "thegoout");
@@ -115,8 +107,6 @@ public class OnlineChatServer extends WebSocketServer {
 
 	/**
 	 * 强制用户下线
-	 * 
-	 * @param conn
 	 */
 	public void goOut(WebSocket conn, String type) {
 		JSONObject result = new JSONObject();
@@ -127,8 +117,6 @@ public class OnlineChatServer extends WebSocketServer {
 
 	/**
 	 * 用户下线处理
-	 * 
-	 * @param user
 	 */
 	public void userLeave(WebSocket conn) {
 		onlineMaganger(2, null, conn);
@@ -136,8 +124,6 @@ public class OnlineChatServer extends WebSocketServer {
 
 	/**
 	 * 获取在线总数
-	 * 
-	 * @param user
 	 */
 	public void getUserCount(WebSocket conn) {
 		JSONObject result = new JSONObject();
@@ -148,8 +134,6 @@ public class OnlineChatServer extends WebSocketServer {
 
 	/**
 	 * 获取在线用户列表
-	 * 
-	 * @param user
 	 */
 	public void getUserList() {
 		WebSocket conn = OnlineChatServerPool.getFhadmin();
@@ -165,8 +149,7 @@ public class OnlineChatServer extends WebSocketServer {
 	/**
 	 * 用户上下线管理
 	 * 
-	 * @param type
-	 *            1：上线；2：下线
+	 * @param type 1：上线；2：下线
 	 * @param user
 	 * @param conn
 	 */
@@ -191,8 +174,6 @@ public class OnlineChatServer extends WebSocketServer {
 
 	/**
 	 * 有用户登录系统,加入在线列表
-	 * 
-	 * @param conn
 	 */
 	public void addUserToFhadmin(String user) {
 		WebSocket conn = OnlineChatServerPool.getFhadmin();
@@ -207,7 +188,7 @@ public class OnlineChatServer extends WebSocketServer {
 
 	@Override
 	public void onStart() {
-		logger.info("WebSocket启动 :{}","WebSocketServer onStart(");
+		logger.info("WebSocket启动 :{}","WebSocketServer onStart");
 	}
 
 	// 假如SpringBoot项目以jar方式运行 当maven install生成jar包会报错

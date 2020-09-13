@@ -1,12 +1,7 @@
 package com.xmxe.util;
 
-import java.io.File;
-import java.io.StringWriter;
-import java.util.Date;
-
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
-
+import freemarker.template.Configuration;
+import freemarker.template.Template;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
@@ -17,9 +12,11 @@ import org.springframework.stereotype.Component;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
-
-import freemarker.template.Configuration;
-import freemarker.template.Template;
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import java.io.File;
+import java.io.StringWriter;
+import java.util.Date;
 
 @Component
 public class SendMailUtil {
@@ -37,7 +34,7 @@ public class SendMailUtil {
 	  * 简单文本邮件
      * @param to 接收者邮件
      * @param subject 邮件主题
-     * @param contnet 邮件内容
+     * @param context 邮件内容
      */
     public void sendSimpleMail(String to, String subject, String context){
 	    SimpleMailMessage message = new SimpleMailMessage();
@@ -51,7 +48,7 @@ public class SendMailUtil {
 	    javaMailSender.send(message);
 	}
 	
-    
+
     /**
      * HTML 文本邮件
      * @param to 接收者邮件

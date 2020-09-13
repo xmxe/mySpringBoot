@@ -1,26 +1,22 @@
 package com.xmxe.config.filter;
 
-import java.io.IOException;
-
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.annotation.WebFilter;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.core.annotation.Order;
+
+import javax.servlet.*;
+import javax.servlet.annotation.WebFilter;
+import java.io.IOException;
 
 
 @Order(1)//定义优先级
 @WebFilter(filterName="startFilter",urlPatterns="/*")
 public class StartFilter implements Filter{
-
+	Logger logger = LogManager.getLogger(StartFilter.class);
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
 		this.startWebsocketOnline();
-		System.out.println("startFilter开始启动并完成初始化，开启8889端口");
+		logger.info("startFilter开始启动并完成初始化，开启8889端口");
 	}
 
 	@Override
@@ -42,7 +38,6 @@ public class StartFilter implements Filter{
 		try {
 				s = new OnlineChatServer(8889);
 				s.start();							
-			//System.out.println( "websocket服务器启动,端口" + s.getPort() );
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

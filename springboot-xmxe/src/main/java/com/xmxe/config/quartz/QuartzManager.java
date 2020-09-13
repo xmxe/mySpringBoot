@@ -19,20 +19,13 @@ public class QuartzManager {
 	private Scheduler scheduler;
 
 	/**
-	 * @Description: 添加一个定时任务
-	 * 
-	 * @param jobName
-	 *            任务名
-	 * @param jobGroupName
-	 *            任务组名
-	 * @param triggerName
-	 *            触发器名
-	 * @param triggerGroupName
-	 *            触发器组名
-	 * @param jobClass
-	 *            任务
-	 * @param cron
-	 *            时间设置，参考quartz说明文档
+	 * 添加一个定时任务
+	 * @param jobName 任务名
+	 * @param jobGroupName 任务组名
+	 * @param triggerName 触发器名
+	 * @param triggerGroupName 触发器组名
+	 * @param jobClass 任务
+	 * @param cron 时间设置，参考quartz说明文档
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void addJob(String jobName, String jobGroupName, String triggerName, String triggerGroupName, Class jobClass,
@@ -64,19 +57,14 @@ public class QuartzManager {
 	}
 
 	/**
-	 * @Description: 修改一个任务的触发时间
-	 * 
+	 * 修改一个任务的触发时间
 	 * @param jobName
 	 * @param jobGroupName
-	 * @param triggerName
-	 *            触发器名
-	 * @param triggerGroupName
-	 *            触发器组名
-	 * @param cron
-	 *            时间设置，参考quartz说明文档
+	 * @param triggerName 触发器名
+	 * @param triggerGroupName 触发器组名
+	 * @param cron 时间设置，参考quartz说明文档
 	 */
-	public void modifyJobTime(String jobName, String jobGroupName, String triggerName, String triggerGroupName,
-			String cron) {
+	public void modifyJobTime(String jobName, String jobGroupName, String triggerName, String triggerGroupName, String cron) {
 		try {
 			TriggerKey triggerKey = TriggerKey.triggerKey(triggerName, triggerGroupName);
 			CronTrigger trigger = (CronTrigger) scheduler.getTrigger(triggerKey);
@@ -86,7 +74,7 @@ public class QuartzManager {
 
 			String oldTime = trigger.getCronExpression();
 			if (!oldTime.equalsIgnoreCase(cron)) {
-				/** 方式一 ：调用 rescheduleJob 开始 */
+				// 方式一 ：调用 rescheduleJob 开始
 				// 触发器
 				TriggerBuilder<Trigger> triggerBuilder = TriggerBuilder.newTrigger();
 				// 触发器名,触发器组
@@ -98,9 +86,8 @@ public class QuartzManager {
 				trigger = (CronTrigger) triggerBuilder.build();
 				// 方式一 ：修改一个任务的触发时间
 				scheduler.rescheduleJob(triggerKey, trigger);
-				/** 方式一 ：调用 rescheduleJob 结束 */
 
-				/** 方式二：先删除，然后在创建一个新的Job */
+				// 方式二：先删除，然后在创建一个新的Job
 				// JobDetail jobDetail =
 				// scheduler.getJobDetail(JobKey.jobKey(jobName, jobGroupName));
 				// Class<? extends Job> jobClass = jobDetail.getJobClass();
@@ -108,7 +95,6 @@ public class QuartzManager {
 				// triggerGroupName);
 				// addJob(jobName, jobGroupName, triggerName, triggerGroupName,
 				// jobClass, cron);
-				/** 方式二 ：先删除，然后在创建一个新的Job */
 			}
 		} catch (Exception e) {
 			throw new RuntimeException(e);
@@ -116,8 +102,7 @@ public class QuartzManager {
 	}
 
 	/**
-	 * @Description: 移除一个任务
-	 * 
+	 * 移除一个任务
 	 * @param jobName
 	 * @param jobGroupName
 	 * @param triggerName
@@ -136,7 +121,7 @@ public class QuartzManager {
 	}
 
 	/**
-	 * @Description:启动所有定时任务
+	 * 启动所有定时任务
 	 */
 	public void startJobs() {
 		try {
@@ -147,7 +132,7 @@ public class QuartzManager {
 	}
 
 	/**
-	 * @Description:关闭所有定时任务
+	 * 关闭所有定时任务
 	 */
 	public void shutdownJobs() {
 		try {
@@ -160,7 +145,7 @@ public class QuartzManager {
 	}
 
 	/**
-	 * @Description:中止执行任务
+	 * 中止执行任务
 	 */
 	public void standby() {
 		try {

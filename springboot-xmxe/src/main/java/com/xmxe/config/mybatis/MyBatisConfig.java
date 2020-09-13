@@ -80,15 +80,20 @@ public class MyBatisConfig {
 		// 分页插件
 		PageHelper pageHelper = new PageHelper();
 		Properties properties = new Properties();
-		properties.setProperty("offsetAsPageNum", "true");// 默认值为false,当该参数设置为true时,使用RowBounds分页时,会将offset参数当成pageNum使用,可以用页码和页面大小两个参数进行分页。
-		properties.setProperty("rowBoundsWithCount", "true");// 默认值为false,当该参数设置为true时,使用RowBounds分页会进行count查询。
-		properties.setProperty("reasonable", "true");// true 启用合理化时，如果pageNum<1会查询第一页,如果pageNum>pages会查询最后一页 false
-														// 禁用合理化时，如果pageNum<1或pageNum>pages会返回空数据
-		properties.setProperty("supportMethodsArguments", "true");// 支持通过Mapper接口参数来传递分页参数
-		properties.setProperty("returnPageInfo", "check");// 总是返回PageInfo类型,check检查返回类型是否为PageInfo,none返回Page
-		properties.setProperty("params", "count=countSql");// 增加了一个`params`参数来配置参数映射，用于从Map或ServletRequest中取值
-															// ,可以配置pageNum,pageSize,count,pageSizeZero,reasonable,orderBy,不配置映射的用默认值
-		properties.setProperty("dialect", "mysql");// 数据库方言 4.0.0之后不需要设置此属性
+		// 默认值为false,当该参数设置为true时,使用RowBounds分页时,会将offset参数当成pageNum使用,可以用页码和页面大小两个参数进行分页。
+		properties.setProperty("offsetAsPageNum", "true");
+		// 默认值为false,当该参数设置为true时,使用RowBounds分页会进行count查询。
+		properties.setProperty("rowBoundsWithCount", "true");
+		// true 启用合理化时，如果pageNum<1会查询第一页,如果pageNum>pages会查询最后一页 false 禁用合理化时，如果pageNum<1或pageNum>pages会返回空数据
+		properties.setProperty("reasonable", "true");
+		// 支持通过Mapper接口参数来传递分页参数
+		properties.setProperty("supportMethodsArguments", "true");
+		// 总是返回PageInfo类型,check检查返回类型是否为PageInfo,none返回Page
+		properties.setProperty("returnPageInfo", "check");
+		// 增加了一个`params`参数来配置参数映射，用于从Map或ServletRequest中取值,可以配置pageNum,pageSize,count,pageSizeZero,reasonable,orderBy,不配置映射的用默认值
+		properties.setProperty("params", "count=countSql");
+		// 数据库方言 4.0.0之后不需要设置此属性
+		properties.setProperty("dialect", "mysql");
 		pageHelper.setProperties(properties);
 		return pageHelper;
 	}
