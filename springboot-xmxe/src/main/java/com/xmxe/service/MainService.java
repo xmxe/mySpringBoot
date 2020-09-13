@@ -13,6 +13,7 @@ import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -117,7 +118,7 @@ public class MainService {
 	public void generate(HttpServletRequest request,HttpServletResponse response){
 		ByteArrayOutputStream output = new ByteArrayOutputStream();
 		String code = drawImg(output);
-		request.getSession().setAttribute("code", code);	
+		request.getSession().setAttribute("code", code);
 		try {
 			ServletOutputStream out = response.getOutputStream();
 			output.writeTo(out);
@@ -168,6 +169,7 @@ public class MainService {
 		String code = request.getParameter("code");
 		String name =request.getParameter("username");
 		String password = request.getParameter("password");
+		String rememberMe = request.getParameter("rememberMe");
 		String codeSession = (String) request.getSession().getAttribute("code");
 		JSONObject json = new JSONObject();
 		
@@ -176,17 +178,22 @@ public class MainService {
 			return json;
 		}
 		if(code.equalsIgnoreCase(codeSession)) {
-			if(!("1").equals(name) || !("1").equals(password)) {
-				json.put("message", "用户名或密码不正确");
-			}else {
-				Map<String,String> map = new HashMap<>();
-				map.put("username", "1");map.put("password", "1");				
-				Subject subject = SecurityUtils.getSubject();
-				subject.login(new UsernamePasswordToken(name, password));
+			Map<String,String> map = new HashMap<>();
+			map.put("username", name);map.put("password", password);
+			Subject subject = SecurityUtils.getSubject();
+			UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(name, password);
+			usernamePasswordToken.setRememberMe(rememberMe == null ? false : true);
+			try{
+				//通过login方法进入Myrealm验证用户和权限
+				subject.login(usernamePasswordToken);
 				subject.getSession(true).setAttribute("user",map);
 //				request.getSession().setAttribute("user",map);
 				json.put("message", "success");
-			}		
+			}catch(UnknownAccountException e){
+				json.put("message", "账号不存在");
+			} catch(Exception e){
+				json.put("message", "用户名或密码不正确");
+			}
 		}else {
 			json.put("message", "验证码不正确");
 		}

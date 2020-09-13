@@ -6,24 +6,43 @@ import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authc.credential.SimpleCredentialsMatcher;
-import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.crypto.hash.SimpleHash;
 
 public class CredentialsMatcher extends SimpleCredentialsMatcher{
     Logger logger = LogManager.getLogger(CredentialsMatcher.class);
 
+    /**
+     * @param token 页面输入输入的数据
+     * @param info 从MyRealm doGetAuthenticationInfo()得到的数据 看返回类型就知道
+     */
 	@Override
     public boolean doCredentialsMatch(AuthenticationToken token, AuthenticationInfo info) {
-        UsernamePasswordToken utoken=(UsernamePasswordToken) token;
-        //获得用户输入的密码:(可以采用加盐(salt)的方式去检验)
+        //获取页面输入的数据
+	    UsernamePasswordToken utoken=(UsernamePasswordToken) token;
         String inPassword = new String(utoken.getPassword());
-        PrincipalCollection pc = info.getPrincipals();       
-        Object primary = pc.getPrimaryPrincipal();//获取保存在subject中用户数据查询数据库密码作对比
-        logger.info("getPrimaryPrincipal--->{}",primary);
-        //获得数据库中的密码
-        String dbPassword= new String((char[]) info.getCredentials()) ;
-        logger.info("dbPassword--->{}",dbPassword);
+        String inUsername = utoken.getUsername();
+
+        logger.info("开始密码匹配，输入的密码为--->{},用户名为--->{},token.getCredentials--->{}",inPassword,inUsername,super.getCredentials(token));
+
+        //获得MyRealm送过来的数据:(可以采用加盐(salt)的方式去检验)
+        String dbPassword= String.valueOf(super.getCredentials(info));
+//        PrincipalCollection pc = info.getPrincipals();
+//        Object primary = pc.getPrimaryPrincipal();
+//
+//        SimpleAuthenticationInfo simpleAuthenticationInfo = (SimpleAuthenticationInfo)info;
+//        ByteSource byteSource = simpleAuthenticationInfo.getCredentialsSalt();
+//        logger.info("获取new SimpleAuthenticationInfo中用户数据--->{}",simpleAuthenticationInfo);
+        SimpleHash simpleHash = new SimpleHash("SHA-1", inPassword, "qwert");
         //进行密码的比对
-        return this.equals(inPassword, dbPassword);
+        return this.equals(simpleHash.toHex(), dbPassword);
     }
 
+//    shiro 密码加密(加盐)
+  /* public static void main(String[] args) {
+	    String salt = "qwert";//盐值
+        SimpleHash simpleHash = new SimpleHash("SHA-1", "test1", salt);
+//        new SimpleHash(Sha256Hash.ALGORITHM_NAME, password, ByteSource.Util.bytes(salt), hashIterations).toBase64();
+        System.out.println(simpleHash.toHex());
+
+    }*/
 }

@@ -6,10 +6,12 @@ import com.xmxe.entity.User;
 import com.xmxe.job.Jobs;
 import com.xmxe.service.MainService;
 import org.apache.commons.io.FilenameUtils;
-import org.apache.log4j.Logger;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
-import org.quartz.*;
+import org.quartz.CronScheduleBuilder;
+import org.quartz.CronTrigger;
+import org.quartz.Scheduler;
+import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -36,7 +38,6 @@ import java.util.UUID;
 @Controller
 //@RequestMapping("**.do")
 public class MainController {	
-	Logger logger = Logger.getLogger(MainController.class);
 	@Autowired
 	MainService mainService;
 
@@ -210,8 +211,7 @@ public class MainController {
 		User user = mainService.getUserById(Integer.valueOf(username));
 		JSONObject json = new JSONObject();
 		json.put("user",user);
-		System.err.println(userId);
-		System.err.println(username);
+
 		return json;
 	}
 

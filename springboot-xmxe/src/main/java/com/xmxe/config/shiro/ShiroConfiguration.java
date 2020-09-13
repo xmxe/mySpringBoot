@@ -1,6 +1,7 @@
 package com.xmxe.config.shiro;
 
 import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
+import org.apache.shiro.codec.Base64;
 import org.apache.shiro.mgt.SessionsSecurityManager;
 import org.apache.shiro.session.mgt.ExecutorServiceSessionValidationScheduler;
 import org.apache.shiro.session.mgt.eis.MemorySessionDAO;
@@ -8,6 +9,7 @@ import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.config.DefaultShiroFilterChainDefinition;
 import org.apache.shiro.spring.web.config.ShiroFilterChainDefinition;
+import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.servlet.SimpleCookie;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
@@ -52,17 +54,18 @@ public class ShiroConfiguration {
     //配置自定义的权限登录器
     @Bean
     public MyRealm authRealm() {
-        MyRealm authRealm=new MyRealm();
+        MyRealm authRealm = new MyRealm();
         authRealm.setCachingEnabled(true);
         authRealm.setAuthenticationCachingEnabled(false);
-        authRealm.setCredentialsMatcher(credentialsMatcher());
+        //配置自定义密码比较器
+        authRealm.setCredentialsMatcher(new CredentialsMatcher());
         return authRealm;
     }
     @Bean(name = "sessionManager")
     public DefaultWebSessionManager sessionManager() {
         DefaultWebSessionManager sessionManage = new DefaultWebSessionManager();
         sessionManage.setGlobalSessionTimeout(1000 * 60 * 30);
-        sessionManage.setSessionDAO(sessionDAO());
+        sessionManage.setSessionDAO(new MemorySessionDAO());
         sessionManage.setSessionValidationSchedulerEnabled(true);
         sessionManage.setSessionValidationScheduler(getExecutorServiceSessionValidationScheduler());
         sessionManage.setSessionIdCookieEnabled(true);
@@ -74,13 +77,13 @@ public class ShiroConfiguration {
     //配置核心安全事务管理器
     @Bean(name="securityManager")
     public SessionsSecurityManager securityManager() {
-        System.out.println("--------------shiro已经加载----------------");
         DefaultWebSecurityManager manager=new DefaultWebSecurityManager();
         manager.setRealm(authRealm());
         manager.setSessionManager(sessionManager());
+//        manager.setRememberMeManager(rememberMeManager());
         return manager;
     }
-    @Bean(name = "sessionIdCookie")
+
 	public SimpleCookie getSessionIdCookie() {
     	/*
     	 * 关于shiro报错 there is no session with id的相关问题
@@ -88,30 +91,27 @@ public class ShiroConfiguration {
     	 * */
 		SimpleCookie cookie = new SimpleCookie("shiro.session");
 		//cookie.setHttpOnly(true);//表示js脚本无法读取cookie信息
-		cookie.setMaxAge(-1);//-1表示关闭浏览器 cookie就会消失
+		cookie.setMaxAge(100);//-1表示关闭浏览器 cookie就会消失 单位是秒
 		cookie.setPath("/");//正常的cookie只能在一个应用中共享，即：一个cookie只能由创建它的应用获得。可在同一应用服务器内共享cookie的方法：设置cookie.setPath("/");
 		return cookie;
 	}
 
-    @Bean(name = "sessionDao")
-    public MemorySessionDAO sessionDAO() {
-    	return new MemorySessionDAO();
+    public CookieRememberMeManager rememberMeManager() {
+        CookieRememberMeManager cookieRememberMeManager = new CookieRememberMeManager();
+        cookieRememberMeManager.setCookie(getSessionIdCookie());
+        //rememberMe cookie加密的密钥 建议每个项目都不一样 默认AES算法 密钥长度(128 256 512 位)
+        cookieRememberMeManager.setCipherKey(Base64.decode("4AvVhmFLUs0KTA3Kprsdag=="));
+        return cookieRememberMeManager;
     }
 
+
     //会话验证调度器
-    @Bean(name = "sessionValidationScheduler")
 	public ExecutorServiceSessionValidationScheduler getExecutorServiceSessionValidationScheduler() {
 		ExecutorServiceSessionValidationScheduler scheduler = new ExecutorServiceSessionValidationScheduler();
 		scheduler.setInterval(15 * 60 * 1000);
 		return scheduler;
 	}
 
-
-    //配置自定义的密码比较器
-    @Bean(name="credentialsMatcher")
-    public CredentialsMatcher credentialsMatcher() {
-        return new CredentialsMatcher();
-    }
    /*
     * 管理shiro bean生命周期
     */
