@@ -192,7 +192,7 @@ public class MainService {
 			}catch(UnknownAccountException e){
 				json.put("message", "账号不存在");
 			} catch(Exception e){
-				json.put("message", "用户名或密码不正确");
+				json.put("message", "密码错误");
 			}
 		}else {
 			json.put("message", "验证码不正确");

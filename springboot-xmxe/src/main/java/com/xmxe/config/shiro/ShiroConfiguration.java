@@ -29,7 +29,8 @@ public class ShiroConfiguration {
         filterChainDefinitionMap.put("/loginCheck", "anon"); //表示可以匿名访问
         filterChainDefinitionMap.put("/code", "anon");
         filterChainDefinitionMap.put("/static/**", "anon");
-        filterChainDefinitionMap.put("/**", "authc");//表示需要认证才可以访问
+//        filterChainDefinitionMap.put("/**", "authc");//表示需要认证才可以访问
+        filterChainDefinitionMap.put("/**", "user");//rememberMe user用户可以直接访问无需再次登录
         chainDefinition.addPathDefinitions(filterChainDefinitionMap);
 
         // all other paths require a logged in user
@@ -68,8 +69,8 @@ public class ShiroConfiguration {
         sessionManage.setSessionDAO(new MemorySessionDAO());
         sessionManage.setSessionValidationSchedulerEnabled(true);
         sessionManage.setSessionValidationScheduler(getExecutorServiceSessionValidationScheduler());
-        sessionManage.setSessionIdCookieEnabled(true);
-        sessionManage.setSessionIdCookie(getSessionIdCookie());
+//        sessionManage.setSessionIdCookieEnabled(true);
+//        sessionManage.setSessionIdCookie(getSessionIdCookie());//防止与rememberMe 设置cookie冲突 所以注释掉
         //解决Shiro第一次重定向url携带jsessionid问题 https://blog.csdn.net/Ruanes/article/details/108417460
         sessionManage.setSessionIdUrlRewritingEnabled(false);
         return sessionManage;
@@ -77,10 +78,10 @@ public class ShiroConfiguration {
     //配置核心安全事务管理器
     @Bean(name="securityManager")
     public SessionsSecurityManager securityManager() {
-        DefaultWebSecurityManager manager=new DefaultWebSecurityManager();
+        DefaultWebSecurityManager manager = new DefaultWebSecurityManager();
         manager.setRealm(authRealm());
         manager.setSessionManager(sessionManager());
-//        manager.setRememberMeManager(rememberMeManager());
+        manager.setRememberMeManager(rememberMeManager());
         return manager;
     }
 
@@ -89,7 +90,7 @@ public class ShiroConfiguration {
     	 * 关于shiro报错 there is no session with id的相关问题
     	 * 登陆页面不记住密码就不会报这个错 或者关闭浏览器（只要浏览器地址没有jsessionid就不会报错）
     	 * */
-		SimpleCookie cookie = new SimpleCookie("shiro.session");
+		SimpleCookie cookie = new SimpleCookie("rememberMe");
 		//cookie.setHttpOnly(true);//表示js脚本无法读取cookie信息
 		cookie.setMaxAge(100);//-1表示关闭浏览器 cookie就会消失 单位是秒
 		cookie.setPath("/");//正常的cookie只能在一个应用中共享，即：一个cookie只能由创建它的应用获得。可在同一应用服务器内共享cookie的方法：设置cookie.setPath("/");

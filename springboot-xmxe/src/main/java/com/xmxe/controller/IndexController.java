@@ -2,7 +2,6 @@ package com.xmxe.controller;
 
 import com.xmxe.config.quartz.QuartzManager;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,10 +18,9 @@ public class IndexController {
     
     @RequestMapping("/")
 	public String login() {
-		Session session = SecurityUtils.getSubject().getSession();  
-		Object objmap =  session.getAttribute("user"); 
-		 //用户登陆的情况下访问首页直接跳转到index
-		if(objmap != null) {
+		Subject subject = SecurityUtils.getSubject();
+		Object user = subject.getPrincipal();
+		if(user != null){
 			return "index";
 		}
 		return "login";

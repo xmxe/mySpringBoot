@@ -216,7 +216,7 @@ public class MainController {
 	}
 
 	//分页后台逻辑
-	@RequiresRoles("a")//指定角色才可以执行的权限
+	@RequiresRoles("user")//指定角色才可以执行的权限
 	@GetMapping("/page")//相当于@RequestMapping(value="/page",method = RequestMethod.GET)
 	public void page(HttpServletRequest request, HttpServletResponse response) {
 		try{

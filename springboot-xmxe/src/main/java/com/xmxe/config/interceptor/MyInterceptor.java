@@ -3,7 +3,7 @@ package com.xmxe.config.interceptor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.session.Session;
+import org.apache.shiro.subject.Subject;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -21,9 +21,9 @@ public class MyInterceptor implements HandlerInterceptor{
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         logger.info("拦截器preHandle:{}","请求处理之前调用");
 //      HttpSession session = request.getSession(true);//request.getSession(false)等同于 如果当前没有session返回null
-        Session session = SecurityUtils.getSubject().getSession();  
-        Object objmap =  session.getAttribute("user");       
-		 if(objmap == null) {
+        Subject subject = SecurityUtils.getSubject();
+        Object user = subject.getPrincipal();
+		 if(user == null) {
 			logger.info("用户未登录:{}","跳转到login页面！");
 //			Thymeleaf不能直接被访问，它严格遵守了MVC，只能被控制器访问
 			request.getRequestDispatcher("/").forward(request, response);

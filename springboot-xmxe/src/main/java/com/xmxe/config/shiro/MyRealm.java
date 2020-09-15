@@ -55,7 +55,7 @@ public class MyRealm extends AuthorizingRealm{
     	//principal.getPrimaryPrincipal();得到的为new SimpleAuthenticationInfo(username, utoken.getPassword(),this.getClass().getName())第一个参数
     	Map<String,Collection<String>> map = new HashMap<>();
         List<String> roleidsList = new ArrayList<>();
-        roleidsList.add("a");
+        roleidsList.add("user");
         map.put("roleIds",roleidsList);
         List<String> powersList = new ArrayList<>();
         powersList.add("user:add");

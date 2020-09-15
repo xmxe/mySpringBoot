@@ -115,7 +115,7 @@ function login(){
 	if(rememberMe){
 		param = {code:$("#code").val(),username:$("#username").val(),password:$("#password").val(),rememberMe:true}
 	}else{
-		param = {code:$("#code").val(),username:$("#username").val(),password:$("#password").val(),rememberMe:null}
+		param = {code:$("#code").val(),username:$("#username").val(),password:$("#password").val()}
 	}
 	$.ajax({
 		url:'loginCheck',
@@ -210,7 +210,7 @@ function xzfh2(){
 		<div class="layui-form-item">
 			<label class="layui-form-label" style="color: #CCC7F5">密&nbsp;&nbsp;&nbsp;码:</label>
 			<div class="layui-input-inline">
-				<input type="password" id="password" placeholder="请输入密码"
+				<input type="password" id="password" placeholder="请输入密码" value="test1"
 					autocomplete="off" class="layui-input">
 			</div>
 		</div>
@@ -234,7 +234,7 @@ function xzfh2(){
 			<div class="layui-form" >
 				<label class="layui-form-label" style="color:#DCE5D7;padding-left: 30px">rememberMe:</label>
 				<div style="float:left">
-					<input type="checkbox" id="rememberMe" lay-skin="switch" lay-text="ON|OFF" lay-filter="switchTest">
+					<input type="checkbox" id="rememberMe" lay-skin="switch" lay-text="ON|OFF" lay-filter="switchTest" />
 				</div>
 			</div>
 		</div>
