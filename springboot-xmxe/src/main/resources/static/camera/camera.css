@@ -68,8 +68,8 @@
 
 
 .camera_loader {
-    background: #fff url(../images/camera-loader.gif) no-repeat center;
-	background: rgba(255, 255, 255, 0.9) url(../images/camera-loader.gif) no-repeat center;
+    background: #fff url(../image/goku.jpg) no-repeat center;
+	background: rgba(255, 255, 255, 0.9) url(../image/goku.jpg) no-repeat center;
 	border: 1px solid #ffffff;
 	-webkit-border-radius: 18px;
 	-moz-border-radius: 18px;
@@ -107,7 +107,7 @@
 	left: 0;
 }
 .camera_prev > span {
-	background: url(../images/camera_skins.png) no-repeat 0 0;
+	background: url(../image/time.jpg) no-repeat 0 0;
 	display: block;
 	height: 40px;
 	width: 40px;
@@ -116,7 +116,7 @@
 	right: 0;
 }
 .camera_next > span {
-	background: url(../images/camera_skins.png) no-repeat -40px 0;
+	background: url(../image/time.jpg) no-repeat -40px 0;
 	display: block;
 	height: 40px;
 	width: 40px;
