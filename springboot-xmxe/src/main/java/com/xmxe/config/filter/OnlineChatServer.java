@@ -31,16 +31,16 @@ public class OnlineChatServer extends WebSocketServer {
 	 */
 	@Override
 	public void onOpen(WebSocket conn, ClientHandshake handshake) {
-		// this.sendToAll( "new connection: "+handshake.getResourceDescriptor() );
-		logger.info("WebSocket-onOpen：{}" ,conn.getRemoteSocketAddress().getAddress().getHostAddress());
+		logger.info("WebSocket-onOpen：{},{}" ,conn.getRemoteSocketAddress().getAddress().getHostAddress(),handshake.getResourceDescriptor());
 	}
 
 	/**
-	 * 触发关闭事件
+	 * 触发关闭事件（用户下线处理）
+	 *
 	 */
 	@Override
 	public void onClose(WebSocket conn, int code, String reason, boolean remote) {
-		userLeave(conn);//用户下线处理
+		userLeave(conn);
 	}
 
 	/**
@@ -49,26 +49,28 @@ public class OnlineChatServer extends WebSocketServer {
 	@Override
 	public void onMessage(WebSocket conn, String message) {
 		logger.info("WebSocket-onMessage：{}",message);
-		message = message.toString();
-		if (null != message && message.startsWith("[join]")) {
-			this.userjoin(message.replaceFirst("\\[join\\]", ""), conn);
-		} else if (null != message && message.startsWith("[goOut]")) {
-			this.goOut(message.replaceFirst("\\[goOut\\]", ""));
-		} else if (null != message && message.startsWith("[fhsms]")) {
-			this.senFhsms(message.replaceFirst("\\[fhsms\\]", ""));
-		} else if (null != message && message.startsWith("[leave]")) {
+		if (null != message && message.startsWith("join_")) {
+			this.userjoin(message.replaceFirst("join_", ""), conn);
+		} else if (null != message && message.startsWith("goOut_")) {
+			this.goOut(message.replaceFirst("goOut_", ""));
+		} else if (null != message && message.startsWith("fhsms_")) {
+			this.senFhsms(message.replaceFirst("fhsms_", ""));
+		} else if (null != message && message.startsWith("leave_")) {
 			this.userLeave(conn);
-		} else if (null != message && message.startsWith("[count]")) {
+		} else if (null != message && message.startsWith("count_")) {
 			this.getUserCount(conn);
-		} else if (null != message && message.startsWith("[QQ290490807]")) {
+		} else if (null != message && message.startsWith("special_")) {
 			OnlineChatServerPool.setFhadmin(conn);
 			this.getUserList();
 		} else {
 			OnlineChatServerPool.sendMessageToUser(conn, message);// 同时向本人发送消息
 		}
 	}
+	@Override
+	public void onStart() {
+		logger.info("WebSocket启动 :{}","WebSocketServer onStart");
+	}
 
-	public void onFragment(WebSocket conn, Framedata fragment) {}
 
 	/**
 	 * 触发异常事件
@@ -81,6 +83,8 @@ public class OnlineChatServer extends WebSocketServer {
 			logger.info("websocket error != null");
 		}
 	}
+
+	public void onFragment(WebSocket conn, Framedata fragment) {}
 
 	/**
 	 * 用户加入处理
@@ -186,10 +190,7 @@ public class OnlineChatServer extends WebSocketServer {
 		OnlineChatServerPool.sendMessageToUser(conn, result.toJSONString());
 	}
 
-	@Override
-	public void onStart() {
-		logger.info("WebSocket启动 :{}","WebSocketServer onStart");
-	}
+
 
 	// 假如SpringBoot项目以jar方式运行 当maven install生成jar包会报错
 	// 因为不允许在其它类出现main方法以防止和启动类的main方法冲突

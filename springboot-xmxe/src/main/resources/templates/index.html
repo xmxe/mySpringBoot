@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>红磨坊</title>
+<title>index</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <script type="text/javascript" th:src="@{/static/js/jquery.min.js}"></script>
 <script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>
@@ -13,8 +13,8 @@
 			var oladress = "127.0.0.1:8889";
 			var websocket = new WebSocket(encodeURI('ws://'+oladress)); 
 			websocket.onopen = function() {//连接成功	
-				var user = "1";
-				websocket.send('[join]'+user);
+				var user = "username:test";
+				websocket.send('join_'+user);
 			};
 			websocket.onerror = function() {//连接失败
 				
@@ -37,24 +37,17 @@
 	});
 	
 	function goOut(msg){
-		//var locat = (window.location+'').split('/'); 
 		window.location.href="logout?msg="+msg;
 	};
 	
 	layui.use('layer', function(){
 		var layer = layui.layer;
-	}); 
-	/* $(document).ready(function(){
-		$("#page").click(function(){
-			window.location.href="/pageView";
-		});
-	}) */
+	});
 	
 	layui.use('element', function(){
 	  var element = layui.element;	  
 	});
 	function returnIframe(url,id,titleName){
-		//$("#myiframe").attr("src",url);
 		$("#divf").hide();
 		$(".layui-tab").show();
 		layui.use('element', function(){
@@ -125,8 +118,8 @@
 	function FrameWH() {
         var h = $(window).height();
         $("iframe").css("height",h+"px");
-		/* var ifm= document.getElementById("myiframe"); 
-	    ifm.height=document.documentElement.clientHeight; */
+        // var ifm= document.getElementById("myiframe");
+	    // ifm.height=document.documentElement.clientHeight;
     }
     function CustomRightClick(id) {
         //取消右键  rightmenu属性开始是隐藏的 ，当右击的时候显示，左击的时候隐藏
@@ -142,11 +135,9 @@
             l = ($(document).width() - e.clientX) < popupmenu.width() ? (e.clientX - popupmenu.width()-200) : e.clientX-200;
             t = ($(document).height() - e.clientY) < popupmenu.height() ? (e.clientY - popupmenu.height()-50) : e.clientY-50;
             popupmenu.css({ left: l, top: t }).show(); //进行绝对定位
-            //alert("右键菜单")
             return false;
         });
     }
- 
 
 	//窗口大小改变时触发
     $(window).resize(function () {
@@ -157,7 +148,7 @@
 <body style="overflow: hidden;">
 	<div class="layui-layout layui-layout-admin">
   	<div class="layui-header">
-    <div class="layui-logo">千里冰封万里雪飘</div>
+    <div class="layui-logo">layui-logo</div>
     <!-- 头部区域（可配合layui已有的水平导航） -->
     <ul class="layui-nav layui-layout-left">
       <li class="layui-nav-item"><a href="javascript:void(0)"><i class="layui-icon">&#xe614;Goku</i></a></li>
@@ -176,7 +167,7 @@
       <li class="layui-nav-item">
         <a href="javascript:;">
           <img src="/static/image/goku.jpg" class="layui-nav-img">
-          然
+          name
         </a>
         <dl class="layui-nav-child">
           <dd><a href="javascript:void(0)">基本资料</a></dd>
@@ -203,7 +194,7 @@
         <li class="layui-nav-item">
           <a href="javascript:;">Two</a>
           <dl class="layui-nav-child">
-            <dd><a href="javascript:;" onclick='returnIframe("/404","4","vue")'>vue.js</a></dd>
+            <dd><a href="javascript:;" onclick='returnIframe("/404","4","404")'>404</a></dd>
             <dd><a href="javascript:;" onclick='returnIframe("/static/html5/elephant.html","5","elephant")'>elephant</a></dd>
             <dd><a href="javascript:;" onclick='returnIframe("/static/html5/winder.html","6","winder")'>winder</a></dd>
           </dl>

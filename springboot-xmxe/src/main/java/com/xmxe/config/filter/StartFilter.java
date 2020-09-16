@@ -33,11 +33,9 @@ public class StartFilter implements Filter{
 	 * 启动在线管理服务
 	 */
 	public void startWebsocketOnline(){
-		
-		OnlineChatServer s;
 		try {
-				s = new OnlineChatServer(8889);
-				s.start();							
+			OnlineChatServer s = new OnlineChatServer(8889);
+			s.start();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
