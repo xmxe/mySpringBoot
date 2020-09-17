@@ -1,7 +1,10 @@
 package com.xmxe.config.interceptor;
 
+import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.config.annotation.*;
+
+import java.util.List;
 
 @Component
 public class InterceptorConfiguration implements WebMvcConfigurer {
@@ -38,7 +41,12 @@ public class InterceptorConfiguration implements WebMvcConfigurer {
 	    //registry.addViewController("/").setViewName("redirect:/index");  
 	    
 	}
-	
+
+	//configureMessageConverters配置消息转换器
+	// 在com.xmxe.config.main.MainConfiguration注册bean应该也可以实现功能配置
+	@Override
+	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+	}
 	
 	
 	 /* Spring Boot中，SpringMVC相关的自动化配置是在 WebMvcAutoConfiguration配置类中实现的，它的生效条件有一条，就是当不存在 WebMvcConfigurationSupport 的实例时，这个自动化配置才会生生效

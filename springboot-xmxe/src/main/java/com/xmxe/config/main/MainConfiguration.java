@@ -42,6 +42,22 @@ public class MainConfiguration {
 		});
 	}
 
+	/* 在gsipV3上使用ResponseEntity<byte[]>完成浏览器下载功能 但是下载的文件损坏或者乱码
+	在gsipV3的spring.xml方式配置了下面的消息转换器 完成controller中的download接口
+	因此想在springboot中测试下配置了下面这个bean 但是不配置这个bean在sprongboot-xmxe项目中下载文件并不会出现文件内容乱码或者文件损坏
+	所以注释掉，也没有测试这个bean，而且这个bean应该可以在com.xmxe.config.interceptor.InterceptorConfiguration中的configureMessageConverters()方法中配置，因为下载文件没有出现乱码所以都没有进行测试
+	@Bean
+	public RequestMappingHandlerAdapter requestMappingHandlerAdapter(){
+		RequestMappingHandlerAdapter adapter = new RequestMappingHandlerAdapter();
+		List<HttpMessageConverter<?>> converters = new ArrayList<>();
+		converters.add(new ByteArrayHttpMessageConverter());
+		MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter = new MappingJackson2HttpMessageConverter();
+		List<MediaType> mediaTypes = MediaType.parseMediaTypes("application/json;charset=UTF-8,text/json;charset=UTF-8,text/html;charset=UTF-8");
+		mappingJackson2HttpMessageConverter.setSupportedMediaTypes(mediaTypes);
+		converters.add(mappingJackson2HttpMessageConverter);
+		adapter.setMessageConverters(converters);
+		return adapter;
+	}*/
 	/*
 	 *springboot 1.5.x写法
 	@Bean

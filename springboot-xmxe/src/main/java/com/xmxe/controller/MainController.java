@@ -68,13 +68,13 @@ public class MainController {
 		return "content/form";
 	}
 
-	@RequestMapping(value="/download")//问题:下载的文件乱码
+	@RequestMapping(value="/download")
 	@ResponseBody
 	public ResponseEntity<byte[]> down(HttpServletRequest request) throws Exception{
 		String path = request.getParameter("path") == null ?null:request.getParameter("path");
 		String filename = request.getParameter("filename") == null ?null:request.getParameter("filename");
 		try {
-			filename = new String(filename.getBytes("iso-8859-1"),"utf-8");
+			//filename = new String(filename.getBytes("ISO8859-1"),"UTF-8");
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -86,21 +86,21 @@ public class MainController {
 		if(!file.exists()){
 			file.mkdirs();
 		}
-		//File f = File.createTempFile("sss", ".txt",file);
 //		FtpClient ftpClient=Ftp.connect();
 //		Ftp.downloadFile(ftpClient, path, downloadPath+filename);
 //		Ftp.closeServer(ftpClient);
-		File f = new File(downloadPath+filename);
-
-		InputStream is = new FileInputStream(f);
+//		File f = new File(downloadPath+filename);
+		File localFile = new File("C:\\E\\file123\\网源文档\\R模式负荷变化率.docx");
+		InputStream is = new FileInputStream(localFile);
 		byte[] body = new byte[is.available()];
+//		byte[] body = FileUtils.readFileToByteArray(f);
 		is.read(body);
 		HttpHeaders headers = new HttpHeaders();
-		headers.add("Content-Disposition", "attchement;filename="+new String(filename.getBytes("utf-8"), "iso8859-1"));
-//		headers.setContentDispositionFormData("attachment",filename);
-//		byte[] body = FileUtils.readFileToByteArray(f);
+		headers.add("Content-Disposition", "attchement;filename="+new String(filename.getBytes("UTF-8"), "ISO8859-1"));
 		headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+		headers.setContentLength(body.length);
 		HttpStatus status = HttpStatus.OK;
+		is.close();
 		ResponseEntity<byte[]> entity = new ResponseEntity<>(body,headers,status);
 		return entity;
 	}
