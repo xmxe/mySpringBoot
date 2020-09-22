@@ -227,7 +227,14 @@
 			<artifactId>spring-boot-configuration-processor</artifactId>
 			<optional>true</optional>
 		</dependency>
-	</dependencies>
+
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-boot-starter</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+
+    </dependencies>
 
 	<build>
 		<finalName>mySpringBoot</finalName><!-- 打成jar包或war包的名称 -->

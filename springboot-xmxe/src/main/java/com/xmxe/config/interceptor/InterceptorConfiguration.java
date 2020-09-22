@@ -29,6 +29,8 @@ public class InterceptorConfiguration implements WebMvcConfigurer {
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/static/**")//指的是对外暴露的访问路径
 				.addResourceLocations("classpath:/static/");//指的是内部文件放置的目录
+		registry.addResourceHandler("/swagger-ui/**")
+				.addResourceLocations("classpath:/META-INF/resources/webjars/springfox-swagger-ui/");
 	}
 	
 	//指定首页

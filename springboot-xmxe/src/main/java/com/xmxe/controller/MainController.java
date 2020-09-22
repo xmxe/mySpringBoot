@@ -5,6 +5,8 @@ import com.xmxe.config.quartz.QuartzManager;
 import com.xmxe.entity.User;
 import com.xmxe.job.Jobs;
 import com.xmxe.service.MainService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
@@ -36,6 +38,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Controller
+@Api(value = "maincontroller")
 //@RequestMapping("**.do")
 public class MainController {	
 	@Autowired
@@ -69,6 +72,7 @@ public class MainController {
 	}
 
 	@RequestMapping(value="/download")
+	@ApiOperation(httpMethod = "GET",value = "下载_value", notes = "下载_notes")
 	@ResponseBody
 	public ResponseEntity<byte[]> down(HttpServletRequest request) throws Exception{
 		String path = request.getParameter("path") == null ?null:request.getParameter("path");
