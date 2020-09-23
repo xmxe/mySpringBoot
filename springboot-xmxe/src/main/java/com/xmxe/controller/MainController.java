@@ -5,8 +5,7 @@ import com.xmxe.config.quartz.QuartzManager;
 import com.xmxe.entity.User;
 import com.xmxe.job.Jobs;
 import com.xmxe.service.MainService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.*;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
@@ -38,7 +37,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Controller
-@Api(value = "maincontroller")
+@Api(tags = "订单模块")
 //@RequestMapping("**.do")
 public class MainController {	
 	@Autowired
@@ -72,7 +71,6 @@ public class MainController {
 	}
 
 	@RequestMapping(value="/download")
-	@ApiOperation(httpMethod = "GET",value = "下载_value", notes = "下载_notes")
 	@ResponseBody
 	public ResponseEntity<byte[]> down(HttpServletRequest request) throws Exception{
 		String path = request.getParameter("path") == null ?null:request.getParameter("path");
@@ -209,8 +207,23 @@ public class MainController {
 
 	@RequestMapping("/getUserById")
 	@ResponseBody
-	public JSONObject getUserById(@RequestParam(value = "username",required = false) String userId,
-								  @RequestParam(value = "userId",defaultValue="1") String username) {
+	@ApiOperation(httpMethod = "GET",value = "getUser", notes = "根据用户id获取用户信息")
+	@ApiImplicitParams({
+			@ApiImplicitParam(paramType="query", name="@ApiImplicitParam_userId", dataType="String", required=true, value="用户 Id"),
+            @ApiImplicitParam(paramType="query", name="@ApiImplicitParam_userName", dataType="String", required=true, value="用户名")
+	/* paramType
+	header-->放在请求头。请求参数的获取：@RequestHeader(代码中接收注解)
+	query-->用于get请求的参数拼接。请求参数的获取：@RequestParam(代码中接收注解)
+	path（用于restful接口）-->请求参数的获取：@PathVariable(代码中接收注解)
+	body-->放在请求体。请求参数的获取：@RequestBody(代码中接收注解)
+	form（不常用）*/
+	})
+	@ApiResponses({
+			@ApiResponse(code = 400, message = "请求参数没填好"),
+			@ApiResponse(code = 404, message = "请求路径没有或页面跳转路径不对")
+	})
+	public JSONObject getUserById(@ApiParam(name="@ApiParam_username",value = "用户名",required = false) @RequestParam(value = "username",required = false) String userId,
+								  @ApiParam(name="@ApiParam_userid",value = "用户id",required = true) @RequestParam(value = "userId",defaultValue="1") String username) {
 		//如果加了@RequestParam注解，那么请求url里必须包含这一参数，否则会报400。那么如果允许不传呢？有两种办法：1）使用default值2）使用required值
 		User user = mainService.getUserById(Integer.valueOf(username));
 		JSONObject json = new JSONObject();
