@@ -69,6 +69,7 @@
 
 - [面试官扎心一问：Tomcat 在 SpringBoot 中是如何启动的？](https://mp.weixin.qq.com/s/Jh0zv6fkxflWY3IgRL9SvQ)
 
+- [SpringBoot启动原理](https://mp.weixin.qq.com/s/tQQW1Bg-P3B1cIrl1Y_oVA)
 
 - [Spring Boot 项目优化和 JVM 调优](https://mp.weixin.qq.com/s/dBIuMa2Og1xwOl3tZBiouw)
 
