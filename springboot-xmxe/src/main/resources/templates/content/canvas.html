@@ -6,43 +6,48 @@
 </head>
 
 <body>
-    <canvas id="canvas" width="700" height="500" style="float: left;"></canvas>
+    <canvas id="canvas1" width="700" height="500"></canvas>
+    <canvas id="canvas2" width="700" height="500"></canvas>
+    <canvas id="canvas3" width="700" height="500"></canvas>
+    <canvas id="canvas4" width="700" height="500"></canvas>
+    <canvas id="canvas5" width="700" height="500"></canvas>
     <script type="text/javascript">
-    /* var oCanvas = document.getElementById("canvas");
-            var context = oCanvas.getContext("2d");
-           context.fillStyle = "#ededed";
-            context.fillRect(0, 0, 500, 500);//画布位置大小
-            //一直线
+     // -------------------------canvas1-------------------------
+    var canvas1 = document.getElementById("canvas1");
+    var context = canvas1.getContext("2d");
+    context.fillStyle = "#ededed";
+    context.fillRect(0, 0, 300, 200); //画布位置大小
 
-            //1右侧直线
-            // context.moveTo(400,20);//移端点
-            // context.lineTo(400,200);//画线
-            // context.strokeStyle = "red";//线的颜色
-            // //stroke() 方法会实际地绘制出通过 moveTo() 和 lineTo() 方法定义的路径。默认颜色是黑色
-            // context.stroke();//画框
-            
-            //竖线
-            context.moveTo(200,20);//移端点
-            context.lineTo(200,200);//画线
-            context.lineWidth = 4;//线宽度
-            context.lineCap = "round";//帽
-            context.strokeStyle = "red";//线的颜色
-            context.stroke();//画框
-            //横线
-            context.moveTo(20,200);//移端点
-            context.lineTo(400,200);
-            context.stroke();
-            //斜线
-            context.moveTo(200,200);//移端点
-            context.lineTo(10,100);
-            //context.setLineDash([10,15]);//(1参)10虚线长度；(2)15这根线和下个线的距离;
-            context.stroke();
-            */
-    let canvas = document.getElementById("canvas");
-    let ctx_line = canvas.getContext("2d");
+    //1右侧直线
+    context.moveTo(200,10);//移端点
+    context.lineTo(200,40);//画线
+    context.strokeStyle = "red";//线的颜色
+    //stroke() 方法会实际地绘制出通过 moveTo() 和 lineTo() 方法定义的路径。默认颜色是黑色
+    context.stroke();//画框
 
-    let centerX = canvas.width / 2; //中心点
-    let centerY = canvas.height / 2; //中心点
+    //竖线
+    context.moveTo(200, 20); //移端点
+    context.lineTo(200, 200); //画线
+    context.lineWidth = 4; //线宽度
+    context.lineCap = "round"; //帽
+    context.strokeStyle = "red"; //线的颜色
+    context.stroke(); //画框
+    //横线
+    context.moveTo(20, 200); //移端点
+    context.lineTo(400, 200);
+    context.stroke();
+    //斜线
+    context.moveTo(200, 200); //移端点
+    context.lineTo(10, 100);
+    context.setLineDash([10,15]);//(1参)10虚线长度；(2)15这根线和下个线的距离;
+    context.stroke();
+
+    // -------------------------canvas2-------------------------
+    let canvas2 = document.getElementById("canvas2");
+    let ctx_line = canvas2.getContext("2d");
+
+    let centerX = canvas2.width / 2; //中心点
+    let centerY = canvas2.height / 2; //中心点
     let arc_radius = 300; //半径
 
     //画射线
@@ -93,13 +98,13 @@
     ctx_line.lineTo(x1, y1);
     ctx_line.stroke();
 
-    // ctx_line.beginPath();
-    // x1 = centerX + arc_radius * Math.cos(180 * Math.PI / 180);
-    // y1 = centerY + arc_radius * Math.sin(180 * Math.PI / 180);
-    // ctx_line.strokeStyle = "blue";
-    // ctx_line.moveTo(centerX, centerY);
-    // ctx_line.lineTo(x1, y1);
-    // ctx_line.stroke();
+    ctx_line.beginPath();
+    x1 = centerX + arc_radius * Math.cos(180 * Math.PI / 180);
+    y1 = centerY + arc_radius * Math.sin(180 * Math.PI / 180);
+    ctx_line.strokeStyle = "blue";
+    ctx_line.moveTo(centerX, centerY);
+    ctx_line.lineTo(x1, y1);
+    ctx_line.stroke();
 
     ctx_line.beginPath();
     x1 = centerX + arc_radius * Math.cos(210 * Math.PI / 180);
@@ -117,13 +122,13 @@
     ctx_line.lineTo(x1, y1);
     ctx_line.stroke();
 
-    // ctx_line.beginPath();
-    // x1 = centerX + arc_radius * Math.cos(270 * Math.PI / 180);
-    // y1 = centerY + arc_radius * Math.sin(270 * Math.PI / 180);
-    // ctx_line.strokeStyle = "black";
-    // ctx_line.moveTo(centerX, centerY);
-    // ctx_line.lineTo(x1, y1);
-    // ctx_line.stroke();
+    ctx_line.beginPath();
+    x1 = centerX + arc_radius * Math.cos(270 * Math.PI / 180);
+    y1 = centerY + arc_radius * Math.sin(270 * Math.PI / 180);
+    ctx_line.strokeStyle = "black";
+    ctx_line.moveTo(centerX, centerY);
+    ctx_line.lineTo(x1, y1);
+    ctx_line.stroke();
 
     ctx_line.beginPath();
     x1 = centerX + arc_radius * Math.cos(300 * Math.PI / 180);
@@ -141,13 +146,13 @@
     ctx_line.lineTo(x1, y1);
     ctx_line.stroke();
 
-    // ctx_line.beginPath();
-    // x1 = centerX + arc_radius * Math.cos(360 * Math.PI / 180);
-    // y1 = centerY + arc_radius * Math.sin(360 * Math.PI / 180);
-    // ctx_line.strokeStyle = "blue";
-    // ctx_line.moveTo(centerX, centerY);
-    // ctx_line.lineTo(x1, y1);
-    // ctx_line.stroke();
+    ctx_line.beginPath();
+    x1 = centerX + arc_radius * Math.cos(360 * Math.PI / 180);
+    y1 = centerY + arc_radius * Math.sin(360 * Math.PI / 180);
+    ctx_line.strokeStyle = "blue";
+    ctx_line.moveTo(centerX, centerY);
+    ctx_line.lineTo(x1, y1);
+    ctx_line.stroke();
 
     // 设置字体
     ctx_line.font = "18px bold 黑体";
@@ -160,64 +165,97 @@
     // 绘制文字（参数：要写的字，x坐标，y坐标）
     ctx_line.fillText("要写的文字", 400, 100);
     ctx_line.stroke();
-ctx_line.fillText("要写的文字2", 650, 250);
-ctx_line.stroke();
+    ctx_line.fillText("要写的文字2", 650, 250);
+    ctx_line.stroke();
 
 
-drawArrow(ctx_line, canvas.width / 2 - 300, canvas.height / 2, canvas.width / 2 + 300,canvas.height / 2,30,30,5,'#f36');
+    drawArrow(ctx_line, canvas2.width / 2 - 300, canvas2.height / 2, canvas2.width / 2 + 300, canvas2.height / 2, 30, 30, 5, '#f36');
 
 
-// 向右箭头
-/*drawArrow(ctx, myCanvas.width / 2, myCanvas.height / 2, myCanvas.width / 2 + 150, myCanvas.height / 2,30,30,4,'#f36');*/
+    // 向右箭头
+    /*drawArrow(ctx, canvas2.width / 2, canvas2.height / 2, canvas2.width / 2 + 150, canvas2.height / 2,30,30,4,'#f36');*/
 
-// 向下箭头
-/*drawArrow(ctx, myCanvas.width / 2, myCanvas.height / 2, myCanvas.width / 2, myCanvas.height / 2  + 150,30,30,4,'#f66');*/
+    // 向下箭头
+    /*drawArrow(ctx, canvas2.width / 2, canvas2.height / 2, canvas2.width / 2, canvas2.height / 2  + 150,30,30,4,'#f66');*/
 
-// 向左箭头
-/*drawArrow(ctx, myCanvas.width / 2, myCanvas.height / 2, myCanvas.width / 2 - 150, myCanvas.height / 2,30,30,4,'#0f6');*/
+    // 向左箭头
+    /*drawArrow(ctx, canvas2.width / 2, canvas2.height / 2, canvas2.width / 2 - 150, canvas2.height / 2,30,30,4,'#0f6');*/
 
-// 向上箭头
-drawArrow(ctx_line, canvas.width / 2, canvas.height / 2, canvas.width / 2, canvas.height / 2 - 200,30,30,4,'#d6f');
+    // 向上箭头
+    drawArrow(ctx_line, canvas2.width / 2, canvas2.height / 2, canvas2.width / 2, canvas2.height / 2 - 200, 30, 30, 4, '#d6f');
 
 
+    function drawArrow(ctx, fromX, fromY, toX, toY, theta, headlen, width, color) {
 
-function drawArrow(ctx, fromX, fromY, toX, toY,theta,headlen,width,color) {
- 
-    theta = typeof(theta) != 'undefined' ? theta : 30;
-    headlen = typeof(theta) != 'undefined' ? headlen : 10;
-    width = typeof(width) != 'undefined' ? width : 1;
-    color = typeof(color) != 'color' ? color : '#000';
- 
-    // 计算各角度和对应的P2,P3坐标
-    var angle = Math.atan2(fromY - toY, fromX - toX) * 180 / Math.PI,
-        angle1 = (angle + theta) * Math.PI / 180,
-        angle2 = (angle - theta) * Math.PI / 180,
-        topX = headlen * Math.cos(angle1),
-        topY = headlen * Math.sin(angle1),
-        botX = headlen * Math.cos(angle2),
-        botY = headlen * Math.sin(angle2);
- 
-    ctx.save();
-    ctx.beginPath();
- 
-    var arrowX = fromX - topX,
-        arrowY = fromY - topY;
- 
-    ctx.moveTo(arrowX, arrowY);
-    ctx.moveTo(fromX, fromY);
-    ctx.lineTo(toX, toY);
-    arrowX = toX + topX;
-    arrowY = toY + topY;
-    ctx.moveTo(arrowX, arrowY);
-    ctx.lineTo(toX, toY);
-    arrowX = toX + botX;
-    arrowY = toY + botY;
-    ctx.lineTo(arrowX, arrowY);
-    ctx.strokeStyle = color;
-    ctx.lineWidth = width;
-    ctx.stroke();
-    ctx.restore();
-}
+        theta = typeof(theta) != 'undefined' ? theta : 30;
+        headlen = typeof(theta) != 'undefined' ? headlen : 10;
+        width = typeof(width) != 'undefined' ? width : 1;
+        color = typeof(color) != 'color' ? color : '#000';
+
+        // 计算各角度和对应的P2,P3坐标
+        var angle = Math.atan2(fromY - toY, fromX - toX) * 180 / Math.PI,
+            angle1 = (angle + theta) * Math.PI / 180,
+            angle2 = (angle - theta) * Math.PI / 180,
+            topX = headlen * Math.cos(angle1),
+            topY = headlen * Math.sin(angle1),
+            botX = headlen * Math.cos(angle2),
+            botY = headlen * Math.sin(angle2);
+
+        ctx.save();
+        ctx.beginPath();
+
+        var arrowX = fromX - topX,
+            arrowY = fromY - topY;
+
+        ctx.moveTo(arrowX, arrowY);
+        ctx.moveTo(fromX, fromY);
+        ctx.lineTo(toX, toY);
+        arrowX = toX + topX;
+        arrowY = toY + topY;
+        ctx.moveTo(arrowX, arrowY);
+        ctx.lineTo(toX, toY);
+        arrowX = toX + botX;
+        arrowY = toY + botY;
+        ctx.lineTo(arrowX, arrowY);
+        ctx.strokeStyle = color;
+        ctx.lineWidth = width;
+        ctx.stroke();
+        ctx.restore();
+    }
+    //-------------------------canvas3-------------------------
+   
+    var canvas3 = document.getElementById("canvas3");
+     //Π = 180
+    //画一个起始角度为dao45度，结束角度为90度，绘图方向顺时针的填充扇形
+    DrawSector(canvas3, -Math.PI / 4, Math.PI / 4, 50, true, false);
+    //画一个起始角度为-90度，结束角度为-135度，绘图方向逆时针的未填充扇形
+    // DrawSector(canvas, -Math.PI / 2, -Math.PI * 3 / 4, 50, false, true);
+
+    function DrawSector(canvas_tag, start_angle, angle, radius, fill, anticlockwise) {
+        var centerPoint = { x: 75, y: 75 };
+        start_angle = start_angle || 0;
+        if (canvas_tag.getContext) {
+            //开始绘制路径bai
+            ctx = canvas_tag.getContext("2d");
+            ctx.beginPath();
+            //画出du弧线
+            ctx.arc(centerPoint.x, centerPoint.y, radius, start_angle, angle, anticlockwise);
+            //画出结束半径
+            ctx.lineTo(centerPoint.x, centerPoint.y);
+            //如果需要填充就填充，不需要就算了zhi
+            if (fill) {
+                ctx.fillStyle='red';
+                // ctx.strokeStyle='red'
+                ctx.fill();
+            } else {
+                ctx.closePath();
+                ctx.stroke();
+            }
+        } else {
+            alert('You need Safari or Firefox 1.5+ to see this demo.');
+        }
+    }
+   
     </script>
 </body>
 
