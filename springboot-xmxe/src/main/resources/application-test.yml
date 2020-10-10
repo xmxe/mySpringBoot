@@ -4,11 +4,12 @@ server:
     jsp:
       init-parameters:
        development: true
+    encoding:
+      force: true
+      charset: UTF-8
   tomcat:
     uri-encoding: UTF-8
-  encoding: 
-    force: true
-    
+
 spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource

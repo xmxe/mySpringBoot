@@ -36,7 +36,6 @@ public class InterceptorConfiguration implements WebMvcConfigurer {
 	//指定首页
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
-		//super.addViewControllers(registry);
 		//registry.addViewController("/").setViewName("login");
 	    //registry.setOrder(Ordered.HIGHEST_PRECEDENCE);//springmvc的拦截器的优先级默认是高于shiro的，通过此方法可配置优先级的顺序
 	    //实现一个请求到视图的映射，而无需书写controller
@@ -47,10 +46,23 @@ public class InterceptorConfiguration implements WebMvcConfigurer {
 	//configureMessageConverters配置消息转换器
 	// 在com.xmxe.config.main.MainConfiguration注册bean应该也可以实现功能配置
 	@Override
-	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-	}
-	
-	
+	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {}
+
+	// cors跨域请求 使用此方法配置之后在使用拦截器会失效
+	@Override
+	public void addCorsMappings(CorsRegistry registry) {
+        //设置允许跨域的路径
+        registry.addMapping("/**")
+                //设置允许跨域请求的域名
+                .allowedOrigins("*")
+                //是否允许证书 不再默认开启
+                .allowCredentials(true)
+                //设置允许的方法
+                .allowedMethods("GET", "POST", "DELETE", "PUT")
+                //跨域允许时间
+                .maxAge(3600);
+
+    }
 	 /* Spring Boot中，SpringMVC相关的自动化配置是在 WebMvcAutoConfiguration配置类中实现的，它的生效条件有一条，就是当不存在 WebMvcConfigurationSupport 的实例时，这个自动化配置才会生生效
 	  * 因此，如果我们在 Spring Boot 中自定义 SpringMVC 配置时选择了继承 WebMvcConfigurationSupport，就会导致 Spring Boot 中 SpringMVC 的自动化配置失效。
 	  * Spring Boot 给我们提供了很多自动化配置，很多时候当我们修改这些配置的时候，并不是要全盘否定 Spring Boot 提供的自动化配置，我们可能只是针对某一个配置做出修改，其他的配置还是按照 Spring Boot 默认的自动化配置来，
