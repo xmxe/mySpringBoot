@@ -41,6 +41,9 @@
 ---
 
 #### 相关文章
+
+- [3W 字的 Spring Boot 超详细总结](https://mp.weixin.qq.com/s/ZEFyH0A7GOlDAEuV5M_fFA)
+
 - [2020年排名前20的基于SpringBoot搭建的开源项目](https://mp.weixin.qq.com/s/lvMikTf55xUEf-C-dzmrcg)
 
 - [15 个优秀开源的 Spring Boot 学习项目，一网打尽！](https://mp.weixin.qq.com/s/ZKUr_5VBd7ZD1fkzHbFU_g)
