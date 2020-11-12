@@ -1,9 +1,14 @@
 package com.xmxe.entity;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotEmpty;
+
 public class Book {
-	private int id;   
+	private int id;
+	@NotEmpty(message = "bookname不能为空")
     private String bookname;   
-    private String bookauthor;   
+    private String bookauthor;
+    @Max(value = 10,message = "不能超过10元")
     private Float bookprice;   
  
     public Book() {   

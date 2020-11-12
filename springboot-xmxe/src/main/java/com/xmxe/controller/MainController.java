@@ -1,7 +1,9 @@
 package com.xmxe.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.xmxe.comonent.ResultInfo;
 import com.xmxe.config.quartz.QuartzManager;
+import com.xmxe.entity.Book;
 import com.xmxe.entity.User;
 import com.xmxe.job.Jobs;
 import com.xmxe.service.MainService;
@@ -20,6 +22,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -339,5 +342,11 @@ public class MainController {
         }
         model.addAttribute("users", users);
         return "user";
+	}
+	@PostMapping("validated")
+	@ResponseBody
+	public ResultInfo<Book> validated(@Validated Book book){
+
+		return new ResultInfo<>(200,"请求成功",book);
 	}
 }
