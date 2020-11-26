@@ -1,14 +1,14 @@
 ## mySpringBoot项目简介
 
-|                           项目名称                           |                             介绍                             |
-| :----------------------------------------------------------: | :----------------------------------------------------------: |
-| [springboot-cas-server](https://github.com/xmxe/mySpringBoot/tree/master/springboot-cas-server) | 搭建cas server，将项目中的pom.xml及src目录替换到服务器可完成自定义登录页面，连接数据库校验等功能 |
-| [springboot-casclient-one](https://github.com/xmxe/mySpringBoot/tree/master/springboot-casclient-one) |                       cas_client子系统                       |
-| [springboot-casclient-two](https://github.com/xmxe/mySpringBoot/tree/master/springboot-casclient-two) |                       cas_client子系统                       |
-| [springboot-security-casclient-one](https://github.com/xmxe/mySpringBoot/tree/master/springboot-security-casclient-one) | cas+spring security子系统，其中spring security不在作登陆校验，校验在cas server端完成，spring security在登陆成功后根据用户名做权限校验 |
-| [springboot-security-casclient-two](https://github.com/xmxe/mySpringBoot/tree/master/springboot-security-casclient-two) | cas+spring security子系统，其中spring security不在作登陆校验，校验在cas server端完成，spring security在登陆成功后根据用户名做权限校验 |
-| [springboot-task](https://github.com/xmxe/mySpringBoot/tree/master/springboot-task) |                      springboot定时任务                      |
-| [springboot-xmxe](https://github.com/xmxe/mySpringBoot/tree/master/springboot-xmxe) |                        springboot web                        |
+|                           项目名称                           |           介绍            |                             备注                             |
+| :----------------------------------------------------------: | :-----------------------: | :----------------------------------------------------------: |
+| [springboot-cas-server](https://github.com/xmxe/mySpringBoot/tree/master/springboot-cas-server) |      搭建cas server       | 将自定义的cas_server项目中的pom.xml及src目录替换到官方cas-overlay-template,部署到服务器可完成自定义登录页面，连接数据库校验等功能 |
+| [springboot-casclient-one](https://github.com/xmxe/mySpringBoot/tree/master/springboot-casclient-one) |     cas_client子系统      |                                                              |
+| [springboot-casclient-two](https://github.com/xmxe/mySpringBoot/tree/master/springboot-casclient-two) |     cas_client子系统      |                                                              |
+| [springboot-security-casclient-one](https://github.com/xmxe/mySpringBoot/tree/master/springboot-security-casclient-one) | cas+spring security子系统 | spring security不在作登陆校验，校验在cas server端完成，spring security在登陆成功后根据用户名做权限校验 |
+| [springboot-security-casclient-two](https://github.com/xmxe/mySpringBoot/tree/master/springboot-security-casclient-two) | cas+spring security子系统 | spring security不在作登陆校验，校验在cas server端完成，spring security在登陆成功后根据用户名做权限校验 |
+| [springboot-task](https://github.com/xmxe/mySpringBoot/tree/master/springboot-task) |    springboot定时任务     |                                                              |
+| [springboot-xmxe](https://github.com/xmxe/mySpringBoot/tree/master/springboot-xmxe) |      springboot web       | 主要做集成测试学习的spring boot项目，包括自定义全局异常处理，aop，过滤器（websocket），拦截器，mybatis多数据源，quartz，redis，shiro，swagger，freemarker，spring boot中mvc的配置,服务器跨域配置等 |
 
 ---
 
@@ -25,6 +25,8 @@
 - [Spring Boot 实现单点登录的第三种方案！](https://mp.weixin.qq.com/s?__biz=MzI1NDY0MTkzNQ==&mid=2247488913&idx=1&sn=605b35708ddf3b0e6e32a170cd1aea57&chksm=e9c347f1deb4cee795228ba6eb56c928b826e2ff1356f182b6dce2a14c2c0cb209d0a3936b98&scene=158#rd)
 
 - [cas自定义登录页](<https://blog.csdn.net/yelllowcong/article/details/79236506>)
+
+- [cas server 官方模板下载](https://github.com/apereo/cas-overlay-template)
 
   > 将springboot-cas-server项目中的 src目录下放到服务器中的cas-overlay-template目录下启动即可完成自定义登录页
   想要实现不同子系统不同登录页主要在service目录下配置name-id.json文件,在name-id.json中配置theme
@@ -47,8 +49,6 @@
 - [2020年排名前20的基于SpringBoot搭建的开源项目](https://mp.weixin.qq.com/s/lvMikTf55xUEf-C-dzmrcg)
 
 - [15 个优秀开源的 Spring Boot 学习项目，一网打尽！](https://mp.weixin.qq.com/s/ZKUr_5VBd7ZD1fkzHbFU_g)
-
-- [http://springboot.fun](http://springboot.fun)
 
 - [Spring Boot 深度调优，6得飞起~](https://mp.weixin.qq.com/s/4DlMT007f8zM6PWPf8y4bQ)
 

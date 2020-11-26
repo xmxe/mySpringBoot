@@ -17,6 +17,6 @@
 		<module>springboot-task</module>
     </modules>
 
-	<description>Spring Boot project</description>
+	<description>Spring Boot Project</description>
 
 </project>
