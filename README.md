@@ -41,6 +41,10 @@
  > Spring Boot应用支持热部署，无需手动重启Spring Boot应用,spring-boot-devtools是一个为开发者服务的一个模块，其中最重要的功能就是修改代码后自动启动springboot服务，速度比手动停止后再启动要快，节省出来的并不是手工操作的时间，具体原理主要是使用了两个ClassLoader，一个Classloader加载不会改变的类（第三方Jar包），另一个ClassLoader加载会更改的类，称为  restart ClassLoader,这样在有代码更改的时候，原来的restartClassLoader 被丢弃，重新创建一个restartClassLoader，由于需要加载的类相比较少，所以实现了较快的重启时间
 
 ---
+#### Shiro
+- [Shiro整合Web项目及整合后的开发](http://codingxiaxw.cn/2016/11/23/50-Shiro-Integration/)
+- [Shiro安全框架【快速入门】就这一篇！](https://mp.weixin.qq.com/s/eyCRXcnymdLzsmhYkAB1uw)
+--- 
 
 #### 相关文章
 
