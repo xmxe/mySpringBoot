@@ -7,6 +7,7 @@ server:
     encoding:
       force: true
       charset: UTF-8
+#    context-path: /xmxe
   tomcat:
     uri-encoding: UTF-8
 

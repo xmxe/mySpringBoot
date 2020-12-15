@@ -1,9 +1,7 @@
 package com.xmxe.controller;
 
-import com.xmxe.config.quartz.QuartzManager;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,8 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 //@RequestMapping("**.do")
 public class IndexController {
-    @Autowired
-    QuartzManager quartManager;
     
     @RequestMapping("/")
 	public String login() {
@@ -25,7 +21,7 @@ public class IndexController {
 		}
 		return "login";
 	} 
-    
+
     
 	/**
 	 * 用户注销
@@ -42,9 +38,7 @@ public class IndexController {
 	
 	@RequestMapping("/index")
 	public String index() {
-		//quartManager.shutdownJobs();
-		quartManager.removeJob("scheduler", "scheduler_group", "myTigger", "triggerGroup");
-		return "index";
+	    return "index";
 	} 
 	
 }

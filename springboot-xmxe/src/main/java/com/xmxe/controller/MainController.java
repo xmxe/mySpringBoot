@@ -2,19 +2,13 @@ package com.xmxe.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.xmxe.comonent.ResultInfo;
-import com.xmxe.config.quartz.QuartzManager;
 import com.xmxe.entity.Book;
 import com.xmxe.entity.User;
-import com.xmxe.job.Jobs;
 import com.xmxe.service.MainService;
 import io.swagger.annotations.*;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
-import org.quartz.CronScheduleBuilder;
-import org.quartz.CronTrigger;
-import org.quartz.Scheduler;
-import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -27,7 +21,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
@@ -45,15 +38,6 @@ import java.util.UUID;
 public class MainController {	
 	@Autowired
 	MainService mainService;
-
-	@Autowired
-	QuartzManager quartManager;
-	
-    @Resource(name = "jobTrigger")  
-    private CronTrigger cronTrigger;  
-
-    @Resource(name = "scheduler")  
-    private Scheduler scheduler;   
     
 	//分页页面
 	@RequestMapping("/pageView")
@@ -296,39 +280,6 @@ public class MainController {
 		
 	}
 
-	
-	@ResponseBody
-    @RequestMapping("/changeQuartz")
-    public String quartzTest() throws SchedulerException{
-         CronTrigger trigger = (CronTrigger) scheduler.getTrigger(cronTrigger.getKey());  
-         String currentCron = trigger.getCronExpression();// 当前Trigger使用的  
-         System.err.println("当前trigger使用的-"+currentCron);
-         //1秒钟执行一次
-         CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0/1 * * * * ?");  
-         // 按新的cronExpression表达式重新构建trigger  
-         trigger = (CronTrigger) scheduler.getTrigger(cronTrigger.getKey());  
-         trigger = trigger.getTriggerBuilder().withIdentity(cronTrigger.getKey())  
-                 .withSchedule(scheduleBuilder).build();  
-         // 按新的trigger重新设置job执行  
-         scheduler.rescheduleJob(cronTrigger.getKey(), trigger);  
-        return "-这是quartz测试";
-    }
-	@ResponseBody
-    @RequestMapping("/quartz")
-	public JSONObject quartz(){
-		JSONObject json = new JSONObject();
-		try{
-			//quartManager.startJobs();
-			//quartManager.removeJob("scheduler", "scheduler_group", "myTigger", "group");
-			quartManager.addJob("a", "group", "t", "tri", Jobs.class, "0/6 * * * * ?");
-			quartManager.addJob("b", "group", "t1", "tri1", Jobs.class, "0/2 * * * * ?");
-			json.put("msg", "quartz成功启动");
-		}catch(Exception e){
-			e.printStackTrace();
-			json.put("msg", "quartz启动失败");
-		}
-		return json;
-	}
 	
 	@GetMapping("/freemarker")
     public String fm(Model model) {
