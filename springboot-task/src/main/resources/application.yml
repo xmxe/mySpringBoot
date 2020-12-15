@@ -2,10 +2,12 @@ server:
   port: 9000
 
 spring:
+  mvc:
+    static-path-pattern: /static/**
   #配置数据源
   datasource:
     druid:
-      url: jdbc:mysql://localhost:3306/jnhouse?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+      url: jdbc:mysql://localhost:3306/quartz?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
       username: root
       password: root
       driver-class-name: com.mysql.cj.jdbc.Driver
@@ -26,7 +28,7 @@ spring:
   quartz:
     #持久化到数据库方式
     job-store-type: jdbc
-    initialize-schema: embedded
+    initialize-schema: never
     properties:
       org:
         quartz:
@@ -36,12 +38,21 @@ spring:
           jobStore:
             class: org.quartz.impl.jdbcjobstore.JobStoreTX
             driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate
-            tablePrefix: QRTZ_
+            tablePrefix: qrtz_
             isClustered: true
-            clusterCheckinInterval: 10000
-            useProperties: false
+            clusterCheckinInterval: 10000 #设置此实例“检入”*与群集的其他实例的频率（以毫秒为单位）。影响检测失败实例的速度
+            useProperties: false #以指示JDBCJobStore将JobDataMaps中的所有值都作为字符串，因此可以作为名称 - 值对存储而不是在BLOB列中以其序列化形式存储更多复杂的对象。从长远来看，这是更安全的，因为您避免了将非String类序列化为BLOB的类版本问题。
+            misfireThreshold : 60000 #在被认为“失火”之前，调度程序将“容忍”一个Triggers将其下一个启动时间通过的毫秒数。默认值（如果您在配置中未输入此属性）为60000（60秒）。
           threadPool:
             class: org.quartz.simpl.SimpleThreadPool
             threadCount: 10
             threadPriority: 5
             threadsInheritContextClassLoaderOfInitializingThread: true
+  thymeleaf:
+    prefix: classpath:/templates/
+    check-template-location: true
+    suffix: .html
+    encoding: UTF-8
+    #   servlet.content-type: text/html
+    mode: HTML5
+    cache: false
