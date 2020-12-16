@@ -1,7 +1,7 @@
 package com.xmxe.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.xmxe.config.QuartzService;
+import com.xmxe.service.QuartzService;
 import com.xmxe.job.QuartzJob;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,12 +39,19 @@ public class JobController {
         return json;
     }
 
+    /**
+     * 添加调度任务
+     */
     @RequestMapping("/quartz_add")
     @ResponseBody
     public void quartz_add(){
         Map<String,String> map = Map.of("k","v");
         quartzService.addJob(QuartzJob.class,"jobname1","groupname1","0/5 * * * * ?",map);
     }
+
+    /**删除调度任务
+     *
+     */
     @RequestMapping("/quartz_del")
     @ResponseBody
     public void quartz_del(){

@@ -1,4 +1,4 @@
-package com.xmxe.config;
+package com.xmxe.service;
 
 import org.quartz.*;
 import org.quartz.impl.matchers.GroupMatcher;
