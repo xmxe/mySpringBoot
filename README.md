@@ -35,6 +35,7 @@
 #### spring-boot-starter-thymeleaf 模板引擎
 
 - [Thymeleaf【快速入门】](https://mp.weixin.qq.com/s/aotHeEvGl3usy5BkBBwrFA)
+- [细品 Spring Boot+Thymeleaf，还有这么多好玩的细节！](https://mp.weixin.qq.com/s/Uvv1q3iQn2IwAB1crHWS1g)
 
 ---
 #### spring-boot-devtools
@@ -44,7 +45,7 @@
 #### Shiro
 - [Shiro整合Web项目及整合后的开发](http://codingxiaxw.cn/2016/11/23/50-Shiro-Integration/)
 - [Shiro安全框架【快速入门】就这一篇！](https://mp.weixin.qq.com/s/eyCRXcnymdLzsmhYkAB1uw)
---- 
+---
 
 #### 相关文章
 
