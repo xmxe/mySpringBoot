@@ -7,7 +7,7 @@
 | [springboot-casclient-two](https://github.com/xmxe/mySpringBoot/tree/master/springboot-casclient-two) |     cas_client子系统      |                                                              |
 | [springboot-security-casclient-one](https://github.com/xmxe/mySpringBoot/tree/master/springboot-security-casclient-one) | cas+spring security子系统 | spring security不在作登陆校验，校验在cas server端完成，spring security在登陆成功后根据用户名做权限校验 |
 | [springboot-security-casclient-two](https://github.com/xmxe/mySpringBoot/tree/master/springboot-security-casclient-two) | cas+spring security子系统 | spring security不在作登陆校验，校验在cas server端完成，spring security在登陆成功后根据用户名做权限校验 |
-| [springboot-task](https://github.com/xmxe/mySpringBoot/tree/master/springboot-task) |    springboot定时任务     |                                                              |
+| [springboot-task](https://github.com/xmxe/mySpringBoot/tree/master/springboot-task) |    springboot定时任务     | [springboot+quartz整合](https://mp.weixin.qq.com/s/zJSPzcsFl72JNoqZpkH94A) |
 | [springboot-xmxe](https://github.com/xmxe/mySpringBoot/tree/master/springboot-xmxe) |      springboot web       | 主要做集成测试学习的spring boot项目，包括自定义全局异常处理，aop，过滤器（websocket），拦截器，mybatis多数据源，quartz，redis，shiro，swagger，freemarker，spring boot中mvc的配置,服务器跨域配置等 |
 
 ---
