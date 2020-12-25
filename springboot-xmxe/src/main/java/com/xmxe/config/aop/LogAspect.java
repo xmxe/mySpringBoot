@@ -1,18 +1,21 @@
 package com.xmxe.config.aop;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 @Component
 @Aspect//表示这是一个切面
 public class LogAspect {
-
-    Logger logger = LogManager.getLogger(LogAspect.class);
+    // log4j2实现
+    // Logger logger = LogManager.getLogger(LogAspect.class);
+    // slf4j实现
+    Logger logger = LoggerFactory.getLogger(LogAspect.class);
     /**
      * 可以统一定义切点
      */
@@ -40,7 +43,7 @@ public class LogAspect {
     public void before(JoinPoint joinPoint) {
         Signature signature = joinPoint.getSignature();
         String name = signature.getName();
-        logger.info("@Before->{}方法开始执行了... ",name);
+        logger.info("@Before->{} ",name);
     }
 
     /**
@@ -52,7 +55,7 @@ public class LogAspect {
     public void after(JoinPoint joinPoint) {
         Signature signature = joinPoint.getSignature();
         String name = signature.getName();
-        logger.info("@After->{}方法执行结束了... ",name);
+        logger.info("@After->{} ",name);
     }
 
     /**
@@ -66,7 +69,7 @@ public class LogAspect {
     public void returing(JoinPoint joinPoint,Integer r) {
         Signature signature = joinPoint.getSignature();
         String name = signature.getName();
-        logger.info("@AfterReturning_____r===>{},name===>{}... ",r,name);
+        logger.info("@AfterReturning--->r===>{},name===>{}... ",r,name);
     }
 
     /**
@@ -79,7 +82,7 @@ public class LogAspect {
     public void afterThrowing(JoinPoint joinPoint,Exception e) {
         Signature signature = joinPoint.getSignature();
         String name = signature.getName();
-        logger.info("@AfterThrowing 方法抛异常了e===>{},name===>{}... ",e.getMessage(),name);
+        logger.info("@AfterThrowing--->e===>{},name===>{}... ",e.getMessage(),name);
 
     }
 

@@ -1,9 +1,9 @@
 package com.xmxe.config.interceptor;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -11,7 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class MyInterceptor implements HandlerInterceptor{
-	Logger logger = LogManager.getLogger(MyInterceptor.class);
+	// log4j2实现
+	// Logger logger = LogManager.getLogger(MyInterceptor.class);
+	// slf4j实现
+	Logger logger = LoggerFactory.getLogger(MyInterceptor.class);
 	
 	/* 该方法将在请求处理之前进行调用，只有该方法返回true，才会继续执行后续的Interceptor和Controller，
 	 * 当返回值为true时就会继续调用

@@ -1,7 +1,7 @@
 package com.xmxe.config.filter;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
 
 import javax.servlet.*;
@@ -12,7 +12,10 @@ import java.io.IOException;
 @Order(1)//定义优先级
 @WebFilter(filterName="startFilter",urlPatterns="/*")
 public class StartFilter implements Filter{
-	Logger logger = LogManager.getLogger(StartFilter.class);
+	// log4j2实现
+	// Logger logger = LogManager.getLogger(StartFilter.class);
+	// slf4j实现
+	Logger logger = LoggerFactory.getLogger(StartFilter.class);
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
 		this.startWebsocketOnline();

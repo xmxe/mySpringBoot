@@ -1,15 +1,18 @@
 package com.xmxe.config.shiro;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authc.credential.SimpleCredentialsMatcher;
 import org.apache.shiro.crypto.hash.SimpleHash;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class CredentialsMatcher extends SimpleCredentialsMatcher{
-    Logger logger = LogManager.getLogger(CredentialsMatcher.class);
+    // log4j2实现
+    // Logger logger = LogManager.getLogger(CredentialsMatcher.class);
+    // slf4j实现
+    Logger logger = LoggerFactory.getLogger(CredentialsMatcher.class);
 
     /**
      * @param token 页面输入输入的数据

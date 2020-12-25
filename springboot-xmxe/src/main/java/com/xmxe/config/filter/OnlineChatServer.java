@@ -1,12 +1,12 @@
 package com.xmxe.config.filter;
 
 import com.alibaba.fastjson.JSONObject;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.java_websocket.WebSocket;
 import org.java_websocket.framing.Framedata;
 import org.java_websocket.handshake.ClientHandshake;
 import org.java_websocket.server.WebSocketServer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.net.InetSocketAddress;
 import java.net.UnknownHostException;
@@ -16,7 +16,10 @@ import java.net.UnknownHostException;
  * 在线管理
  */
 public class OnlineChatServer extends WebSocketServer {
-	Logger logger = LogManager.getLogger(OnlineChatServer.class);
+	// log4j2实现
+	// Logger logger = LogManager.getLogger(OnlineChatServer.class);
+	// slf4j实现
+	Logger logger = LoggerFactory.getLogger(OnlineChatServer.class);
 
 	public OnlineChatServer(int port) throws UnknownHostException {
 		super(new InetSocketAddress(port));

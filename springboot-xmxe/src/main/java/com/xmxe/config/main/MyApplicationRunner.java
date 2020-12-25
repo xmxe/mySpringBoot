@@ -1,7 +1,7 @@
 package com.xmxe.config.main;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.core.annotation.Order;
@@ -17,7 +17,10 @@ import java.util.Set;
 @Component
 @Order(2)//@Order 注解中，数字越小，优先级越大，默认情况下，优先级的值为 Integer.MAX_VALUE，表示优先级最低。
 public class MyApplicationRunner implements ApplicationRunner {
-    Logger logger = LogManager.getLogger(MyApplicationRunner.class);
+	// log4j2实现
+	// Logger logger = LogManager.getLogger(MyApplicationRunner.class);
+	// slf4j实现
+	Logger logger = LoggerFactory.getLogger(MyApplicationRunner.class);
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
 	    List<String> nonOptionArgs = args.getNonOptionArgs();
