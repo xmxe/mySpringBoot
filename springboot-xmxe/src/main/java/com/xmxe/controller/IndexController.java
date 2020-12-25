@@ -1,16 +1,21 @@
 package com.xmxe.controller;
 
+import com.xmxe.config.listen.MyEvent;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
 //@RequestMapping("**.do")
 public class IndexController {
+	@Resource
+	ApplicationContext context;
     
     @RequestMapping("/")
 	public String login() {
@@ -38,7 +43,11 @@ public class IndexController {
 	
 	@RequestMapping("/index")
 	public String index() {
-	    return "index";
+		// 增加监听器 当跳转到首页的时候触发监听器事件
+		MyEvent myEvent = new MyEvent(this);
+		// 发布事件，这样才能在CustomListener监听到
+		context.publishEvent(myEvent);
+		return "index";
 	} 
 	
 }
