@@ -134,6 +134,68 @@ function kuayu(){
 function download(){
 	window.location.href="download?filename=中文文件名测试.docx"
 }
+// ajax的返回值类型是json,text,html,xml类型，或者可以说ajax的接收类型只能是string字符串，不是流类型，所以无法实现文件下载。
+// 但用ajax仍然可以获得文件的内容，该文件将被保留在内存中，无法将文件保存到磁盘。这是因为JavaScript无法和磁盘进行交互，否则这会是一个严重的安全问题，
+// js无法调用到浏览器的下载处理机制和程序，会被浏览器阻塞。
+function download(){
+	var rows = $('#dg_01').datagrid('getChecked');
+	if ($.isEmptyObject(rows)) {
+		$.messager.alert('提示', '请选择一行数据！');
+		return;
+	}
+
+	if(!rows || rows.length<1){
+		$.messager.alert("提示", "请选择要下载的文件！");
+		return;
+	}
+	if(rows.length == 1){
+//		$.each(rows,function(i,row){
+		var iframe = document.createElement("iframe");
+		iframe.height = 0;
+		iframe.width = 0;
+		document.body.appendChild(iframe);
+		var name = rows[0].dcjz+'导出数据';
+		var ts = rows[0].ts;//扰动时间
+		var code = rows[0].code;
+		iframe.src ="lcModelCheckController/exportExcel.do?ts="+ts+"&name="+encodeURIComponent(name)+"&code="+code;
+//	});
+	}else{
+		// 动态生成form表单下载
+		var url = "lcModelCheckController/batchExcel.do";
+		var form = '<form method="post" id="customForm" action="'+url+'" enctyped="multipart/form-data">';//action="'+url+'"
+		$.each(rows,function(i,row){
+			var name = row.dcjz+'导出数据';
+			var ts = row.ts;//扰动时间
+			var code = row.code;
+			form+='<input name="name" type="hidden" value="'+name+'" />';
+			form+='<input name="ts" type="hidden" value="'+ts+'" />';
+			form+='<input name="code" type="hidden" value="'+code+'" />';
+		});
+		form+='</form>'
+		// form表单必须添加到body中 否则提交时(submit)在控制台会生成form submission canceled because the form is not connected警告无法完成提交请求
+		$(form).appendTo('body');
+		/*	$("#customForm").form({
+                url:url,
+                onSubmit:function(){
+                    $.custmask.show();
+
+                },
+                success:function(data){
+                    $.custmask.hide();
+                }
+            });*/
+
+		$("#customForm").submit();
+
+		// 对于返回类型为流类型 无法将服务端的cookie返回到浏览器
+		/*var interval = setInterval(function(){
+			console.log(document.cookie)
+		},1000)*/
+
+//		$.post("lcModelCheckController/batchExcel.do",{ts:tsarr,name:namearr,code:codearr},function(){})
+	}
+
+}
 </script>
 
 </body>

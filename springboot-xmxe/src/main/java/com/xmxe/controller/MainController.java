@@ -7,6 +7,11 @@ import com.xmxe.entity.User;
 import com.xmxe.service.MainService;
 import io.swagger.annotations.*;
 import org.apache.commons.io.FilenameUtils;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,11 +31,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 @Controller
 @Api(tags = "订单模块")
@@ -154,6 +162,150 @@ public class MainController {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+		}
+	}
+	/**
+	 * 批量下载 转zip
+	 * @param name js生成form表单提交的参数name
+	 * @param code js生成form表单提交的参数code
+	 * @param ts js生成form表单提交的参数ts
+	 * @param response 返回响应
+	 * @throws Exception
+	 */
+	@RequestMapping("batchDown")
+	public void batchExcel(String[] name,String[] code,String[] ts,HttpServletResponse response) throws Exception{
+		if(name!=null && name.length > 0){
+			// 创建临时压缩文件 浏览器下载的就是这个文件
+			File zipFile = File.createTempFile("zip", ".zip");
+			// 当文件不存在时创建成功返回true
+//			boolean iscreated = zipFile.createNewFile();
+			FileOutputStream out = new FileOutputStream(zipFile);
+			// 创建zip流 等待写入
+			ZipOutputStream zipout = new ZipOutputStream(out);
+
+			for(int i = 0;i < name.length;i++){
+				File fileTemp = null;
+				try {
+					fileTemp = File.createTempFile(name[i], ".xlsx");
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				// 将内容写入excel 执行完后fileTemp已经是真正的excel
+				creatExcel(fileTemp,code[i],ts[i]);
+				// 将excel文件添加到zip
+				zipFile(fileTemp,zipout);
+			}
+			zipout.close();
+			out.close();
+			response.reset();
+			// 下载zip
+			InputStream fis = new BufferedInputStream(new FileInputStream(zipFile));
+			byte[] buffer = new byte[fis.available()];
+			fis.read(buffer);
+			fis.close();
+			String filedisplay = name[0];
+			filedisplay = URLEncoder.encode(filedisplay + "等数据.zip", "UTF-8");
+			response.addHeader("Content-dispostion", "attachment;filename="+filedisplay);
+			response.setCharacterEncoding("UTF-8");
+			response.setContentType("APPLICATION/OCTET-STREAM");
+			response.setHeader("Content-Disposition", "attachment;filename=".concat(filedisplay));
+			OutputStream os = new BufferedOutputStream(response.getOutputStream());
+			os.write(buffer);
+			os.close();
+			zipFile.delete();
+		}
+	}
+
+	/**
+	 *
+	 * @param file 将要添加进压缩包的excel文件
+	 * @param outputStream zip压缩流
+	 * @throws Exception
+	 */
+	public void zipFile(File file,ZipOutputStream outputStream) throws Exception{
+		FileInputStream IN = new FileInputStream(file);
+		BufferedInputStream buffer = new BufferedInputStream(IN,1024);
+		ZipEntry entry = new ZipEntry(file.getName());
+		// 将文件放入压缩包
+		outputStream.putNextEntry(entry);
+		int number;
+		byte[] bytes = new byte[1024];
+		while((number = buffer.read(bytes)) != -1){
+			outputStream.write(bytes,0,number);
+		}
+		buffer.close();
+		IN.close();
+	}
+
+	/**
+	 *将内容写入到excel
+	 * @param file 创建的临时excel文件 无内容
+	 * @param code
+	 * @param ts
+	 */
+	public void creatExcel(File file,String code,String ts){
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+		// 模拟扰动时间前15s
+		Date rdsj_before = new Date();
+		// 模拟扰动时间后25s
+		Date rdsj_after = new Date();
+		try{
+			Date ts_date = sf.parse(ts);
+//			rdsj_before = FormatCalendar.offsetTime(ts_date, 1, -15);
+//			rdsj_after = FormatCalendar.offsetTime(ts_date, 1, 25);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		// pss输出信号
+		String pss_out_tag = "PMU."+code+"_GA000U0010R";
+		// 有功功率
+		String yg_tag = "PMU."+code+"_UB000W0001R";
+		try{
+//			Map<String,List<LightModel<Object>>> allData = HbaseRead.readRawValuesModels(rdsj_before, rdsj_after, new String[]{pss_out_tag,yg_tag});
+//			List<LightModel<Object>> pss_out_list = allData.get(pss_out_tag);
+			List<Object> pss_out_list = new ArrayList<>();
+//			List<LightModel<Object>> yg_list = allData.get(yg_tag);
+			List<Object> yg_list = new ArrayList<>();
+			int pss_out_length = 0;
+			if(pss_out_list != null && pss_out_list.size() > 0){
+				pss_out_length = pss_out_list.size();
+			}
+			int yg_length = 0;
+			if(yg_list != null && yg_list.size() > 0){
+				yg_length = yg_list.size();
+			}
+
+			int maxSize = pss_out_length > yg_length ? pss_out_length : yg_length;
+
+			String[] header={"有功功率","时间","pss输出信号","时间"};
+
+			Workbook wb = new XSSFWorkbook();
+			Sheet sheet = wb.createSheet("sheet1");
+			Row rowFirst = sheet.createRow(0);
+			for(int i = 0;i<header.length;i++){
+				sheet.setColumnWidth(i, 5000);
+			}
+			for(int i = 0;i<header.length;i++){
+				Cell cell = rowFirst.createCell(i);
+				cell.setCellValue(header[i]);
+			}
+
+			for(int i =0;i<maxSize;i++){
+				Row row = sheet.createRow(i+1);
+				row.createCell(0).setCellValue("");
+				row.createCell(1).setCellValue("");
+				row.createCell(2).setCellValue("");
+				row.createCell(3).setCellValue("");
+
+			}
+			// 指定本地文件流
+			OutputStream os = new FileOutputStream(file);
+			// excel写入
+			wb.write(os);
+			os.close();
+
+		}catch(Exception e){
+			e.printStackTrace();
 		}
 	}
 	
