@@ -1,4 +1,4 @@
-package com.xmxe.util;
+package com.xmxe.entity;
 
 import java.util.List;
 

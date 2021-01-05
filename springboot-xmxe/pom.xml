@@ -59,7 +59,7 @@
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-thymeleaf</artifactId><!-- 模板引擎 -->
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
 		
 		<dependency>
@@ -108,7 +108,7 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<scope>test</scope><!-- maven在编译的时候,src/main/java下是不引用<scope>test</scope>的jar,而编译src/test/java下的测试会引用<scope>test</scope>的jar -->
+			<scope>test</scope>
 		</dependency>
 
 		<dependency>
@@ -233,6 +233,11 @@
             <version>3.0.0</version>
         </dependency>
 
+		<dependency>
+			<groupId>redis.clients</groupId>
+			<artifactId>jedis</artifactId>
+			<version>3.1.0</version>
+		</dependency>
     </dependencies>
 
 	<build>

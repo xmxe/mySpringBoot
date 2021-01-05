@@ -7,7 +7,7 @@ import com.xmxe.dao.db2.DB2Dao;
 import com.xmxe.entity.Book;
 import com.xmxe.entity.Dept;
 import com.xmxe.entity.User;
-import com.xmxe.util.Page;
+import com.xmxe.entity.Page;
 import com.xmxe.util.SendMailUtil;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
