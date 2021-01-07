@@ -1,6 +1,7 @@
 package com.xmxe.service;
 
 import com.alibaba.fastjson.JSONObject;
+import com.xmxe.comonent.InvokeMethod;
 import com.xmxe.config.aop.AopAction;
 import com.xmxe.dao.db1.DB1Dao;
 import com.xmxe.dao.db2.DB2Dao;
@@ -48,7 +49,7 @@ public class MainService {
 	@Autowired
 	SendMailUtil sendMail;
 	
-	@AopAction//aop注解
+	@AopAction//日志注解
 	public User getUserById(Integer userId) {
 		//int a = 1/0;//测试aop @AfterThrowing
 		Map<String,Object> user = db2.getUserById(userId);
@@ -158,8 +159,9 @@ public class MainService {
 		}
 		return code;
 	}
-	
-	private char randomChar(){
+
+	@InvokeMethod(param="1111")
+	public char randomChar(){
 		Random r = new Random();
 		String s = "ABCDEFGHJKLMNPRSTUVWXYZ0123456789";
 		return s.charAt(r.nextInt(s.length()));

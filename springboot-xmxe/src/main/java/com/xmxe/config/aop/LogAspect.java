@@ -5,9 +5,12 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.*;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+
+import java.lang.reflect.Method;
 
 @Component
 @Aspect//表示这是一个切面
@@ -20,7 +23,7 @@ public class LogAspect {
      * 可以统一定义切点
      */
     @Pointcut("@annotation(AopAction)")
-    public void pointcut2() {
+    public void pointcut() {
 
     }
     /**
@@ -31,7 +34,7 @@ public class LogAspect {
      * 最后面的两个点表示方法参数任意，个数任意，类型任意
      */
     @Pointcut("execution(* com.xmxe.service.*.*(..))")
-    public void pointcut() {
+    public void pointcut2() {
 
     }
 
@@ -43,7 +46,7 @@ public class LogAspect {
     public void before(JoinPoint joinPoint) {
         Signature signature = joinPoint.getSignature();
         String name = signature.getName();
-        logger.info("@Before->{} ",name);
+        logger.info("@Before==[{}] ",name);
     }
 
     /**
@@ -55,7 +58,7 @@ public class LogAspect {
     public void after(JoinPoint joinPoint) {
         Signature signature = joinPoint.getSignature();
         String name = signature.getName();
-        logger.info("@After->{} ",name);
+        logger.info("@After==[{}] ",name);
     }
 
     /**
@@ -69,7 +72,28 @@ public class LogAspect {
     public void returing(JoinPoint joinPoint,Integer r) {
         Signature signature = joinPoint.getSignature();
         String name = signature.getName();
-        logger.info("@AfterReturning--->r===>{},name===>{}... ",r,name);
+        logger.info("@AfterReturning--->r===[{}],name===[{}]",r,name);
+
+        //1.获取切入点所在目标对象
+        Object targetObj = joinPoint.getTarget();
+        logger.info("获取切入点所在目标对象==[{}]",targetObj.getClass().getName());
+        // 2.获取切入点方法的名字
+        String methodName = joinPoint.getSignature().getName();
+        logger.info("切入方法名字==[{}]",methodName);
+        // 3. 获取方法上的注解
+        MethodSignature methodSignature = (MethodSignature) signature;
+        Method method = methodSignature.getMethod();
+
+        if (method != null) {
+            AopAction apiLog=  method.getAnnotation(AopAction.class);
+            logger.info("切入方法注解==[{}]",apiLog);
+        }
+
+        //4. 获取方法的参数
+        Object[] args = joinPoint.getArgs();
+        for(Object o :args){
+            logger.info("切入方法的参数==[{}]",o);
+        }
     }
 
     /**
@@ -82,20 +106,21 @@ public class LogAspect {
     public void afterThrowing(JoinPoint joinPoint,Exception e) {
         Signature signature = joinPoint.getSignature();
         String name = signature.getName();
-        logger.info("@AfterThrowing--->e===>{},name===>{}... ",e.getMessage(),name);
+        logger.info("@AfterThrowing--->e===>[{}],name==[{}] ",e.getMessage(),name);
 
     }
 
     /**
      * 环绕通知
      * 环绕通知是集大成者，可以用环绕通知实现上面的四个通知，这个方法的核心有点类似于在这里通过反射执行方法
-     * @param pjp
+     * @param pjp 相比JoinPoint多个了proceed()方法
      * @return 注意这里的返回值类型最好是 Object ，和拦截到的方法相匹配
      */
     @Around("pointcut()")
     public Object around(ProceedingJoinPoint pjp) {
         Object proceed = null;
         try {
+
             //这个相当于 method.invoke 方法，我们可以在这个方法的前后分别添加日志，就相当于是前置/后置通知
             proceed = pjp.proceed();
             logger.info("try @Around环绕通知");

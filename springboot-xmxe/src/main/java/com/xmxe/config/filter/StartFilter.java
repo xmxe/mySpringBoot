@@ -25,7 +25,7 @@ public class StartFilter implements Filter{
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		//调用该方法后，表示过滤器经过原来的url请求处理方法
+		// 进入下一个过滤链
 		chain.doFilter(request, response);
 	}
 

@@ -1,4 +1,4 @@
-package com.xmxe.comonent;
+package com.xmxe.entity;
 
 /**
  * 统一返回数据格式

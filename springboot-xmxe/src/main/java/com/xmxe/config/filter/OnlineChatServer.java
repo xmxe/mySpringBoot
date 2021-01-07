@@ -9,11 +9,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.net.InetSocketAddress;
-import java.net.UnknownHostException;
 
 
 /**
- * 在线管理
+ * WebSocket在线管理
  */
 public class OnlineChatServer extends WebSocketServer {
 	// log4j2实现
@@ -21,7 +20,7 @@ public class OnlineChatServer extends WebSocketServer {
 	// slf4j实现
 	Logger logger = LoggerFactory.getLogger(OnlineChatServer.class);
 
-	public OnlineChatServer(int port) throws UnknownHostException {
+	public OnlineChatServer(int port) {
 		super(new InetSocketAddress(port));
 	}
 

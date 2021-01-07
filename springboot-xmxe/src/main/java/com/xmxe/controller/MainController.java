@@ -1,7 +1,7 @@
 package com.xmxe.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.xmxe.comonent.ResultInfo;
+import com.xmxe.entity.ResultInfo;
 import com.xmxe.entity.Book;
 import com.xmxe.entity.User;
 import com.xmxe.service.MainService;

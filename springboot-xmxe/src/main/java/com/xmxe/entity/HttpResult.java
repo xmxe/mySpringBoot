@@ -1,4 +1,4 @@
-package com.xmxe.comonent;
+package com.xmxe.entity;
 
 public class HttpResult {
 	// 响应的状态码

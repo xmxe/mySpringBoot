@@ -1,6 +1,6 @@
 package com.xmxe.util;
 
-import com.xmxe.comonent.HttpResult;
+import com.xmxe.entity.HttpResult;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.*;
