@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 
+import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -40,10 +41,10 @@ import java.util.*;
 @Service
 public class MainService {
 
-	@Autowired
+	@Resource
 	MasterMapper masterMapper;
 	
-	@Autowired
+	@Resource
 	SlaveMapper slaveMapper;
 	
 	@Autowired

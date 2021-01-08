@@ -1,21 +1,21 @@
 package com.xmxe.config.shiro;
 
-import com.xmxe.mapper.master.MasterMapper;
 import com.xmxe.entity.User;
+import com.xmxe.mapper.master.MasterMapper;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
-import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.annotation.Resource;
 import java.util.*;
 
 //自定义Realm
 public class MyRealm extends AuthorizingRealm{
 
-    @Autowired
+    @Resource
     MasterMapper masterMapper;
 
     /**

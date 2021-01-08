@@ -59,5 +59,4 @@
 - [SpringBoot启动原理](https://mp.weixin.qq.com/s/tQQW1Bg-P3B1cIrl1Y_oVA)
 - [玩转SpringBoot的启动过程](https://mp.weixin.qq.com/s/qTa6hbOOSFqZ7gV6UnPj4g)
 - [为什么SpringBoot的 jar 可以直接运行？](https://mp.weixin.qq.com/s/JoEmiVP1lp9OVO7x1-x4zw)
-- [Spring Boot 2.4版本前后的分组配置变化及对多环境配置结构的影响](https://mp.weixin.qq.com/s/aulr7ooPnaC-RXz3LKNGcw)
 
