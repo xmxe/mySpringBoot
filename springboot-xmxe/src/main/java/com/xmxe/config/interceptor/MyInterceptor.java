@@ -22,7 +22,7 @@ public class MyInterceptor implements HandlerInterceptor{
 	 */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        logger.info("拦截器preHandle:{}","请求处理之前调用");
+//        logger.info("拦截器preHandle:{}","请求处理之前调用");
 //      HttpSession session = request.getSession(true);//request.getSession(false)等同于 如果当前没有session返回null
         Subject subject = SecurityUtils.getSubject();
         Object user = subject.getPrincipal();
@@ -42,7 +42,7 @@ public class MyInterceptor implements HandlerInterceptor{
      */
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,ModelAndView modelAndView) throws Exception {
-    	logger.info("postHandle:{}","视图渲染解析之前进行调用");
+//    	logger.info("postHandle:{}","视图渲染解析之前进行调用");
     }
 	   
     /* 该方法也是需要当前对应的Interceptor的preHandle方法的返回值为true时才会执行，
@@ -50,7 +50,7 @@ public class MyInterceptor implements HandlerInterceptor{
      */
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-    	logger.info("afterCompletion:{}","视图渲染解析之后进行调用");
+//    	logger.info("afterCompletion:{}","视图渲染解析之后进行调用");
     }
     
 }

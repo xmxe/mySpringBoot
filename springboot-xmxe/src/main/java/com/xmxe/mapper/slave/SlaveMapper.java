@@ -1,14 +1,14 @@
-package com.xmxe.dao.db2;
+package com.xmxe.mapper.slave;
 
-
-import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.Map;
+
 
 /*@Mapper*/
-public interface DB2Dao {
+public interface SlaveMapper {
 
 	@Select("select * from tbluser where oid = 1")
 	Map<String,Object> getUserById(@Param("user_id") Integer id);

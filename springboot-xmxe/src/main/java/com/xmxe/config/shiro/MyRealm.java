@@ -1,6 +1,6 @@
 package com.xmxe.config.shiro;
 
-import com.xmxe.dao.db1.DB1Dao;
+import com.xmxe.mapper.master.MasterMapper;
 import com.xmxe.entity.User;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -16,7 +16,7 @@ import java.util.*;
 public class MyRealm extends AuthorizingRealm{
 
     @Autowired
-    DB1Dao db1;
+    MasterMapper masterMapper;
 
     /**
      * 验证用户
@@ -29,7 +29,7 @@ public class MyRealm extends AuthorizingRealm{
         String inUsername = utoken.getUsername();
 //        Object username2 = token.getPrincipal();
 
-        User user = db1.getUserById("test".equals(inUsername) ? 1 : 2);
+        User user = masterMapper.getUserById("test".equals(inUsername) ? 1 : 2);
         if(user == null)
             throw new UnknownAccountException("账号不存在");
        /* if ("1".equals(username)){

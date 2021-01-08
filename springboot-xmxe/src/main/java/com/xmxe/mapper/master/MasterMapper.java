@@ -1,16 +1,15 @@
-package com.xmxe.dao.db1;
-
-import java.util.List;
-import java.util.Map;
-
-import org.apache.ibatis.annotations.Param;
+package com.xmxe.mapper.master;
 
 import com.xmxe.entity.Book;
 import com.xmxe.entity.Dept;
 import com.xmxe.entity.User;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
+import java.util.Map;
 
 /*@Mapper*/
-public interface DB1Dao {
+public interface MasterMapper {
 
 	/*@Select("select * from xxcl_user where id = #{user_id}")*/
 	User getUserById(@Param("user_id") Integer id);

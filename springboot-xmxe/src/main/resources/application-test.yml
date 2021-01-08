@@ -15,7 +15,7 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
-      db1:
+      master:
         url: jdbc:mysql://localhost:3306/jnhouse?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
         username: root
         password: root
@@ -34,7 +34,7 @@ spring:
         stat-view-servlet.login-password: admin
         stat-view-servlet.allow: 127.0.0.1
         stat-view-servlet.deny: 192.168.1.122
-      db2:
+      slave:
         url: jdbc:mysql://localhost:3306/dxjtys?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
         username: root
         password: root

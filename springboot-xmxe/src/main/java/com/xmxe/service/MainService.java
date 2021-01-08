@@ -3,8 +3,8 @@ package com.xmxe.service;
 import com.alibaba.fastjson.JSONObject;
 import com.xmxe.comonent.InvokeMethod;
 import com.xmxe.config.aop.AopAction;
-import com.xmxe.dao.db1.DB1Dao;
-import com.xmxe.dao.db2.DB2Dao;
+import com.xmxe.mapper.master.MasterMapper;
+import com.xmxe.mapper.slave.SlaveMapper;
 import com.xmxe.entity.Book;
 import com.xmxe.entity.Dept;
 import com.xmxe.entity.User;
@@ -41,10 +41,10 @@ import java.util.*;
 public class MainService {
 
 	@Autowired
-	DB1Dao db1;
+	MasterMapper masterMapper;
 	
 	@Autowired
-	DB2Dao db2;
+	SlaveMapper slaveMapper;
 	
 	@Autowired
 	SendMailUtil sendMail;
@@ -52,9 +52,9 @@ public class MainService {
 	@AopAction//日志注解
 	public User getUserById(Integer userId) {
 		//int a = 1/0;//测试aop @AfterThrowing
-		Map<String,Object> user = db2.getUserById(userId);
-		System.out.println("db2source------"+user);
-		return db1.getUserById(userId);
+		Map<String,Object> user = slaveMapper.getUserById(userId);
+		System.out.println("slaveDB------"+user);
+		return masterMapper.getUserById(userId);
 	}
 
 	
@@ -68,11 +68,11 @@ public class MainService {
 			//设置当前页 currentPage next pre  pageSize  start
 			page.setCurrentPage(currentPage);
 			//2.查询总记录数 total   pageCount
-			int total = db1.queryUserCount(tj);
+			int total = masterMapper.queryUserCount(tj);
 			page.setTotal(total);
 			//PageHelper.startPage(2, 3);//分页插件
 			//3.查询数据 rows
-			List<Book> rows = db1.querySome(tj,page.getStart(),page.getPageSize());
+			List<Book> rows = masterMapper.querySome(tj,page.getStart(),page.getPageSize());
 			page.setRows(rows);
 			//~~~~~~~~~~组装page对象 完毕 写出到客户端
 			response.setContentType("text/plain;charset=UTF-8");
@@ -90,7 +90,7 @@ public class MainService {
 	}
 	
 	public JSONObject aJsonObject(HttpServletRequest request) {
-		List<Dept> depts = db1.findDept();
+		List<Dept> depts = masterMapper.findDept();
 		List<Map<String,Object>> list = new ArrayList<>();
 		Map<String,Object> map = new HashMap<String,Object>();
 		for (int i = 0; i < depts.size(); i++) {
@@ -205,7 +205,7 @@ public class MainService {
 	
 	public void excel(HttpServletRequest request,HttpServletResponse response){
 		String[] handers = {"id","书名","作者","价格"};
-		List<Book> list = db1.querySome(null,1,5);	
+		List<Book> list = masterMapper.querySome(null,1,5);
 		try{
 			String filedisplay = "test.xlsx";
 			filedisplay = URLEncoder.encode(filedisplay, "UTF-8");			

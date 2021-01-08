@@ -9,22 +9,22 @@ import org.springframework.context.annotation.Configuration;
 @AutoConfigureAfter(MyBatisConfig.class) // 因为这个对象的扫描，需要在MyBatisConfig的后面注入，所以加上此注解
 public class MyBatisMapperScannerConfig {
 	@Bean
-	public MapperScannerConfigurer db1mapperScannerConfigurer() {
+	public MapperScannerConfigurer masterMapperScannerConfigurer() {
 		MapperScannerConfigurer mapperScannerConfigurer = new MapperScannerConfigurer();
 		// 获取之前注入的beanName为sqlSessionFactory的对象
-		mapperScannerConfigurer.setSqlSessionFactoryBeanName("db1sqlSessionFactory");
+		mapperScannerConfigurer.setSqlSessionFactoryBeanName("masterSqlSessionFactory");
 		// 指定xml配置文件的路径
-		mapperScannerConfigurer.setBasePackage("com.xmxe.dao.db1");
+		mapperScannerConfigurer.setBasePackage("com.xmxe.mapper.master");
 		return mapperScannerConfigurer;
 	}
 
 	@Bean
-	public MapperScannerConfigurer db2mapperScannerConfigurer() {
+	public MapperScannerConfigurer slaveMapperScannerConfigurer() {
 		MapperScannerConfigurer mapperScannerConfigurer = new MapperScannerConfigurer();
 		// 获取之前注入的beanName为sqlSessionFactory的对象
-		mapperScannerConfigurer.setSqlSessionFactoryBeanName("db2sqlSessionFactory");
+		mapperScannerConfigurer.setSqlSessionFactoryBeanName("slaveSqlSessionFactory");
 		// 指定xml配置文件的路径
-		mapperScannerConfigurer.setBasePackage("com.xmxe.dao.db2");
+		mapperScannerConfigurer.setBasePackage("com.xmxe.mapper.slave");
 		return mapperScannerConfigurer;
 	}
 }

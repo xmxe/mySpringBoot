@@ -61,7 +61,7 @@
         <logger name="java.sql" level="DEBUG" additivity="false">
             <appender-ref ref="Console"/>
         </logger>
-        <logger name="com.xmxe.dao" level="DEBUG" additivity="false">
+        <logger name="com.xmxe.mapper" level="DEBUG" additivity="false">
             <appender-ref ref="Console"/>
         </logger>
         

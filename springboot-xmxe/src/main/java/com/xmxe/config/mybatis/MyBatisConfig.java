@@ -23,54 +23,54 @@ import java.util.Properties;
 @EnableTransactionManagement // 加上这个注解，使得支持事务
 public class MyBatisConfig {
 
-	@Bean(name = "db1")
-	@ConfigurationProperties(prefix = "spring.datasource.druid.db1")
+	@Bean(name = "master")
+	@ConfigurationProperties(prefix = "spring.datasource.druid.master")
 	@Primary
-	public DataSource dataSource1() {
+	public DataSource dataSourceMaster() {
 		return DruidDataSourceBuilder.create().build();
 	}
 	
-	@Bean(name = "db1sqlSessionFactory")
+	@Bean(name = "masterSqlSessionFactory")
 	@Primary
-	public SqlSessionFactory db1SqlSessionFactory(@Qualifier("db1") DataSource dataSource) {
+	public SqlSessionFactory masterSqlSessionFactory(@Qualifier("master") DataSource dataSource) {
 		return setSessionFactoryBeanByDataSource(dataSource);
 	}
 	
 	@Bean
 	@Primary
-	public SqlSessionTemplate db1SqlSessionTemplate(
-			@Qualifier("db1sqlSessionFactory") SqlSessionFactory sqlSessionFactory) throws Exception {
+	public SqlSessionTemplate masterSqlSessionTemplate(
+			@Qualifier("masterSqlSessionFactory") SqlSessionFactory sqlSessionFactory) throws Exception {
 		return new SqlSessionTemplate(sqlSessionFactory);
 	}
 
 	@Bean
 	@Primary
-	public DataSourceTransactionManager db1TransactionManager(
-			@Qualifier("db1") DataSource dataSource) {
+	public DataSourceTransactionManager masterTransactionManager(
+			@Qualifier("master") DataSource dataSource) {
 		return new DataSourceTransactionManager(dataSource);
 	}
 
 	
-	@Bean(name = "db2")
-	@ConfigurationProperties(prefix = "spring.datasource.druid.db2")
-	public DataSource dataSource2() {
+	@Bean(name = "slave")
+	@ConfigurationProperties(prefix = "spring.datasource.druid.slave")
+	public DataSource dataSourceSlave() {
 		return DruidDataSourceBuilder.create().build();
 	}
 
 	
-	@Bean(name = "db2sqlSessionFactory")
-	public SqlSessionFactory db2SqlSessionFactory(@Qualifier("db2") DataSource dataSource) {
+	@Bean(name = "slaveSqlSessionFactory")
+	public SqlSessionFactory slaveSqlSessionFactory(@Qualifier("slave") DataSource dataSource) {
 		return setSessionFactoryBeanByDataSource(dataSource);
 	}
 
 	@Bean
-	public SqlSessionTemplate db2SqlSessionTemplate(
-			@Qualifier("db2sqlSessionFactory") SqlSessionFactory sqlSessionFactory) throws Exception {
+	public SqlSessionTemplate slaveSqlSessionTemplate(
+			@Qualifier("slaveSqlSessionFactory") SqlSessionFactory sqlSessionFactory) throws Exception {
 		return new SqlSessionTemplate(sqlSessionFactory);
 	}
 	@Bean
-	public DataSourceTransactionManager db2TransactionManager(
-			@Qualifier("db2") DataSource dataSource) {
+	public DataSourceTransactionManager slaveTransactionManager(
+			@Qualifier("slave") DataSource dataSource) {
 		return new DataSourceTransactionManager(dataSource);
 	}
 
