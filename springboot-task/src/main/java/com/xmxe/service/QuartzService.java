@@ -11,10 +11,13 @@ import java.util.*;
 
 @Service
 public class QuartzService {
+
     @Autowired
     private Scheduler scheduler;
 
-    @PostConstruct
+    // 被@PostConstruct修饰的方法会在服务器加载Servlet的时候运行，并且只会被服务器执行一次
+    // 注解的方法在整个Bean初始化中的执行顺序：Constructor(构造方法) -> @Autowired(依赖注入) -> @PostConstruct(注释的方法)
+    @PostConstruct// @Autowired注入完毕后执行此方法
     public void startScheduler() {
         try {
             scheduler.start();

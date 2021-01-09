@@ -7,28 +7,49 @@ spring:
   #配置数据源
   datasource:
     druid:
-      url: jdbc:mysql://localhost:3306/quartz?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
-      username: root
-      password: root
-      driver-class-name: com.mysql.cj.jdbc.Driver
-      initial-size: 3
-      min-idle: 3
-      max-active: 10
-      max-wait: 60000
-      web-stat-filter.enabled: true
-      web-stat-filter.url-pattern: /*
-      web-stat-filter.exclusions: /*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*
-      stat-view-servlet.enabled: true
-      stat-view-servlet.url-pattern: /druid/*
-      stat-view-servlet.reset-enable: false
-      stat-view-servlet.login-username: admin
-      stat-view-servlet.login-password: admin
-      stat-view-servlet.allow: 127.0.0.1
-      stat-view-servlet.deny: 192.168.1.122
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /druid/*
+        reset-enable: false
+        login-username: admin
+        login-password: admin
+        allow: 127.0.0.1
+        deny: 192.168.1.122
+      web-stat-filter:
+        enabled: true
+        url-pattern: /*
+        exclusions: /*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*
+    dynamic:
+      primary: master #默认数据源
+      strict: false #设置严格模式,默认false不启动. 启动后在未匹配到指定数据源时候会抛出异常,不启动则使用默认数据源.
+      druid: #以下是支持的全局默认值
+        initial-size: 3
+        min-idle: 3
+        max-active: 10
+        max-wait: 60000
+      datasource:
+        master:
+          url: jdbc:mysql://localhost:3306/quartz?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+          username: root
+          password: root
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          druid: # 以下是独立参数，每个库可以重新设置
+            initial-size: 4
+            min-idle: 4
+            max-active: 11
+        slave:
+          url: jdbc:mysql://localhost:3306/dxjtys?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+          username: root
+          password: root
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          druid: # 以下是独立参数，每个库可以重新设置
+            initial-size: 4
+            min-idle: 4
+            max-active: 11
   quartz:
     #持久化到数据库方式
     job-store-type: jdbc
-    initialize-schema: never
+#    initialize-schema: never
     properties:
       org:
         quartz:
