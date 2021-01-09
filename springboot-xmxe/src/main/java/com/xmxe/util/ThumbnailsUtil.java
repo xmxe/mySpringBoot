@@ -1,17 +1,13 @@
-package com.xmxe.controller;
+package com.xmxe.util;
 
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.geometry.Positions;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
 
-@RestController
-public class ThumbnailsController {
-
+public class ThumbnailsUtil {
 
 	/**
 	 * 指定大小缩放 若图片横比width小，高比height小，放大
@@ -24,8 +20,6 @@ public class ThumbnailsController {
 	 * @param height    高
 	 * @param tofile    生成文件路径
 	 */
-
-	@GetMapping("/changeSize")
 	public static void changeSize(String resource, int width, int height, String tofile) {
 		try {
 			Thumbnails.of(resource).size(width, height).toFile(tofile);
@@ -41,7 +35,6 @@ public class ThumbnailsController {
 	 * @param scale      指定比例
 	 * @param tofile     生成文件路径
 	 */
-	@GetMapping("/changeScale")
 	public static void changeScale(String resource, double scale, String tofile) {
 		try {
 			Thumbnails.of(resource).scale(scale).toFile(tofile);
@@ -59,7 +52,6 @@ public class ThumbnailsController {
 	 * @param opacity   水印透明度
 	 * @param tofile    生成文件路径
 	 */
-	@GetMapping("/watermark")
 	public static void watermark(String resource, Positions p, String shuiyin, float opacity, String tofile) {
 		try {
 			Thumbnails.of(resource).scale(1).watermark(p, ImageIO.read(new File(shuiyin)), opacity).toFile(tofile);
@@ -76,7 +68,6 @@ public class ThumbnailsController {
 	 * @param tofile    生成文件路径
 	 */
 
-	@GetMapping("/rotate")
 	public static void rotate(String resource, double rotate, String tofile) {
 		try {
 			Thumbnails.of(resource).scale(1).rotate(rotate).toFile(tofile);
@@ -94,7 +85,6 @@ public class ThumbnailsController {
 	 * @param height    裁剪区域高
 	 * @param tofile    生成文件路径
 	 */
-	@GetMapping("/region")
 	public static void region(String resource, Positions p, int width, int height, String tofile) {
 		try {
 			Thumbnails.of(resource).scale(1).sourceRegion(p, width, height).toFile(tofile);
