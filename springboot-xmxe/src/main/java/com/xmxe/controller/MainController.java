@@ -448,7 +448,7 @@ public class MainController {
 	}
 	@PostMapping("validated")
 	@ResponseBody
-	public ResultInfo<Book> validated(@Validated Book book){
+	public ResultInfo<Book> validated(@Validated(Book.group1.class) Book book){
 
 		return new ResultInfo<>(200,"请求成功",book);
 	}
