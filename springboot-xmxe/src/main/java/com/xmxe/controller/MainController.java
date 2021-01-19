@@ -46,20 +46,18 @@ import java.util.zip.ZipOutputStream;
 public class MainController {	
 	@Autowired
 	MainService mainService;
-    
-	//分页页面
+
+	// thymeleaf只能被控制器访问
 	@RequestMapping("/pageView")
 	public String pageView() {
 		return "content/page";
 	}
-	
-	//ztree页面
+
 	@RequestMapping("/ztreeView")
 	public String ztreeView() {
 		return "content/ztree";
 	}
-	
-	//form
+
 	@RequestMapping("/form")
 	public String form() {
 		return "content/form";
@@ -122,8 +120,6 @@ public class MainController {
 			int filesize = conn.getContentLength(); // 取数据长度
 			try{
 				newinputstream = conn.getInputStream();
-			}catch(FileNotFoundException e){
-				newinputstream = null;
 			}catch(Exception e){
 				newinputstream = null;
 			}
@@ -143,8 +139,6 @@ public class MainController {
 					os.write(buffer, 0, nRead);
 				}
 			}
-		}catch(FileNotFoundException fe){
-			fe.printStackTrace();
 		}catch (Exception e) {
 			e.printStackTrace();
 		}finally{
@@ -238,7 +232,7 @@ public class MainController {
 	}
 
 	/**
-	 *将内容写入到excel
+	 * 将内容写入到excel
 	 * @param file 创建的临时excel文件 无内容
 	 * @param code
 	 * @param ts
@@ -309,7 +303,6 @@ public class MainController {
 		}
 	}
 	
-	//上传
 	@RequestMapping("/upload")
 	public void upload(HttpServletRequest request, HttpServletResponse response) {
 		try{
@@ -371,7 +364,6 @@ public class MainController {
 		return json;
 	}
 
-	//分页后台逻辑
 	@RequiresRoles("user")//指定角色才可以执行的权限
 	@GetMapping("/page")//相当于@RequestMapping(value="/page",method = RequestMethod.GET)
 	public void page(HttpServletRequest request, HttpServletResponse response) {
@@ -381,12 +373,11 @@ public class MainController {
 			e.printStackTrace();
 		}
 	}
-	
-	//ztree
+
 	@RequiresPermissions("user:add")//指定拥有此权限的才可以执行
 	@RequestMapping(value="/dept/aJsonObject",method = RequestMethod.GET)
 	@ResponseBody
-	public JSONObject aJsonObject(HttpServletRequest request) {
+	public JSONObject ztree(HttpServletRequest request) {
 		JSONObject json = null;
 		try{
 			json = mainService.aJsonObject(request);
@@ -395,8 +386,10 @@ public class MainController {
 		}
 		return json;
 	}
-	
-	//验证码
+
+	/**
+	 * 验证码
+	 */
 	@RequestMapping(value="/code")
 	public void generate(HttpServletRequest request,HttpServletResponse response){
 		try{
@@ -406,8 +399,7 @@ public class MainController {
 		}
 		
 	}
-	
-	//校验登陆
+
 	@RequestMapping(value="/loginCheck")
 	@ResponseBody
 	public JSONObject loginCheck(HttpServletRequest request) {
@@ -419,8 +411,7 @@ public class MainController {
 		}
 		return json;
 	} 
-	
-	//excel
+
 	@RequestMapping(value="/excel")
 	@ResponseBody
 	public void excel(HttpServletRequest request,HttpServletResponse response){
@@ -431,7 +422,6 @@ public class MainController {
 		}		
 		
 	}
-
 	
 	@GetMapping("/freemarker")
     public String fm(Model model) {
@@ -446,6 +436,7 @@ public class MainController {
         model.addAttribute("users", users);
         return "user";
 	}
+
 	@PostMapping("validated")
 	@ResponseBody
 	public ResultInfo<Book> validated(@Validated(Book.group1.class) Book book){

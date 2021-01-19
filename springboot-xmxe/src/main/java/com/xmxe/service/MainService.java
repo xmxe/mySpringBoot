@@ -161,7 +161,7 @@ public class MainService {
 		return code;
 	}
 
-	@InvokeMethod(param="1111")
+	@InvokeMethod(param="1111")// 启动spring自动执行的方法
 	public char randomChar(){
 		Random r = new Random();
 		String s = "ABCDEFGHJKLMNPRSTUVWXYZ0123456789";
@@ -301,7 +301,6 @@ public class MainService {
 		} catch (Exception e) {			
 			e.printStackTrace();
 		}
-		
 				
 	}
 }
