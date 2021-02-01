@@ -63,6 +63,17 @@ public class MainController {
 		return "content/form";
 	}
 
+	@RequestMapping(value="/global")//ip:port/global?date=2020-12-12 12:12:12
+	@ResponseBody
+	public void customGlobal(Date date,Model model){
+		try{
+			System.out.println(date);
+			System.out.println(model.getAttribute("global"));
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+
 	@RequestMapping(value="/download")
 	@ResponseBody
 	public ResponseEntity<byte[]> down(HttpServletRequest request) throws Exception{
