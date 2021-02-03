@@ -17,44 +17,47 @@ import java.lang.reflect.Method;
 import java.util.Map;
 
 @Component("SpringBeanLoadOrderName")
-public class SpringBeanLoadOrder implements BeanNameAware, BeanFactoryAware, BeanPostProcessor,
-												InitializingBean, ApplicationContextAware,
-													SmartInitializingSingleton,DisposableBean {
+public class SpringBeanLoadOrder implements BeanNameAware,
+											BeanFactoryAware,
+											BeanPostProcessor,
+											InitializingBean,
+											ApplicationContextAware,
+											SmartInitializingSingleton,
+											DisposableBean {
 
 	private Logger logger = LoggerFactory.getLogger(SpringBeanLoadOrder.class);
 
 	private ApplicationContext applicationContext = null;
 
+	private BeanFactory beanFactory = null;
+
 	private String beanName = "";
 
 	/**
+	 * implements BeanNameAware
 	 * 获取实现该接口Bean的beanName
-	 * @param currentBeanName
 	 * order 1
 	 */
 	@Override
 	public void setBeanName(String currentBeanName) {
 		beanName = currentBeanName;
-//		logger.info("进入BeanNameAware.setBeanName,此时beanName==[{}],applicationContext==[{}]",beanName,applicationContext);
+//		logger.info("BeanNameAware.setBeanName,beanName==[{}],applicationContext==[{}]",beanName,applicationContext);
 	}
 
 	/**
-	 * 获取实现该接口的beanFactory
-	 * @param beanFactory
-	 * @throws BeansException
+	 * implements BeanFactoryAware
+	 * 获取beanFactory
 	 * order 2
 	 */
 	@Override
 	public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
-//		logger.info("BeanFactoryAware.setBeanFactory,此时beanName==[{}],isSingleton()==[{}],applicationContext==[{}]",beanName,beanFactory.isSingleton(beanName),applicationContext);
+		this.beanFactory = beanFactory;
+//		logger.info("BeanFactoryAware.setBeanFactory,beanName==[{}],isSingleton()==[{}],applicationContext==[{}]",beanName,beanFactory.isSingleton(beanName),applicationContext);
 	}
 
 	/**
+	 * implements BeanPostProcessor
 	 * bean初始化的前置方法
-	 * @param bean
-	 * @param beanName
-	 * @return
-	 * @throws BeansException
 	 * order 3
 	 */
 	public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
@@ -63,22 +66,18 @@ public class SpringBeanLoadOrder implements BeanNameAware, BeanFactoryAware, Bea
 	}
 
 	/**
-	 * bean在它的所有必须属性被BeanFactory设置后，来执行初始化的工作
-	 * 调用其afterPropertiesSet()方法
-	 * @throws Exception
+	 * implements InitializingBean
+	 * bean在它的所有必须属性被BeanFactory设置后，来执行初始化的工作,调用其afterPropertiesSet()方法
 	 * order 4
 	 */
 	@Override
 	public void afterPropertiesSet() throws Exception {
-//		logger.info("InitializingBean.afterPropertiesSet,此时beanName==[{}],applicationCntext==[{}]",beanName,applicationContext);
+//		logger.info("InitializingBean.afterPropertiesSet,beanName==[{}],applicationCntext==[{}]",beanName,applicationContext);
 	}
 
 	/**
+	 * implements BeanPostProcess
 	 * bean初始化后的后置方法
-	 * @param bean
-	 * @param beanName
-	 * @return
-	 * @throws BeansException
 	 * order 5
 	 */
 	public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
@@ -87,15 +86,13 @@ public class SpringBeanLoadOrder implements BeanNameAware, BeanFactoryAware, Bea
 	}
 
 	/**
-	 *
-	 * @param applicationContext
-	 * @throws BeansException
+	 * implements ApplicationContextAware
 	 * order 6
 	 */
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		this.applicationContext = applicationContext;
-//		logger.info("ApplicationContextAware.setApplicationContext,此时beanName==[{}],applicationCntext==[{}]",beanName,applicationContext);
+//		logger.info("ApplicationContextAware.setApplicationContext,beanName==[{}],applicationCntext==[{}]",beanName,applicationContext);
 	}
 
 	/**
@@ -154,10 +151,12 @@ public class SpringBeanLoadOrder implements BeanNameAware, BeanFactoryAware, Bea
 		}
 	}
 
+	/**
+	 * implements DisposableBean
+	 */
 	@Override
 	public void destroy() throws Exception {
-//		logger.info("DisposableBean.destory,此时beanName==[{}],applicationCntext==[{}]",beanName,applicationContext);
+//		logger.info("DisposableBean.destory,beanName==[{}],applicationCntext==[{}]",beanName,applicationContext);
 	}
-
 
 }
