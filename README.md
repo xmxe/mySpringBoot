@@ -59,4 +59,5 @@
 - [SpringBoot启动原理](https://mp.weixin.qq.com/s/tQQW1Bg-P3B1cIrl1Y_oVA)
 - [玩转SpringBoot的启动过程](https://mp.weixin.qq.com/s/qTa6hbOOSFqZ7gV6UnPj4g)
 - [为什么SpringBoot的 jar 可以直接运行？](https://mp.weixin.qq.com/s/JoEmiVP1lp9OVO7x1-x4zw)
+- [五分钟说清楚 Spring Boot的自动配置原理](https://mp.weixin.qq.com/s/Mh7ltwytt5K0yeqjbQJi_w)
 
