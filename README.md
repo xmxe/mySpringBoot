@@ -32,22 +32,22 @@
   想要实现不同子系统不同登录页主要在service目录下配置name-id.json文件,在name-id.json中配置theme
 
 ------
-#### spring-boot-starter-thymeleaf 模板引擎
+### spring-boot-starter-thymeleaf 模板引擎
 
 - [Thymeleaf【快速入门】](https://mp.weixin.qq.com/s/aotHeEvGl3usy5BkBBwrFA)
 - [细品 Spring Boot+Thymeleaf，还有这么多好玩的细节！](https://mp.weixin.qq.com/s/Uvv1q3iQn2IwAB1crHWS1g)
 
 ---
-#### spring-boot-devtools
+### spring-boot-devtools
  > Spring Boot应用支持热部署，无需手动重启Spring Boot应用,spring-boot-devtools是一个为开发者服务的一个模块，其中最重要的功能就是修改代码后自动启动springboot服务，速度比手动停止后再启动要快，节省出来的并不是手工操作的时间，具体原理主要是使用了两个ClassLoader，一个Classloader加载不会改变的类（第三方Jar包），另一个ClassLoader加载会更改的类，称为  restart ClassLoader,这样在有代码更改的时候，原来的restartClassLoader 被丢弃，重新创建一个restartClassLoader，由于需要加载的类相比较少，所以实现了较快的重启时间
 
 ---
-#### Shiro
+### Shiro
 - [Shiro整合Web项目及整合后的开发](http://codingxiaxw.cn/2016/11/23/50-Shiro-Integration/)
 - [Shiro安全框架【快速入门】就这一篇！](https://mp.weixin.qq.com/s/eyCRXcnymdLzsmhYkAB1uw)
 ---
 
-#### 相关文章
+### 相关文章
 
 - [3W 字的 Spring Boot 超详细总结](https://mp.weixin.qq.com/s/ZEFyH0A7GOlDAEuV5M_fFA)
 - [Spring Boot 深度调优，6得飞起~](https://mp.weixin.qq.com/s/4DlMT007f8zM6PWPf8y4bQ)
