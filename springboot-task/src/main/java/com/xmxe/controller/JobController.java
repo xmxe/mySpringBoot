@@ -1,7 +1,7 @@
 package com.xmxe.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.xmxe.service.QuartzService;
+import com.xmxe.util.QuartzService;
 import com.xmxe.job.QuartzJob;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
