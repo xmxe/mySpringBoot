@@ -7,8 +7,8 @@
 | [springboot-casclient-two](https://github.com/xmxe/mySpringBoot/tree/master/springboot-casclient-two) |     cas_client子系统      |                                                              |
 | [springboot-security-casclient-one](https://github.com/xmxe/mySpringBoot/tree/master/springboot-security-casclient-one) | cas+spring security子系统 | spring security不在作登陆校验，校验在cas server端完成，spring security在登陆成功后根据用户名做权限校验 |
 | [springboot-security-casclient-two](https://github.com/xmxe/mySpringBoot/tree/master/springboot-security-casclient-two) | cas+spring security子系统 | spring security不在作登陆校验，校验在cas server端完成，spring security在登陆成功后根据用户名做权限校验 |
-| [springboot-task](https://github.com/xmxe/mySpringBoot/tree/master/springboot-task) |    springboot定时任务     | [springboot+quartz整合](https://mp.weixin.qq.com/s/zJSPzcsFl72JNoqZpkH94A) |
-| [springboot-xmxe](https://github.com/xmxe/mySpringBoot/tree/master/springboot-xmxe) |      springboot web       | 主要做集成测试学习的spring boot项目，包括自定义全局异常处理，aop，过滤器（websocket），拦截器，mybatis多数据源，quartz，redis，shiro，swagger，freemarker，spring boot中mvc的配置,服务器跨域配置等 |
+| [springboot-task](https://github.com/xmxe/mySpringBoot/tree/master/springboot-task) |    springboot定时任务     | [springboot+quartz整合](https://mp.weixin.qq.com/s/zJSPzcsFl72JNoqZpkH94A) 、 [苞米豆读写分离注解](https://gitee.com/baomidou/dynamic-datasource-spring-boot-starter) |
+| [springboot-xmxe](https://github.com/xmxe/mySpringBoot/tree/master/springboot-xmxe) |      springboot web       | 主要做集成测试学习的spring boot项目，包括自定义全局操作（异常处理、@InitBinder、@ModelAttribute），spring bean生命周期、AOP，Filter（websocket），拦截器，监听器、自定义mybatis多数据源，集成quartz，redis，shiro，swagger，freemarker，启动时初始化加载，spring boot中mvc的配置,服务器跨域配置等 |
 
 ---
 
