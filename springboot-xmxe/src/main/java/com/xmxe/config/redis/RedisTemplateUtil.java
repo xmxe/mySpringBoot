@@ -556,4 +556,14 @@ public class RedisTemplateUtil {
 		}
 	}
 
+	/**
+	 * redis发布-订阅之 发布
+	 * @param channel 要发布的频道 (topic)
+	 * @param message 发布的消息 消息需要序列化处理
+	 */
+	public void publish(String channel,Object message) {
+		// 发送消息
+		redisTemplate.convertAndSend(channel, message);
+	}
+
 }
