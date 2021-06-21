@@ -1,8 +1,9 @@
 package com.xmxe.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.xmxe.entity.ResultInfo;
+import com.wf.captcha.utils.CaptchaUtil;
 import com.xmxe.entity.Book;
+import com.xmxe.entity.ResultInfo;
 import com.xmxe.entity.User;
 import com.xmxe.service.MainService;
 import io.swagger.annotations.*;
@@ -401,14 +402,24 @@ public class MainController {
 	/**
 	 * 验证码
 	 */
-	@RequestMapping(value="/code")
+	@RequestMapping(value="/code2")
 	public void generate(HttpServletRequest request,HttpServletResponse response){
 		try{
 			mainService.generate(request,response);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		
+	}
+
+	/**
+	 * 使用工具类生成图片验证码
+	 * @param request
+	 * @param response
+	 * @throws Exception
+	 */
+	@RequestMapping("/code")
+	public void captcha(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		CaptchaUtil.out(request, response);
 	}
 
 	@RequestMapping(value="/loginCheck")

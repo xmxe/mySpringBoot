@@ -250,6 +250,13 @@
 			<artifactId>thumbnailator</artifactId>
 			<version>0.4.13</version>
 		</dependency>
+
+		<!-- 图片验证码工具类 -->
+		<dependency>
+			<groupId>com.github.whvcse</groupId>
+			<artifactId>easy-captcha</artifactId>
+			<version>1.6.2</version>
+		</dependency>
     </dependencies>
 
 	<build>

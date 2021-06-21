@@ -1,14 +1,15 @@
 package com.xmxe.service;
 
 import com.alibaba.fastjson.JSONObject;
+import com.wf.captcha.utils.CaptchaUtil;
 import com.xmxe.comonent.InvokeMethod;
 import com.xmxe.config.aop.AopAction;
-import com.xmxe.mapper.master.MasterMapper;
-import com.xmxe.mapper.slave.SlaveMapper;
 import com.xmxe.entity.Book;
 import com.xmxe.entity.Dept;
-import com.xmxe.entity.User;
 import com.xmxe.entity.Page;
+import com.xmxe.entity.User;
+import com.xmxe.mapper.master.MasterMapper;
+import com.xmxe.mapper.slave.SlaveMapper;
 import com.xmxe.util.SendMailUtil;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
@@ -180,7 +181,9 @@ public class MainService {
 			json.put("message", "请输入验证码");
 			return json;
 		}
-		if(code.equalsIgnoreCase(codeSession)) {
+		if (CaptchaUtil.ver(code, request)) {//使用工具类校验验证码
+
+//		if(code.equalsIgnoreCase(codeSession)) {//普通方法校验验证码
 			Map<String,String> map = new HashMap<>();
 			map.put("username", name);map.put("password", password);
 			Subject subject = SecurityUtils.getSubject();
@@ -198,6 +201,7 @@ public class MainService {
 				json.put("message", "密码错误");
 			}
 		}else {
+			CaptchaUtil.clear(request);  // 清除session中的验证码
 			json.put("message", "验证码不正确");
 		}
 		

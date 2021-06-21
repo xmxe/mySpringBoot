@@ -126,6 +126,7 @@ function login(){
 				window.location.href="index";
 			}else{
 				layer.msg(data.message);
+				changeCode()
 			}
 		},
 		error:function(data){
@@ -218,8 +219,8 @@ function xzfh2(){
 			<label class="layui-form-label" style="color:#DCE5D7">验证码:</label>
 			<div class="layui-input-inline">
 				<input type="text" name="code" id="code" class="layui-input"
-					style="width: 100px; height: 25px; float: left" placeholder="请输入验证码"> <i><img
-					id="codeImg" alt="点击更换" title="点击更换" src=""></i>
+					style="width:100px; height: 25px; float: left" placeholder="请输入验证码"> <i><img
+					id="codeImg" alt="点击更换" title="点击更换" width="80px" height="40px"></i>
 			</div>
 		</div>
 		<div class="layui-form-item">
