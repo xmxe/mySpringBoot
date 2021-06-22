@@ -17,3 +17,8 @@ public class MyEvent extends ApplicationEvent {
 	}
 
 }
+/**
+ * 除了继承ApplicationEvent之外还可以通过注解@EventListener实现监听，
+ * 也可以在application.properties配置context.listener.classes=com.xmxe.config.listen.MyEvent指定监听类
+ * [springboot自定义监听事件](https://mp.weixin.qq.com/s/ylmU2rT0JlnYJA9f1w065A)
+ */
