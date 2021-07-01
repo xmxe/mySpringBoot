@@ -1,0 +1,36 @@
+server:
+  servlet:
+    encoding:
+      force: true
+      charset: UTF-8
+#    context-path: /xmxe
+
+  tomcat:
+    uri-encoding: utf-8
+
+spring:
+  mvc:
+    static-path-pattern: /static/**
+  #    view:
+  #      prefix: /WEB-INF/views/
+  #      suffix: .jsp
+
+  resources:
+    static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/
+
+  thymeleaf:
+    prefix: classpath:/templates/
+    check-template-location: true
+    suffix: .html
+    encoding: UTF-8
+    #   servlet.content-type: text/html
+    mode: HTML5
+    cache: false
+
+shiro:
+  loginUrl: /login
+  successUrl: /index
+  unauthorizedUrl: /error
+
+
+

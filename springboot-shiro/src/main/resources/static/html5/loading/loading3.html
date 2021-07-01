@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>loading3</title>
+    <style type="text/css">
+    .spinner {
+        width: 40px;
+        height: 40px;
+
+        position: relative;
+        margin: 100px auto;
+    }
+
+    .double-bounce1,
+    .double-bounce2 {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background-color: #333;
+        opacity: 0.6;
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
+        animation: sk-bounce 2.0s infinite ease-in-out;
+    }
+
+    .double-bounce2 {
+        -webkit-animation-delay: -1.0s;
+        animation-delay: -1.0s;
+    }
+
+    @-webkit-keyframes sk-bounce {
+
+        0%,
+        100% {
+            -webkit-transform: scale(0.0)
+        }
+
+        50% {
+            -webkit-transform: scale(1.0)
+        }
+    }
+
+    @keyframes sk-bounce {
+
+        0%,
+        100% {
+            transform: scale(0.0);
+            -webkit-transform: scale(0.0);
+        }
+
+        50% {
+            transform: scale(1.0);
+            -webkit-transform: scale(1.0);
+        }
+    }
+    </style>
+</head>
+<!-- 
+	解析：两个子元素 div 实现半透明的圆形，设置绝对定位重叠在一起，然后设置相同的动画通过不同的延迟时间交替放大缩小。
+-->
+<body>
+    <div class="spinner">
+        <div class="double-bounce1"></div>
+        <div class="double-bounce2"></div>
+    </div>
+</body>
+
+</html>
