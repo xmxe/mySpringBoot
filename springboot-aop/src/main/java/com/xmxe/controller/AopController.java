@@ -1,6 +1,6 @@
 package com.xmxe.controller;
 
-import com.xmxe.aopconfig.AopAction;
+import com.xmxe.config.AopAction;
 import com.xmxe.service.AopService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

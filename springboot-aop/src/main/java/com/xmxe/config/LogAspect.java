@@ -1,4 +1,4 @@
-package com.xmxe.aopconfig;
+package com.xmxe.config;
 
 
 import org.aspectj.lang.JoinPoint;
@@ -20,7 +20,7 @@ public class LogAspect {
     /**
      * 可以统一定义切点
      */
-    @Pointcut("@annotation(com.xmxe.aopconfig.AopAction)")
+    @Pointcut("@annotation(com.xmxe.config.AopAction)")
     public void pointcut() {}
     /**
      * 可以统一定义切点
