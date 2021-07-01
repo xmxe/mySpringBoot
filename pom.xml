@@ -21,6 +21,7 @@
 		<module>springboot-aop</module>
 		<module>springboot-shiro</module>
 		<module>springboot-freemarker</module>
+		<module>springboot-kafka</module>
     </modules>
 
 	<properties>
