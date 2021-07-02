@@ -25,6 +25,7 @@
 		<module>springboot-lifecycle</module>
 		<module>springboot-mail</module>
 		<module>springboot-mybatis</module>
+		<module>springboot-redis</module>
     </modules>
 
 	<properties>
