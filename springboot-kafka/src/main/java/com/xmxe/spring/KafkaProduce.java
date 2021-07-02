@@ -1,4 +1,4 @@
-package com.xmxe.config;
+package com.xmxe.spring;
 
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;

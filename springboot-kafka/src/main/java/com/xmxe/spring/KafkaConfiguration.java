@@ -1,4 +1,4 @@
-package com.xmxe.config;
+package com.xmxe.spring;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;

@@ -1,4 +1,4 @@
-package com.xmxe.config;
+package com.xmxe.spring;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.slf4j.Logger;
