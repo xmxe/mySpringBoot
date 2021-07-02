@@ -50,7 +50,7 @@ spring:
   #      suffix: .jsp
 
   resources:
-    static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/
+    static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/ #不通过controller直接访问html
 
   freemarker:
     cache: false
