@@ -1,4 +1,4 @@
-package com.xmxe.config;
+package com.xmxe.util;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;

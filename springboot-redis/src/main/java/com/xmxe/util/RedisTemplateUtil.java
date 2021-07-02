@@ -1,4 +1,4 @@
-package com.xmxe.config;
+package com.xmxe.util;
 
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
