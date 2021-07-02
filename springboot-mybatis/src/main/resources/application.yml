@@ -1,0 +1,38 @@
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      initial-size: 3
+      min-idle: 3
+      max-active: 10
+      max-wait: 60000
+      web-stat-filter:
+        enabled: true
+        url-pattern: /*
+        exclusions: /*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /druid/*
+        reset-enable: false
+        login-username: admin
+        login-password: admin
+        allow: 127.0.0.1
+        deny: 192.168.1.122
+      master:
+        url: jdbc:mysql://localhost:3306/jnhouse?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+        username: root
+        password: root
+      slave:
+        url: jdbc:mysql://localhost:3306/dxjtys?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+        username: root
+        password: root
+
+
+mybatis:
+  config-location: classpath:mybatis/mybatis-config.xml
+  mapper-locations: classpath:mybatis/mapper/*Mapper.xml
+
+
+
+
