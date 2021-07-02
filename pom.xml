@@ -23,6 +23,7 @@
 		<module>springboot-freemarker</module>
 		<module>springboot-kafka</module>
 		<module>springboot-lifecycle</module>
+		<module>springboot-mail</module>
     </modules>
 
 	<properties>
