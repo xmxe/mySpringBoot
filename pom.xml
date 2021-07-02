@@ -26,6 +26,7 @@
 		<module>springboot-mail</module>
 		<module>springboot-mybatis</module>
 		<module>springboot-redis</module>
+		<module>springboot-swagger</module>
     </modules>
 
 	<properties>
