@@ -27,6 +27,7 @@
 		<module>springboot-mybatis</module>
 		<module>springboot-redis</module>
 		<module>springboot-swagger</module>
+		<module>springboot-websocket</module>
     </modules>
 
 	<properties>
