@@ -61,4 +61,5 @@
 - [为什么SpringBoot的 jar 可以直接运行？](https://mp.weixin.qq.com/s/JoEmiVP1lp9OVO7x1-x4zw)
 - [五分钟说清楚 Spring Boot的自动配置原理](https://mp.weixin.qq.com/s/Mh7ltwytt5K0yeqjbQJi_w)
 - [SpringBoot 的@Value注解，高级特性，真心强大！](https://mp.weixin.qq.com/s/qm4VrNF61mIpVHr0laLwDw)
+- [Tomcat 在 SpringBoot 中是如何启动的？](https://mp.weixin.qq.com/s/huZeeOKc0-A46nx0B_b0Sg)
 
