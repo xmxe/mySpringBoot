@@ -29,7 +29,7 @@ public class MyRealm extends AuthorizingRealm{
         String inUsername = utoken.getUsername();
 //        Object username2 = token.getPrincipal();
 
-        User user = masterMapper.getUserById("test".equals(inUsername) ? 1 : 2);
+        User user = masterMapper.getUserById("test".equals(inUsername) ? 3 : 4);
         if(user == null)
             throw new UnknownAccountException("账号不存在");
        /* if ("1".equals(username)){
@@ -45,7 +45,7 @@ public class MyRealm extends AuthorizingRealm{
 	        }
         }*/
         //放入shiro.调用CredentialsMatcher检验密码
-        return new SimpleAuthenticationInfo(user.getUsername(),user.getPasswd() , ByteSource.Util.bytes("qwert"),this.getClass().getName());
+        return new SimpleAuthenticationInfo(user.getUsername(),user.getPassword() , ByteSource.Util.bytes("qwert"),this.getClass().getName());
     }
     /**
      *授权 验证权限

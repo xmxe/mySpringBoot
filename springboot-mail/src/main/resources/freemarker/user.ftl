@@ -15,7 +15,7 @@
         <tr>
             <td>${user.id}</td>
             <td>${user.username}</td>
-            <td>${user.passwd}</td>
+            <td>${user.password}</td>
         </tr>
     </#list>
 </table>

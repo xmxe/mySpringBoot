@@ -18,7 +18,7 @@ public class FreemarkerController {
             User user = new User();
             user.setId(i);
             user.setUsername("username>>>>" + i);
-            user.setPasswd("password>>>>" + i);
+            user.setPassword("password>>>>" + i);
             users.add(user);
         }
         model.addAttribute("users", users);

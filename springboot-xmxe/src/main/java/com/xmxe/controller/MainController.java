@@ -83,7 +83,6 @@ public class MainController {
 		try {
 			//filename = new String(filename.getBytes("ISO8859-1"),"UTF-8");
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 
@@ -120,7 +119,6 @@ public class MainController {
 		try {
 			name = new String(name.getBytes("iso-8859-1"),"utf-8");
 		} catch (UnsupportedEncodingException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		BufferedInputStream bis = null;
@@ -452,7 +450,7 @@ public class MainController {
             User user = new User();
             user.setId(i);
             user.setUsername("username>>>>" + i);
-            user.setPasswd("password>>>>" + i);
+            user.setPassword("password>>>>" + i);
             users.add(user);
         }
         model.addAttribute("users", users);

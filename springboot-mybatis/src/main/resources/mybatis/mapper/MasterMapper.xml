@@ -3,6 +3,6 @@
 <mapper namespace="com.xmxe.mapper.master.MasterMapper">
 
 <select id="getUserById" parameterType="Integer" resultType="user">
-	select * from xxcl_user where id = #{user_id}
+	select * from user where id = #{user_id}
 </select>
 </mapper>

@@ -287,7 +287,7 @@ public class MainService {
 			/*User user = new User();
 			user.setUsername("mmmm");
 			user.setId(1);
-			user.setPasswd("pass");
+			user.setPassword("pass");
 			Map<String,Object> map = new HashMap<>();
 			List<User> userList = new ArrayList<>();
 			userList.add(user);

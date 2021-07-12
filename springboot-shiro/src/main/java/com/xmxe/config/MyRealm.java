@@ -45,7 +45,7 @@ public class MyRealm extends AuthorizingRealm{
 //        }
 
         //放入shiro 调用CredentialsMatcher检验密码
-//        return new SimpleAuthenticationInfo(user.getUsername(),user.getPasswd() , ByteSource.Util.bytes("qwert"),this.getClass().getName());
+//        return new SimpleAuthenticationInfo(user.getUsername(),user.getPassword() , ByteSource.Util.bytes("qwert"),this.getClass().getName());
         return new SimpleAuthenticationInfo("test","30be0a1931a958bfd53ec65fe3f1e497c7629a8c",ByteSource.Util.bytes("qwert"),this.getClass().getName());
     }
     /**

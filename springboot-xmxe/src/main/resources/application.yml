@@ -36,7 +36,7 @@ spring:
         allow: 127.0.0.1
         deny: 192.168.1.122
       master:
-        url: jdbc:mysql://localhost:3306/jnhouse?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+        url: jdbc:mysql://localhost:3306/study?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
         username: root
         password: root
       slave:
